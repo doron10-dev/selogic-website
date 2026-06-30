@@ -72,10 +72,10 @@ export default function ContactPage() {
             צור קשר
           </span>
           <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-slate-ink sm:text-4xl md:text-5xl">
-            פונים אלינו בדרך שנוחה לכם
+            רוצים להבין איפה ה-IT של העסק עומד?
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            מייל, טלפון או הטופס למטה. לקביעת שיחת אבחון — מלאו את הטופס; לפנייה כללית — השתמשו בערוצים משמאל.
+            דברו איתנו ונבנה יחד תמונת מצב ראשונית. מייל, טלפון, או טופס לקביעת שיחת אבחון למטה.
           </p>
         </div>
       </section>
@@ -113,7 +113,7 @@ export default function ContactPage() {
                 <div>
                   <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
                   <p className="mt-1 text-sm text-slate-body">
-                    מלאו פרטים ונחזור אליכם לתיאום שיחת היכרות ואבחון ראשוני.
+                    מלאו פרטים — נחזור לתיאום שיחת היכרות ומיפוי ראשוני.
                   </p>
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">

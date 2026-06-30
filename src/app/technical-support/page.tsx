@@ -35,7 +35,7 @@ export default function TechnicalSupportPage() {
             פתחו קריאת שירות
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            כל פנייה הופכת לקריאה מסודרת — עם סטטוס, בעל טיפול ותיעוד מלא. מלאו את הפרטים ונחזור אליכם.
+            כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד. מלאו את הפרטים — או פנו במייל ובטלפון.
           </p>
         </div>
       </section>

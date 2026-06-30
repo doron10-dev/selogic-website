@@ -12,16 +12,16 @@ export const neutralSlaItems: SlaItem[] = [
 export const defaultSlaItems: SlaItem[] = neutralSlaItems;
 
 export const defaultFinalCta = {
-  title: "רוצים לדעת איפה המחשוב בעסק עומד?",
-  body: "נבדוק את סביבת המחשוב, נזהה סיכונים ותקלות חוזרות, ונבנה לכם תהליך שירות ברור.",
+  title: "רוצים להבין איפה ה-IT של העסק עומד?",
+  body: "דברו איתנו ונבנה יחד תמונת מצב ראשונית — ונראה איך תהליך שירות מסודר נראה אצלכם.",
   primary: {
     label: "קבעו שיחת אבחון",
     href: siteUrls.contactDiagnosis,
-    sub: "נבין את המצב ונציע צעד ראשון.",
+    sub: "שיחה ראשונית — בלי התחייבות.",
   },
   secondary: {
     label: "פתחו קריאת שירות",
     href: siteUrls.technicalSupport,
-    sub: "שלחו הודעה ונחזור אליכם.",
+    sub: "כבר לקוח? פתחו קריאה.",
   },
 } satisfies { title: string; body: string; primary: CtaLink; secondary: CtaLink };
