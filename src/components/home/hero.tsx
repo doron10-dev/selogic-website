@@ -1,4 +1,5 @@
 import { Button } from "@/components/button";
+import { MetricValue } from "@/components/metric-value";
 import { StatusDot } from "@/components/status-dot";
 import { hero, heroBoard } from "@/data/home";
 
@@ -73,9 +74,9 @@ function DispatchBoard() {
       <div className="grid grid-cols-2 gap-3">
         {heroBoard.metrics.map((m) => (
           <div key={m.label} className="rounded-xl bg-paper-mute p-3">
-            <p className="font-mono text-2xl font-bold text-slate-ink">{m.value}</p>
+            <MetricValue main={m.main} size="lg" />
             <p className="mt-1 text-xs font-medium text-slate-ink">{m.label}</p>
-            <p className="text-[11px] text-slate-mute">{m.sub}</p>
+            {m.sub ? <p className="text-[11px] text-slate-mute">{m.sub}</p> : null}
           </div>
         ))}
       </div>

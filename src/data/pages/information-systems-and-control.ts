@@ -14,7 +14,7 @@ export const informationSystemsPage: ServicePageContent = {
     body: "בלי תיעוד, דיווח ובקרה — המנהל לא יודע מה קורה בשירות ובתשתית.",
     items: [
       { title: "אין תמונת מצב", body: "לא ברור כמה קריאות פתוחות, מה SLA ומה חוזר." },
-      { title: "מידע מפוזר", body: "Excel, וואטסאפ, מייל — בלי מקור אמת." },
+      { title: "מידע מפוזר", body: "קבצים, וואטסאפ, מייל — בלי מקור אמת." },
       { title: "אין תיעוד סביבה", body: "«מי יודע איך המערכת מוגדרת?»" },
       { title: "דוחות ידניים", body: "שעות על הכנת נתונים שלא מעודכנים." },
       { title: "אין קשר לעסק", body: "מערכות IT שלא מדברות עם תהליכים עסקיים." },
@@ -43,7 +43,7 @@ export const informationSystemsPage: ServicePageContent = {
       { title: "תיעוד מלא", body: "היסטוריה לכל קריאה ולכל סביבה." },
       { title: "דוחות ניהוליים", body: "מדדים שמאפשרים החלטות." },
       { title: "שירות מדיד", body: "SLA וביצועים — גלויים בפורטל ובדוחות." },
-      { title: "שליטה תפעולית", body: "Control Tower — מבט-על על כל המערך." },
+      { title: "שליטה תפעולית", body: "Selogic Control Tower — מבט-על על כל המערך." },
     ],
   },
   howItWorks: {
@@ -53,7 +53,7 @@ export const informationSystemsPage: ServicePageContent = {
       { n: 1, title: "פנייה", body: "מייל, וואטסאפ, טלפון או כלי עזר." },
       { n: 2, title: "קריאה", body: "Zendesk — סטטוס, בעל טיפול, תיעוד." },
       { n: 3, title: "טיפול", body: "Atera, IT Glue — ניטור ותיעוד טכני." },
-      { n: 4, title: "דיווח", body: "Power BI, Control Tower — מדדים ללקוח." },
+      { n: 4, title: "דיווח", body: "Power BI, Selogic Control Tower — מדדים ללקוח." },
       { n: 5, title: "שיפור", body: "בקרה, ניתוח ושיפור מתמשך." },
     ],
   },

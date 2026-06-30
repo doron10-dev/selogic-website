@@ -1,3 +1,4 @@
+import { MetricValue } from "@/components/metric-value";
 import { CardGrid } from "@/components/feature-card";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageFaq } from "@/components/page-faq";
@@ -68,7 +69,11 @@ export function ServicePage({
               key={m.label}
               className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-5"
             >
-              <p className="font-mono text-2xl font-bold text-paper">{m.value}</p>
+              {m.main ? (
+                <MetricValue main={m.main} unit={m.unit} size="md" invert />
+              ) : (
+                <p className="font-mono text-2xl font-bold text-paper">{m.value}</p>
+              )}
               <p className="mt-2 text-xs text-paper/60">{m.label}</p>
             </div>
           ))}

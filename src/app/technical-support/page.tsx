@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Section } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
+import { formNotConnectedMessage } from "@/data/contact";
 
 const priorities = ["נמוכה", "רגילה", "גבוהה", "דחוף"];
 
@@ -42,11 +43,7 @@ export default function TechnicalSupportPage() {
       <Section tone="mute">
         <div className="mx-auto min-w-0 max-w-2xl rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
           {sent ? (
-            <div className="flex flex-col items-start gap-3 py-8">
-              <StatusDot kind="open" pulse />
-              <h2 className="text-lg font-bold text-slate-ink">הקריאה נפתחה</h2>
-              <p className="text-sm text-slate-body">קיבלנו את הפנייה. נעדכן אתכם בסטטוס הטיפול בהקדם.</p>
-            </div>
+            <FormNotConnectedNotice />
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div className="grid gap-5 sm:grid-cols-2">
@@ -118,6 +115,27 @@ export default function TechnicalSupportPage() {
         </div>
       </Section>
     </>
+  );
+}
+
+function FormNotConnectedNotice() {
+  const msg = formNotConnectedMessage;
+  return (
+    <div className="flex flex-col items-start gap-3 py-8">
+      <StatusDot kind="waiting" />
+      <h2 className="text-lg font-bold text-slate-ink">{msg.title}</h2>
+      <p className="text-sm leading-relaxed text-slate-body">
+        {msg.lead}{" "}
+        <a href={msg.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
+          {msg.phone}
+        </a>{" "}
+        {msg.emailLead}{" "}
+        <a href={msg.emailHref} className="font-semibold text-signal hover:text-signal-ink">
+          {msg.email}
+        </a>
+        .
+      </p>
+    </div>
   );
 }
 

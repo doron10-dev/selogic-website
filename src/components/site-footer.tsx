@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { SiteLogo } from "@/components/site-logo";
 import {
   contactChannels,
   contactDetails,
   getClientPortalHref,
+  getEmailDisplayLabel,
+  getPhoneDisplayLabel,
   siteLabels,
   siteUrls,
 } from "@/data/contact";
@@ -20,7 +23,7 @@ const footerCols: Array<
   | { title: string; isBrand?: false; links: FooterLink[] }
 > = [
   {
-    title: "סלוג׳יק",
+    title: "brand",
     isBrand: true,
     text: "חברת מחשוב בוטיק לעסקים בישראל.",
   },
@@ -31,7 +34,6 @@ const footerCols: Array<
       { label: "שירותים", href: "/managed-it-services" },
       { label: "פתרונות", href: "/solutions" },
       { label: "אודות", href: "/about" },
-      { label: siteLabels.contact, href: siteUrls.contact },
     ],
   },
   {
@@ -41,20 +43,19 @@ const footerCols: Array<
       { label: "גיבוי", href: "/solutions/backup-and-recovery" },
       { label: "ענן", href: "/solutions/microsoft-365-and-cloud" },
       { label: "תקשורת", href: "/solutions/networks-and-communication" },
-      { label: siteLabels.clientPortal, href: portalHref },
     ],
   },
   {
     title: "יצירת קשר",
     links: [
       ...(contactChannels.phone
-        ? [{ label: "טלפון", href: contactChannels.phone, external: true as const }]
+        ? [{ label: getPhoneDisplayLabel(), href: contactChannels.phone, external: true as const }]
         : []),
       ...(contactChannels.whatsapp
         ? [{ label: "וואטסאפ", href: contactChannels.whatsapp, external: true as const }]
         : []),
       ...(contactChannels.email
-        ? [{ label: "אימייל", href: contactChannels.email, external: true as const }]
+        ? [{ label: getEmailDisplayLabel(), href: contactChannels.email, external: true as const }]
         : []),
       { label: siteLabels.contact, href: siteUrls.contact },
       { label: siteLabels.clientPortal, href: portalHref },
@@ -88,17 +89,22 @@ export function SiteFooter() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {footerCols.map((col) => (
             <div key={col.title} className="min-w-0">
-              <h3 className="mb-3 text-sm font-bold text-paper">{col.title}</h3>
               {col.isBrand ? (
-                <p className="text-sm leading-relaxed text-paper/60">{col.text}</p>
+                <>
+                  <SiteLogo variant="footer" className="mb-4" />
+                  <p className="text-sm leading-relaxed text-paper/60">{col.text}</p>
+                </>
               ) : (
-                <ul className="space-y-2">
-                  {col.links.map((link) => (
-                    <li key={`${col.title}-${link.label}-${link.href}`}>
-                      <FooterLinkItem link={link} />
-                    </li>
-                  ))}
-                </ul>
+                <>
+                  <h3 className="mb-3 text-sm font-bold text-paper">{col.title}</h3>
+                  <ul className="space-y-2">
+                    {col.links.map((link) => (
+                      <li key={`${col.title}-${link.label}-${link.href}`}>
+                        <FooterLinkItem link={link} />
+                      </li>
+                    ))}
+                  </ul>
+                </>
               )}
             </div>
           ))}

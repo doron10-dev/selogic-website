@@ -10,9 +10,14 @@ export type WorkflowStep = {
   body: string;
 };
 
+export type MetricUnit = "min" | "pct" | "plus";
+
 export type SlaItem = {
-  value: string;
   label: string;
+  /** @deprecated Prefer main + unit */
+  value?: string;
+  main?: string;
+  unit?: MetricUnit;
 };
 
 export type FaqItem = {

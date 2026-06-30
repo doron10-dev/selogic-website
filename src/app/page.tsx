@@ -18,7 +18,6 @@ import {
   channels,
   services,
   audience,
-  trust,
 } from "@/data/home";
 
 export const metadata: Metadata = {
@@ -67,11 +66,6 @@ export default function HomePage() {
       <Section tone="mute">
         <SectionHeading title={audience.title} body={audience.body} />
         <CardGrid items={audience.items} cols={4} />
-      </Section>
-
-      <Section tone="paper">
-        <SectionHeading title={trust.title} body={trust.body} />
-        <CardGrid items={trust.items} cols={3} />
       </Section>
 
       <FaqSection />

@@ -1,6 +1,6 @@
 import { Button } from "@/components/button";
 import { StatusDot } from "@/components/status-dot";
-import { siteLabels, siteUrls } from "@/data/contact";
+import { siteUrls } from "@/data/contact";
 
 type PageHeroProps = {
   eyebrow: string;
@@ -21,10 +21,7 @@ export function PageHero({ eyebrow, title, intro, statusKind = "open" }: PageHer
           {title}
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">{intro}</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Button href={siteUrls.contactDiagnosis} variant="primary">
-            {siteLabels.contactCta}
-          </Button>
+        <div className="mt-8">
           <Button href={siteUrls.technicalSupport} variant="secondary">
             פתחו קריאת שירות
           </Button>

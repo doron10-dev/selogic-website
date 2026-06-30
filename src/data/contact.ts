@@ -59,6 +59,22 @@ export function getContactChannels(): ContactChannelLinks {
 export const contactChannels = getContactChannels();
 
 /** Visible label for phone in UI. */
-export function getPhoneDisplayLabel(): string | null {
+export function getPhoneDisplayLabel(): string {
   return contactDetails.phone;
 }
+
+/** Visible label for email in UI. */
+export function getEmailDisplayLabel(): string {
+  return contactDetails.email;
+}
+
+/** Shown after form submit until backend is connected. */
+export const formNotConnectedMessage = {
+  title: "הטופס עדיין לא מחובר לשליחה אוטומטית",
+  lead: "כדי לקבל מענה, צרו קשר בטלפון",
+  phone: contactDetails.phone,
+  phoneHref: contactDetails.phoneHref,
+  emailLead: "או במייל",
+  email: contactDetails.email,
+  emailHref: `mailto:${contactDetails.email}`,
+} as const;

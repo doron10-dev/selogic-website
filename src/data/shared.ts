@@ -1,13 +1,15 @@
 import type { CtaLink, SlaItem } from "@/types/service-page";
 import { siteUrls } from "@/data/contact";
 
-/** Non-numeric display for SLA tiles — real values live in the client portal. */
-export const portalMetricDisplay = {
-  count: "בפורטל",
-  percent: "לפי SLA",
-  score: "מתועד",
-  time: "מדיד",
-} as const;
+/** Non-numeric SLA tiles — no fabricated KPI values until live data is connected. */
+export const neutralSlaItems: SlaItem[] = [
+  { label: "קריאות פתוחות", main: "בפורטל" },
+  { label: "עמידה ב-SLA", main: "לפי SLA" },
+  { label: "זמן תגובה", main: "מדיד" },
+  { label: "תיעוד מלא", main: "מתועד" },
+];
+
+export const defaultSlaItems: SlaItem[] = neutralSlaItems;
 
 export const defaultFinalCta = {
   title: "רוצים לדעת איפה המחשוב בעסק עומד?",
@@ -23,10 +25,3 @@ export const defaultFinalCta = {
     sub: "שלחו הודעה ונחזור אליכם.",
   },
 } satisfies { title: string; body: string; primary: CtaLink; secondary: CtaLink };
-
-export const defaultSlaItems: SlaItem[] = [
-  { value: portalMetricDisplay.time, label: "זמן תגובה ממוצע" },
-  { value: portalMetricDisplay.percent, label: "עמידה ב-SLA" },
-  { value: portalMetricDisplay.count, label: "קריאות שטופלו החודש" },
-  { value: portalMetricDisplay.score, label: "שביעות רצון לקוחות" },
-];

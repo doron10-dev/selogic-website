@@ -1,4 +1,5 @@
 import { Button } from "@/components/button";
+import { MetricValue } from "@/components/metric-value";
 import { StatusDot } from "@/components/status-dot";
 import { Section, SectionHeading } from "@/components/section";
 import {
@@ -56,7 +57,11 @@ export function SlaSection() {
             key={m.label}
             className="rounded-card border border-ink-line bg-ink-soft p-5 min-w-0"
           >
-            <p className="font-mono text-2xl font-bold text-paper">{m.value}</p>
+            {m.main ? (
+              <MetricValue main={m.main} unit={m.unit} size="md" invert />
+            ) : (
+              <p className="font-mono text-xl font-bold text-paper sm:text-2xl">{m.value}</p>
+            )}
             <p className="mt-2 text-xs text-paper/60">{m.label}</p>
           </div>
         ))}

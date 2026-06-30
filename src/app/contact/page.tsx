@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { Section } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
-import { contactChannels, siteLabels } from "@/data/contact";
+import { contactChannels, formNotConnectedMessage, getEmailDisplayLabel, getPhoneDisplayLabel, siteLabels } from "@/data/contact";
 
 type ContactMethod = {
   title: string;
@@ -32,7 +32,7 @@ export default function ContactPage() {
         title: "מייל",
         desc: "פנייה מסודרת שנכנסת לתהליך שירות מתועד.",
         href: contactChannels.email,
-        label: "שליחת מייל",
+        label: getEmailDisplayLabel(),
       });
     }
     if (contactChannels.whatsapp) {
@@ -48,7 +48,7 @@ export default function ContactPage() {
         title: "טלפון",
         desc: "שיחה אנושית כשצריך מענה ישיר.",
         href: contactChannels.phone,
-        label: "חיוג",
+        label: getPhoneDisplayLabel(),
       });
     }
     return list;
@@ -107,11 +107,7 @@ export default function ContactPage() {
 
           <div id="diagnosis" className="min-w-0 scroll-mt-28 rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
             {sent ? (
-              <div className="flex flex-col items-start gap-3 py-8">
-                <StatusDot kind="closed" pulse />
-                <h2 className="text-lg font-bold text-slate-ink">הפנייה נשלחה</h2>
-                <p className="text-sm text-slate-body">נחזור אליכם בהקדם עם צעד ראשון.</p>
-              </div>
+              <FormNotConnectedNotice />
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
@@ -176,6 +172,27 @@ export default function ContactPage() {
         </div>
       </Section>
     </>
+  );
+}
+
+function FormNotConnectedNotice() {
+  const msg = formNotConnectedMessage;
+  return (
+    <div className="flex flex-col items-start gap-3 py-8">
+      <StatusDot kind="waiting" />
+      <h2 className="text-lg font-bold text-slate-ink">{msg.title}</h2>
+      <p className="text-sm leading-relaxed text-slate-body">
+        {msg.lead}{" "}
+        <a href={msg.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
+          {msg.phone}
+        </a>{" "}
+        {msg.emailLead}{" "}
+        <a href={msg.emailHref} className="font-semibold text-signal hover:text-signal-ink">
+          {msg.email}
+        </a>
+        .
+      </p>
+    </div>
   );
 }
 

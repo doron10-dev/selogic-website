@@ -63,15 +63,6 @@ export function PortalSection() {
                 </span>
               ))}
             </div>
-
-            <div className="mt-5 grid gap-3 sm:grid-cols-3">
-              {portal.manager.stats.map((stat) => (
-                <div key={stat.label} className="rounded-xl bg-paper-mute p-4">
-                  <p className="font-mono text-xl font-bold text-slate-ink">{stat.value}</p>
-                  <p className="mt-1 text-xs text-slate-mute">{stat.label}</p>
-                </div>
-              ))}
-            </div>
           </div>
         ) : (
           <div>

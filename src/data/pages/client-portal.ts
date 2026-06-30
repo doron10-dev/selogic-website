@@ -68,7 +68,7 @@ export const clientPortalPage: ServicePageContent = {
     items: [
       { title: "מחשוב מנוהל", body: "הבסיס לשירות.", href: "/managed-it-services" },
       { title: "תמיכה טכנית", body: "פתיחת קריאות.", href: "/technical-support" },
-      { title: "מערכות ובקרה", body: "Control Tower ודוחות.", href: "/information-systems-and-control" },
+      { title: "מערכות ובקרה", body: "Selogic Control Tower ודוחות.", href: "/information-systems-and-control" },
       { title: "תמיכה מרחוק", body: "חיבור מהיר.", href: "/remote-support" },
       { title: "פתרונות", body: "כל השירותים.", href: "/solutions" },
       { title: "קביעת שיחת אבחון", body: "שיחת אבחון.", href: siteUrls.contactDiagnosis },

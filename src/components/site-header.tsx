@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { contactChannels, siteLabels, siteUrls, getClientPortalHref } from "@/data/contact";
+import { contactChannels, siteLabels, siteUrls, getClientPortalHref, getPhoneDisplayLabel, getEmailDisplayLabel } from "@/data/contact";
 import { navItems } from "@/data/nav";
+import { SiteLogo } from "@/components/site-logo";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -37,12 +38,12 @@ export function SiteHeader() {
             )}
             {contactChannels.phone && (
               <a href={contactChannels.phone} className="hover:text-paper transition-colors">
-                טלפון
+                {getPhoneDisplayLabel()}
               </a>
             )}
             {contactChannels.email && (
               <a href={contactChannels.email} className="hover:text-paper transition-colors">
-                אימייל
+                {getEmailDisplayLabel()}
               </a>
             )}
             {!contactChannels.whatsapp && !contactChannels.phone && (
@@ -55,15 +56,7 @@ export function SiteHeader() {
       </div>
 
       <div className="container-page flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex shrink-0 items-center gap-2" aria-label="סלוג׳יק — דף הבית">
-          <span
-            className="flex h-8 w-8 items-center justify-center rounded-lg bg-signal text-sm font-bold text-white"
-            aria-hidden="true"
-          >
-            S
-          </span>
-          <span className="text-lg font-bold text-slate-ink">סלוג׳יק</span>
-        </Link>
+        <SiteLogo variant="header" />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">
           {navItems.map((item) => (

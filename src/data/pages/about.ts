@@ -30,7 +30,7 @@ export const aboutPage: ServicePageContent = {
       { title: "תיעוד", body: "כל קריאה, החלטה ופעולה — במקום אחד." },
       { title: "פורטל", body: "שקיפות מלאה ללקוח." },
       { title: "SLA ומדידה", body: "מדדים ברורים — גלויים בפורטל ובדוחות." },
-      { title: "מערכות", body: "Zendesk, Atera, IT Glue, Control Tower — לשירות הלקוח." },
+      { title: "מערכות", body: "Zendesk, Atera, IT Glue, Selogic Control Tower — לשירות הלקוח." },
     ],
   },
   clientGains: {
@@ -68,7 +68,7 @@ export const aboutPage: ServicePageContent = {
       { title: "מחשוב מנוהל", body: "השירות המרכזי.", href: "/managed-it-services" },
       { title: "פתרונות", body: "כל השירותים.", href: "/solutions" },
       { title: "פורטל לקוחות", body: "שקיפות.", href: "/client-portal" },
-      { title: "מערכות ובקרה", body: "Control Tower.", href: "/information-systems-and-control" },
+      { title: "מערכות ובקרה", body: "Selogic Control Tower.", href: "/information-systems-and-control" },
       { title: "קביעת שיחת אבחון", body: "שיחת אבחון.", href: siteUrls.contactDiagnosis },
       { title: "תמיכה טכנית", body: "פתיחת קריאה.", href: "/technical-support" },
     ],

@@ -1,7 +1,7 @@
 // All Hebrew copy for the home page, centralized for easy editing.
 
-import { portalMetricDisplay } from "@/data/shared";
 import { siteUrls } from "@/data/contact";
+import { neutralSlaItems } from "@/data/shared";
 
 export const hero = {
   eyebrow: "חברת IT בוטיק",
@@ -16,13 +16,13 @@ export const hero = {
   ],
 };
 
-// The live dispatch-board card in the hero
+// Illustrative dispatch-board card — status labels only, no fabricated KPI numbers
 export const heroBoard = {
   metrics: [
-    { label: "קריאות פתוחות", sub: "מעקב בזמן אמת", value: portalMetricDisplay.count },
-    { label: "עמידה ב-SLA", sub: "יעדי שירות", value: portalMetricDisplay.percent },
-    { label: "זמן תגובה ממוצע", sub: "מדד שירות", value: portalMetricDisplay.time },
-    { label: "שביעות רצון לקוחות", sub: "משוב לקוחות", value: portalMetricDisplay.score },
+    { main: "בפורטל", label: "קריאות פתוחות", sub: "מעקב בזמן אמת" },
+    { main: "לפי SLA", label: "עמידה ב-SLA", sub: "יעדי שירות" },
+    { main: "מדיד", label: "זמן תגובה", sub: "מדד שירות" },
+    { main: "מתועד", label: "סגירות ותיעוד", sub: "היסטוריית שירות" },
   ],
   tickets: [
     { status: "progress", label: "בטיפול" },
@@ -75,11 +75,6 @@ export const portal = {
   manager: {
     title: "מנהל / בעלים",
     desc: "כל קריאות הארגון · קריאות פתוחות · קריאות סגורות · סטטוסים · היסטוריית טיפול · SLA · תקלות חוזרות",
-    stats: [
-      { label: "קריאות פתוחות", value: portalMetricDisplay.count },
-      { label: "עמידה ב-SLA", value: portalMetricDisplay.percent },
-      { label: "תקלות חוזרות", value: portalMetricDisplay.count },
-    ],
   },
   user: {
     title: "משתמש",
@@ -89,16 +84,8 @@ export const portal = {
 
 export const slaMetrics = {
   title: "SLA ומדדי שירות",
-  body: "מדדים שמאפשרים להבין מה קורה בשירות, איפה עומדים ומה משתפר לאורך זמן. בלי להמציא מספרים — רק בקרה ברורה.",
-  items: [
-    { value: portalMetricDisplay.time, label: "זמן תגובה ממוצע" },
-    { value: portalMetricDisplay.percent, label: "עמידה ב-SLA" },
-    { value: portalMetricDisplay.count, label: "קריאות שטופלו החודש" },
-    { value: portalMetricDisplay.percent, label: "סגירה באותו יום" },
-    { value: portalMetricDisplay.score, label: "שביעות רצון לקוחות" },
-    { value: portalMetricDisplay.count, label: "מכשירים מנוטרים" },
-    { value: portalMetricDisplay.count, label: "לקוחות פעילים" },
-  ],
+  body: "כדי להציג מדדי שירות אמיתיים, נוכל לחבר בהמשך נתונים ממערכות השירות והבקרה של Selogic.",
+  items: neutralSlaItems,
 };
 
 export const comparison = {
@@ -154,12 +141,13 @@ export const services = {
   items: [
     { title: "שירותי מחשוב מנוהלים", body: "ניהול מלא של סביבת המחשוב.", href: "/managed-it-services" },
     { title: "תמיכה טכנית לעסקים", body: "מענה מסודר למשתמשים ולתקלות.", href: "/technical-support" },
-    { title: "אבטחת מידע וסייבר", body: "הגנה מעשית על משתמשים, ציוד וגישה.", href: "/solutions" },
-    { title: "גיבוי והתאוששות", body: "מדיניות גיבוי, בדיקות שחזור והמשכיות.", href: "/solutions" },
-    { title: "Microsoft 365 וענן", body: "ניהול משתמשים, דואר, טימס והרשאות.", href: "/solutions" },
-    { title: "רשתות ותקשורת", body: "אינטרנט, רשת אלחוטית, חומות אש וטלפוניה.", href: "/solutions" },
+    { title: "אבטחת מידע וסייבר", body: "הגנה מעשית על משתמשים, ציוד וגישה.", href: "/solutions/cybersecurity" },
+    { title: "גיבוי והתאוששות", body: "מדיניות גיבוי, בדיקות שחזור והמשכיות.", href: "/solutions/backup-and-recovery" },
+    { title: "Microsoft 365 וענן", body: "ניהול משתמשים, דואר, טימס והרשאות.", href: "/solutions/microsoft-365-and-cloud" },
+    { title: "רשתות ותקשורת", body: "אינטרנט, רשת אלחוטית, חומות אש וטלפוניה.", href: "/solutions/networks-and-communication" },
     { title: "מערכות מידע ובקרה", body: "תיעוד, דיווח, אינטגרציות ובקרה.", href: "/information-systems-and-control" },
-    { title: "ציוד ומעבדה", body: "מחשבים, התקנות, בדיקות ותיקונים.", href: "/managed-it-services" },
+    { title: "פורטל לקוחות", body: "שקיפות מלאה — קריאות, סטטוסים ו-SLA.", href: siteUrls.clientPortal },
+    { title: "תמיכה מרחוק", body: "חיבור מרחוק מסודר — רק לאחר תיאום עם נציג.", href: siteUrls.remoteSupport },
   ],
 };
 
@@ -175,16 +163,6 @@ export const audience = {
     { title: "עסקים בצמיחה", body: "תשתית שמתאימה להתרחבות." },
     { title: "מידע רגיש", body: "הגנה, הרשאות ותיעוד." },
     { title: "מי שצריך בעלים ל-IT", body: "גורם אחד שמרכז אחריות ושירות." },
-  ],
-};
-
-export const trust = {
-  title: "אמון ושקיפות",
-  body: "מערכת יחסים טובה מתחילה בכך שהלקוח יודע מה קורה.",
-  items: [
-    { title: "לקוחות עסקיים", body: "ארגונים שמקבלים שירות שוטף ומדיד." },
-    { title: "תהליכי בקרה", body: "תהליכים פנימיים שמבטיחים סדר." },
-    { title: "שירות מדיד", body: "מדדים שמאפשרים בקרה ושיפור." },
   ],
 };
 
