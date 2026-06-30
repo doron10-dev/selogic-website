@@ -9,6 +9,8 @@ export const clientPortalPage: ServicePageContent = {
     intro:
       "לכל לקוח Selogic יש פורטל ארגוני. מנהל רואה את כל קריאות הארגון — סטטוס, SLA, תקלות חוזרות והיסטוריה. משתמש רואה את הקריאות שלו, מה תועד ומה ההמשך. פחות שיחות «מה קורה?» — יותר שליטה.",
     statusKind: "closed",
+    primaryCta: { label: "ראו איך הפורטל עובד", href: siteUrls.clientPortal },
+    secondaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
   },
   pain: {
     title: "בלי פורטל — אין שקיפות",

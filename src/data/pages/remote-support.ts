@@ -20,6 +20,8 @@ export const remoteSupportPage: ServicePageContent = {
     intro:
       "מתחברים מרחוק, פותרים את התקלה, ומתעדים הכל כקריאת שירות עם סטטוס ובעל טיפול. חשוב: תמיכה מרחוק מתבצעת רק לאחר תיאום עם נציג Selogic.",
     statusKind: "progress",
+    primaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
+    secondaryCta: { label: "צרו קשר", href: siteUrls.contact },
   },
   pain: {
     title: "כשתמיכה מרחוק לא מסודרת",

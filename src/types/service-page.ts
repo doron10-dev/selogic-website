@@ -31,6 +31,11 @@ export type FaqItem = {
   a: string;
 };
 
+export type HeroCtaLink = {
+  label: string;
+  href: string;
+};
+
 export type CtaLink = {
   label: string;
   href: string;
@@ -43,6 +48,8 @@ export type ServicePageContent = {
     title: string;
     intro: string;
     statusKind?: "open" | "progress" | "waiting" | "closed";
+    primaryCta?: HeroCtaLink;
+    secondaryCta?: HeroCtaLink;
   };
   pain: {
     title: string;

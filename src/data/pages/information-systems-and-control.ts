@@ -8,6 +8,8 @@ export const informationSystemsPage: ServicePageContent = {
     title: "מערכות שנותנות שליטה — לא רק לטכנאי",
     intro:
       "Selogic משתמשת ב-Zendesk, Atera, IT Glue, Priority, Microsoft 365, Power BI ו-Selogic Control Tower — כדי לתת ללקוח סדר, שקיפות, מדידה ושליטה עסקית. לא רשימת כלים — תהליך שירות שלם.",
+    primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
+    secondaryCta: { label: "ראו פורטל לקוחות", href: siteUrls.clientPortal },
   },
   pain: {
     title: "בלי מערכות — אין שליטה",

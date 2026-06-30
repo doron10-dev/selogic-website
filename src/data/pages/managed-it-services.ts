@@ -8,6 +8,8 @@ export const managedItServicesPage: ServicePageContent = {
     title: "בעלים אחד לכל המחשוב בעסק",
     intro:
       "Selogic לוקחת אחריות על סביבת המחשוב — משתמשים, מחשבים, רשתות, הרשאות, ספקים, תמיכה, תיעוד וניטור. כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד בפורטל. שירות בוטיק — עם תהליך, מדידה ובקרה.",
+    primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
+    secondaryCta: { label: "ראו כל השירותים", href: "/solutions" },
   },
   pain: {
     title: "בלי בעלים — אין שליטה",

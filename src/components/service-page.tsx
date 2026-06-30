@@ -24,6 +24,8 @@ export function ServicePage({
         title={content.hero.title}
         intro={content.hero.intro}
         statusKind={content.hero.statusKind}
+        primaryCta={content.hero.primaryCta}
+        secondaryCta={content.hero.secondaryCta}
       />
 
       {afterHero}
