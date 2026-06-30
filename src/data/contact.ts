@@ -1,8 +1,7 @@
 /**
  * Central site configuration — contact channels, URLs, and labels.
  *
- * TODO: connect contact form backend
- * TODO: connect support ticket backend
+ * Forms: gated by FORMS_ENABLED + Resend env vars (see .env.example).
  * TODO(production): Set external client portal login URL when available (clientPortalExternal).
  * TODO(production): Set WhatsApp number when available.
  */
@@ -68,10 +67,33 @@ export function getEmailDisplayLabel(): string {
   return contactDetails.email;
 }
 
-/** Shown after form submit until backend is connected. */
+/** Shown when forms are disabled or mail is not configured yet. */
 export const formNotConnectedMessage = {
   title: "הטופס עדיין לא מחובר לשליחה אוטומטית",
   lead: "כדי לקבל מענה, צרו קשר בטלפון",
+  phone: contactDetails.phone,
+  phoneHref: contactDetails.phoneHref,
+  emailLead: "או במייל",
+  email: contactDetails.email,
+  emailHref: `mailto:${contactDetails.email}`,
+} as const;
+
+export const formSuccessMessages = {
+  contact: {
+    title: "הבקשה נשלחה",
+    body: "קיבלנו את הפרטים. נחזור אליכם בהקדם לתיאום שיחת אבחון.",
+  },
+  support: {
+    title: "הקריאה נשלחה",
+    body: "קיבלנו את הפרטים. נחזור אליכם בהקדם.",
+  },
+} as const;
+
+export const formErrorMessage = {
+  title: "לא הצלחנו לשלוח",
+  validation: "יש למלא את השדות הנדרשים ולנסות שוב.",
+  generic: "אירעה שגיאה בשליחה. נסו שוב בעוד כמה דקות.",
+  lead: "אפשר גם לפנות בטלפון",
   phone: contactDetails.phone,
   phoneHref: contactDetails.phoneHref,
   emailLead: "או במייל",

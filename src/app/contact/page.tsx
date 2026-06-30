@@ -1,9 +1,22 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Section } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
-import { contactChannels, formNotConnectedMessage, getEmailDisplayLabel, getPhoneDisplayLabel, siteLabels } from "@/data/contact";
+import {
+  FormErrorNotice,
+  FormFallbackNotice,
+  FormHoneypot,
+  FormSuccessNotice,
+} from "@/components/form-notices";
+import { useFormsOperational } from "@/hooks/use-forms-operational";
+import {
+  contactChannels,
+  formErrorMessage,
+  getEmailDisplayLabel,
+  getPhoneDisplayLabel,
+  siteLabels,
+} from "@/data/contact";
 
 type ContactMethod = {
   title: string;
@@ -12,7 +25,15 @@ type ContactMethod = {
   label: string;
 };
 
+type SubmitState = "idle" | "submitting" | "success" | "error";
+
 export default function ContactPage() {
+  const formsOperational = useFormsOperational();
+  const formLoadedAt = useRef(Date.now());
+  const [honeypot, setHoneypot] = useState("");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<string[]>([]);
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -23,7 +44,6 @@ export default function ContactPage() {
     pain: "",
     message: "",
   });
-  const [sent, setSent] = useState(false);
 
   const methods = useMemo(() => {
     const list: ContactMethod[] = [];
@@ -57,11 +77,58 @@ export default function ContactPage() {
   const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: connect contact form backend
-    setSent(true);
+    if (!formsOperational) return;
+
+    setSubmitState("submitting");
+    setErrorMessage("");
+    setFieldErrors([]);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          _honeypot: honeypot,
+          _formLoadedAt: formLoadedAt.current,
+        }),
+      });
+
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+        fields?: string[];
+      };
+
+      if (res.ok && data.ok) {
+        setSubmitState("success");
+        return;
+      }
+
+      if (res.status === 503) {
+        setSubmitState("idle");
+        return;
+      }
+
+      if (res.status === 400 && data.error === "VALIDATION_FAILED") {
+        setFieldErrors(data.fields ?? []);
+        setErrorMessage(formErrorMessage.validation);
+        setSubmitState("error");
+        return;
+      }
+
+      setErrorMessage(formErrorMessage.generic);
+      setSubmitState("error");
+    } catch {
+      setErrorMessage(formErrorMessage.generic);
+      setSubmitState("error");
+    }
   };
+
+  const showForm = formsOperational !== false && submitState !== "success";
+  const formDisabled = formsOperational !== true || submitState === "submitting";
 
   return (
     <>
@@ -106,26 +173,63 @@ export default function ContactPage() {
           )}
 
           <div id="diagnosis" className="min-w-0 scroll-mt-32 rounded-card border border-slate-line bg-white p-5 shadow-card sm:scroll-mt-28 sm:p-8">
-            {sent ? (
-              <FormNotConnectedNotice />
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+            {submitState === "success" ? (
+              <FormSuccessNotice kind="contact" />
+            ) : formsOperational === false ? (
+              <FormFallbackNotice />
+            ) : showForm ? (
+              <form onSubmit={handleSubmit} className="relative space-y-5">
+                <FormHoneypot value={honeypot} onChange={setHoneypot} />
+
                 <div>
                   <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
                   <p className="mt-1 text-sm text-slate-body">
                     מלאו פרטים — נחזור לתיאום שיחת היכרות ומיפוי ראשוני.
                   </p>
                 </div>
+
+                {submitState === "error" ? <FormErrorNotice message={errorMessage} /> : null}
+
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <Field id="contact-name" label="שם מלא" value={form.name} onChange={update("name")} />
-                  <Field id="contact-company" label="שם העסק" value={form.company} onChange={update("company")} />
+                  <Field
+                    id="contact-name"
+                    label="שם מלא"
+                    value={form.name}
+                    onChange={update("name")}
+                    required
+                    invalid={fieldErrors.includes("name")}
+                  />
+                  <Field
+                    id="contact-company"
+                    label="שם העסק"
+                    value={form.company}
+                    onChange={update("company")}
+                    required
+                    invalid={fieldErrors.includes("company")}
+                  />
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field id="contact-role" label="תפקיד" value={form.role} onChange={update("role")} />
-                  <Field id="contact-phone" label="טלפון" value={form.phone} onChange={update("phone")} type="tel" />
+                  <Field
+                    id="contact-phone"
+                    label="טלפון"
+                    value={form.phone}
+                    onChange={update("phone")}
+                    type="tel"
+                    required
+                    invalid={fieldErrors.includes("phone")}
+                  />
                 </div>
                 <div className="grid gap-5 sm:grid-cols-2">
-                  <Field id="contact-email" label="מייל" value={form.email} onChange={update("email")} type="email" />
+                  <Field
+                    id="contact-email"
+                    label="מייל"
+                    value={form.email}
+                    onChange={update("email")}
+                    type="email"
+                    required
+                    invalid={fieldErrors.includes("email")}
+                  />
                   <Field
                     id="contact-employees"
                     label="מספר עובדים"
@@ -161,38 +265,21 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
+                  disabled={formDisabled}
                   aria-label="שליחת בקשה לקביעת שיחת אבחון"
-                  className="min-h-11 w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
+                  aria-busy={submitState === "submitting"}
+                  className="min-h-11 w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  שליחה לקביעת שיחה
+                  {submitState === "submitting" ? "שולח..." : "שליחה לקביעת שיחה"}
                 </button>
               </form>
+            ) : (
+              <div className="py-8 text-sm text-slate-mute">טוען...</div>
             )}
           </div>
         </div>
       </Section>
     </>
-  );
-}
-
-function FormNotConnectedNotice() {
-  const msg = formNotConnectedMessage;
-  return (
-    <div className="flex flex-col items-start gap-3 py-8">
-      <StatusDot kind="waiting" />
-      <h2 className="text-lg font-bold text-slate-ink">{msg.title}</h2>
-      <p className="text-sm leading-relaxed text-slate-body">
-        {msg.lead}{" "}
-        <a href={msg.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
-          {msg.phone}
-        </a>{" "}
-        {msg.emailLead}{" "}
-        <a href={msg.emailHref} className="font-semibold text-signal hover:text-signal-ink">
-          {msg.email}
-        </a>
-        .
-      </p>
-    </div>
   );
 }
 
@@ -202,17 +289,22 @@ function Field({
   value,
   onChange,
   type = "text",
+  required = false,
+  invalid = false,
 }: {
   id: string;
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
+  required?: boolean;
+  invalid?: boolean;
 }) {
   return (
     <div>
       <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-slate-ink">
         {label}
+        {required ? " *" : ""}
       </label>
       <input
         id={id}
@@ -220,7 +312,11 @@ function Field({
         type={type}
         value={value}
         onChange={onChange}
-        className="w-full rounded-xl border border-slate-line bg-paper px-4 py-3 text-sm text-slate-ink outline-none transition-colors focus:border-signal"
+        required={required}
+        aria-invalid={invalid}
+        className={`w-full rounded-xl border bg-paper px-4 py-3 text-sm text-slate-ink outline-none transition-colors focus:border-signal ${
+          invalid ? "border-status-progress" : "border-slate-line"
+        }`}
       />
     </div>
   );
