@@ -32,8 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "next-env.d.ts",
-    "C:\\Users\\User\\AppData\\Local\\Temp\\selogic-next/types/**/*.ts"
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"
