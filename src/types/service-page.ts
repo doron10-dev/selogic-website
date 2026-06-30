@@ -12,9 +12,15 @@ export type WorkflowStep = {
 
 export type MetricUnit = "min" | "pct" | "plus";
 
+export type SlaStatus = "open" | "progress" | "waiting" | "closed";
+
 export type SlaItem = {
   label: string;
-  /** @deprecated Prefer main + unit */
+  /** Short status label — shown as a badge, not a KPI number. */
+  badge?: string;
+  status?: SlaStatus;
+  sub?: string;
+  /** @deprecated Prefer badge or main + unit */
   value?: string;
   main?: string;
   unit?: MetricUnit;

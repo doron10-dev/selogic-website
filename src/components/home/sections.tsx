@@ -1,5 +1,5 @@
 import { Button } from "@/components/button";
-import { MetricValue } from "@/components/metric-value";
+import { SlaTile } from "@/components/sla-tile";
 import { StatusDot } from "@/components/status-dot";
 import { Section, SectionHeading } from "@/components/section";
 import {
@@ -15,13 +15,13 @@ export function ComparisonSection() {
   return (
     <Section tone="paper">
       <SectionHeading title={comparison.title} body={comparison.body} />
-      <div className="mt-10 grid gap-4 lg:grid-cols-3">
+      <div className="mt-10 grid gap-4 lg:grid-cols-3 lg:items-stretch">
         {comparison.columns.map((col) => (
           <div
             key={col.title}
             className={`rounded-card border p-6 min-w-0 ${
               col.highlight
-                ? "border-signal bg-ink text-paper shadow-lift"
+                ? "border-signal bg-ink text-paper shadow-lift lg:-translate-y-1 lg:ring-2 lg:ring-signal/30"
                 : "border-slate-line bg-white shadow-card"
             }`}
           >
@@ -51,18 +51,13 @@ export function SlaSection() {
   return (
     <Section tone="ink">
       <SectionHeading title={slaMetrics.title} body={slaMetrics.body} invert />
-      <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {slaMetrics.items.map((m) => (
           <div
             key={m.label}
-            className="rounded-card border border-ink-line bg-ink-soft p-5 min-w-0"
+            className="rounded-card border border-ink-line bg-ink-soft p-4 min-w-0 sm:p-5"
           >
-            {m.main ? (
-              <MetricValue main={m.main} unit={m.unit} size="md" invert />
-            ) : (
-              <p className="font-mono text-xl font-bold text-paper sm:text-2xl">{m.value}</p>
-            )}
-            <p className="mt-2 text-xs text-paper/60">{m.label}</p>
+            <SlaTile item={m} invert />
           </div>
         ))}
       </div>
@@ -131,7 +126,7 @@ export function TechStackSection() {
         {techStack.items.map((t) => (
           <div
             key={t.name}
-            className="rounded-card border border-slate-line bg-white p-5 shadow-card"
+            className="card-surface border-t-2 border-t-signal/35 p-5"
           >
             <p className="font-mono text-sm font-bold text-slate-ink">{t.name}</p>
             <p className="mt-2 text-sm text-slate-body">{t.desc}</p>

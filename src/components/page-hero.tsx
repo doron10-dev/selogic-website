@@ -12,7 +12,7 @@ type PageHeroProps = {
 export function PageHero({ eyebrow, title, intro, statusKind = "open" }: PageHeroProps) {
   return (
     <section className="border-b border-slate-line bg-paper">
-      <div className="container-page py-16 sm:py-20">
+      <div className="container-page py-12 sm:py-20">
         <span className="eyebrow mb-3">
           <StatusDot kind={statusKind} pulse />
           {eyebrow}

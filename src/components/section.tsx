@@ -15,7 +15,7 @@ const toneMap = {
 
 export function Section({ children, className = "", id, tone = "paper" }: SectionProps) {
   return (
-    <section id={id} className={`${toneMap[tone]} py-16 sm:py-24 ${className}`}>
+    <section id={id} className={`${toneMap[tone]} py-14 sm:py-20 lg:py-24 ${className}`}>
       <div className="container-page">{children}</div>
     </section>
   );

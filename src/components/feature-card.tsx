@@ -7,14 +7,17 @@ type CardItem = {
   href?: string;
 };
 
-const baseClass =
-  "group block min-w-0 rounded-card border border-slate-line bg-white p-5 shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lift";
+const dotKinds = ["open", "progress", "waiting", "closed"] as const;
+
+const baseClass = "group block min-w-0 card-surface p-5 card-surface-hover";
 
 function CardInner({ item, index }: { item: CardItem; index?: number }) {
+  const dotKind = dotKinds[(index ?? 0) % dotKinds.length];
+
   return (
     <>
-      <div className="mb-3 flex items-center gap-2">
-        <StatusDot kind="open" />
+      <div className="mb-3 flex items-center justify-between gap-2">
+        <StatusDot kind={dotKind} />
         {typeof index === "number" && (
           <span className="font-mono text-xs text-slate-mute">
             {String(index + 1).padStart(2, "0")}
@@ -23,6 +26,11 @@ function CardInner({ item, index }: { item: CardItem; index?: number }) {
       </div>
       <h3 className="break-words text-base font-bold text-slate-ink">{item.title}</h3>
       <p className="mt-2 break-words text-sm leading-relaxed text-slate-body">{item.body}</p>
+      {item.href ? (
+        <span className="mt-3 inline-block text-signal transition-colors group-hover:text-signal-ink" aria-hidden="true">
+          ←
+        </span>
+      ) : null}
     </>
   );
 }

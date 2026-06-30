@@ -66,7 +66,7 @@ export default function ContactPage() {
   return (
     <>
       <section className="border-b border-slate-line bg-paper">
-        <div className="container-page py-16 sm:py-20">
+        <div className="container-page py-12 sm:py-20">
           <span className="eyebrow mb-3">
             <StatusDot kind="open" pulse />
             צור קשר
@@ -105,7 +105,7 @@ export default function ContactPage() {
             </div>
           )}
 
-          <div id="diagnosis" className="min-w-0 scroll-mt-28 rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
+          <div id="diagnosis" className="min-w-0 scroll-mt-32 rounded-card border border-slate-line bg-white p-5 shadow-card sm:scroll-mt-28 sm:p-8">
             {sent ? (
               <FormNotConnectedNotice />
             ) : (
@@ -162,7 +162,7 @@ export default function ContactPage() {
                 <button
                   type="submit"
                   aria-label="שליחת בקשה לקביעת שיחת אבחון"
-                  className="w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
+                  className="min-h-11 w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
                 >
                   שליחה לקביעת שיחה
                 </button>

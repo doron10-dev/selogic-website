@@ -1,7 +1,7 @@
 // All Hebrew copy for the home page, centralized for easy editing.
 
 import { siteUrls } from "@/data/contact";
-import { neutralSlaItems } from "@/data/shared";
+import { neutralSlaItems, portalFeatureTiles } from "@/data/shared";
 
 export const hero = {
   eyebrow: "חברת IT בוטיק",
@@ -17,12 +17,7 @@ export const hero = {
 };
 
 export const heroBoard = {
-  metrics: [
-    { main: "בפורטל", label: "קריאות פתוחות", sub: "מעקב בזמן אמת" },
-    { main: "לפי SLA", label: "עמידה ב-SLA", sub: "יעדי שירות" },
-    { main: "מדיד", label: "זמן תגובה", sub: "מדד שירות" },
-    { main: "מתועד", label: "סגירות ותיעוד", sub: "היסטוריית שירות" },
-  ],
+  metrics: portalFeatureTiles,
   tickets: [
     { status: "progress", label: "בטיפול" },
     { status: "waiting", label: "ממתין ללקוח" },

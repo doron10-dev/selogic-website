@@ -22,15 +22,15 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-line/60 bg-paper/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-line/60 bg-paper/95 shadow-sm backdrop-blur-md">
       <div className="hidden border-b border-slate-line/60 bg-ink text-paper md:block">
-        <div className="container-page flex h-9 items-center justify-between text-xs">
-          <div className="flex items-center gap-4">
-            <Link href={portalHref} className="hover:text-signal-soft transition-colors">
+        <div className="container-page flex h-9 items-center justify-between gap-4 text-xs">
+          <div className="flex min-w-0 items-center gap-4">
+            <Link href={portalHref} className="truncate hover:text-signal-soft transition-colors">
               {siteLabels.clientPortal}
             </Link>
           </div>
-          <div className="flex items-center gap-4 text-paper/80">
+          <div className="flex shrink-0 items-center gap-4 text-paper/80">
             {contactChannels.whatsapp && (
               <a href={contactChannels.whatsapp} className="hover:text-paper transition-colors">
                 וואטסאפ
@@ -42,7 +42,7 @@ export function SiteHeader() {
               </a>
             )}
             {contactChannels.email && (
-              <a href={contactChannels.email} className="hover:text-paper transition-colors">
+              <a href={contactChannels.email} className="hidden hover:text-paper transition-colors lg:inline">
                 {getEmailDisplayLabel()}
               </a>
             )}
@@ -55,7 +55,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <div className="container-page flex h-16 items-center justify-between gap-4">
+      <div className="container-page flex h-14 items-center justify-between gap-3 sm:h-16 sm:gap-4">
         <SiteLogo variant="header" />
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="ניווט ראשי">
@@ -98,7 +98,7 @@ export function SiteHeader() {
       {open && (
         <nav
           id="mobile-nav"
-          className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-slate-line bg-paper lg:hidden"
+          className="max-h-[calc(100dvh-3.5rem)] overflow-y-auto border-t border-slate-line bg-paper sm:max-h-[calc(100dvh-4rem)] lg:hidden"
           aria-label="ניווט נייד"
         >
           <div className="container-page flex flex-col gap-1 py-3">
@@ -122,16 +122,21 @@ export function SiteHeader() {
                 >
                   {siteLabels.contactCta}
                 </Link>
-                {(contactChannels.whatsapp || contactChannels.phone) && (
-                  <div className="flex items-center justify-center gap-4 pt-1 text-sm text-slate-body">
+                {(contactChannels.whatsapp || contactChannels.phone || contactChannels.email) && (
+                  <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 pt-1 text-sm text-slate-body">
+                    {contactChannels.phone && (
+                      <a href={contactChannels.phone} className="hover:text-signal">
+                        {getPhoneDisplayLabel()}
+                      </a>
+                    )}
+                    {contactChannels.email && (
+                      <a href={contactChannels.email} className="hover:text-signal">
+                        {getEmailDisplayLabel()}
+                      </a>
+                    )}
                     {contactChannels.whatsapp && (
                       <a href={contactChannels.whatsapp} className="hover:text-signal">
                         וואטסאפ
-                      </a>
-                    )}
-                    {contactChannels.phone && (
-                      <a href={contactChannels.phone} className="hover:text-signal">
-                        טלפון
                       </a>
                     )}
                   </div>

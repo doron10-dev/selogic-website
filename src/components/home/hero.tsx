@@ -1,5 +1,5 @@
 import { Button } from "@/components/button";
-import { MetricValue } from "@/components/metric-value";
+import { SlaTile } from "@/components/sla-tile";
 import { StatusDot } from "@/components/status-dot";
 import { hero, heroBoard } from "@/data/home";
 
@@ -17,14 +17,14 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page relative grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2">
+      <div className="container-page relative grid items-center gap-10 py-12 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:py-24">
         {/* Copy */}
         <div className="reveal">
           <span className="eyebrow mb-4">
             <StatusDot kind="open" pulse />
             {hero.eyebrow}
           </span>
-          <h1 className="text-3xl font-extrabold leading-[1.1] text-slate-ink sm:text-4xl md:text-5xl">
+          <h1 className="text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-ink sm:text-4xl md:text-5xl">
             {hero.title}
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-body sm:text-lg">
@@ -39,9 +39,9 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-4">
             {hero.highlights.map((h) => (
-              <div key={h.title} className="border-t border-slate-line pt-3">
+              <div key={h.title} className="rounded-xl border border-slate-line/80 bg-white/60 px-3 py-3 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pt-3 sm:border-t sm:border-slate-line">
                 <p className="text-sm font-semibold text-slate-ink">{h.title}</p>
                 <p className="mt-0.5 text-xs text-slate-mute">{h.sub}</p>
               </div>
@@ -60,9 +60,9 @@ export function Hero() {
 
 function DispatchBoard() {
   return (
-    <div className="rounded-card border border-slate-line bg-white p-5 shadow-lift">
+    <div className="rounded-card border border-slate-line bg-white p-4 shadow-lift sm:p-5">
       {/* Board header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-between gap-3 border-b border-slate-line/70 pb-3">
         <div className="flex items-center gap-2">
           <StatusDot kind="closed" pulse />
           <span className="text-sm font-semibold text-slate-ink">לוח קריאות חי</span>
@@ -71,12 +71,10 @@ function DispatchBoard() {
       </div>
 
       {/* Metric tiles */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
         {heroBoard.metrics.map((m) => (
-          <div key={m.label} className="rounded-xl bg-paper-mute p-3">
-            <MetricValue main={m.main} size="lg" />
-            <p className="mt-1 text-xs font-medium text-slate-ink">{m.label}</p>
-            {m.sub ? <p className="text-[11px] text-slate-mute">{m.sub}</p> : null}
+          <div key={m.label} className="rounded-xl border border-slate-line/50 bg-paper-mute p-2.5 sm:p-3">
+            <SlaTile item={m} size="sm" />
           </div>
         ))}
       </div>

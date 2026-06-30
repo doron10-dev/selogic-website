@@ -40,9 +40,17 @@
     @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-signal;
   }
 
+  .card-surface {
+    @apply rounded-card border border-slate-line bg-white shadow-card;
+  }
+
+  .card-surface-hover {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lift;
+  }
+
   /* Status dot used across the dispatch-board motif */
   .status-dot {
-    @apply inline-block h-2 w-2 rounded-full;
+    @apply inline-block h-2 w-2 shrink-0 rounded-full;
   }
 }
 

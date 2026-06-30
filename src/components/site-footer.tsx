@@ -65,7 +65,7 @@ const footerCols: Array<
 ];
 
 function FooterLinkItem({ link }: { link: FooterLink }) {
-  const className = "text-sm text-paper/60 transition-colors hover:text-paper";
+  const className = "inline-block break-words text-sm text-paper/70 transition-colors hover:text-paper";
 
   if (link.external) {
     return (
@@ -85,8 +85,8 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
 export function SiteFooter() {
   return (
     <footer className="border-t border-ink-line bg-ink text-paper">
-      <div className="container-page py-14">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+      <div className="container-page py-12 sm:py-14">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {footerCols.map((col) => (
             <div key={col.title} className="min-w-0">
               {col.isBrand ? (

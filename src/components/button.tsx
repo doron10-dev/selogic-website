@@ -21,7 +21,7 @@ export function Button({ href, children, variant = "primary", className = "" }: 
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-pill px-6 py-3 text-sm font-semibold transition-colors duration-200 ${variants[variant]} ${className}`}
+      className={`inline-flex min-h-11 items-center justify-center rounded-pill px-6 py-3 text-sm font-semibold transition-colors duration-200 ${variants[variant]} ${className}`}
     >
       {children}
     </Link>

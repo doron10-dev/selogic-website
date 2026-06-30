@@ -1,4 +1,4 @@
-import { MetricValue } from "@/components/metric-value";
+import { SlaTile } from "@/components/sla-tile";
 import { CardGrid } from "@/components/feature-card";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageFaq } from "@/components/page-faq";
@@ -63,18 +63,13 @@ export function ServicePage({
 
       <Section tone="ink">
         <SectionHeading title={content.sla.title} body={content.sla.body} invert />
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {content.sla.items.map((m) => (
             <div
               key={m.label}
-              className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-5"
+              className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-4 sm:p-5"
             >
-              {m.main ? (
-                <MetricValue main={m.main} unit={m.unit} size="md" invert />
-              ) : (
-                <p className="font-mono text-2xl font-bold text-paper">{m.value}</p>
-              )}
-              <p className="mt-2 text-xs text-paper/60">{m.label}</p>
+              <SlaTile item={m} invert />
             </div>
           ))}
         </div>
