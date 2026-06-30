@@ -43,6 +43,22 @@ export function ComparisonSection() {
           </div>
         ))}
       </div>
+      <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <div className="rounded-card border border-slate-line bg-white p-5 shadow-card">
+          <div className="mb-2 flex items-center gap-2">
+            <StatusDot kind="waiting" />
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-mute">לפני</span>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-body">{beforeAfter.before.body}</p>
+        </div>
+        <div className="rounded-card border border-signal/40 bg-signal-soft p-5 shadow-card">
+          <div className="mb-2 flex items-center gap-2">
+            <StatusDot kind="closed" pulse />
+            <span className="text-xs font-semibold uppercase tracking-wider text-signal-ink">אחרי</span>
+          </div>
+          <p className="text-sm leading-relaxed text-slate-body">{beforeAfter.after.body}</p>
+        </div>
+      </div>
     </Section>
   );
 }
@@ -84,36 +100,6 @@ export function WorkflowSection() {
           </li>
         ))}
       </ol>
-    </Section>
-  );
-}
-
-export function BeforeAfterSection() {
-  return (
-    <Section tone="mute">
-      <SectionHeading title={beforeAfter.title} body={beforeAfter.body} />
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
-        <div className="rounded-card border border-slate-line bg-white p-6 shadow-card">
-          <div className="mb-3 flex items-center gap-2">
-            <StatusDot kind="waiting" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-mute">
-              לפני
-            </span>
-          </div>
-          <h3 className="text-lg font-bold text-slate-ink">{beforeAfter.before.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-body">{beforeAfter.before.body}</p>
-        </div>
-        <div className="rounded-card border border-signal/40 bg-signal-soft p-6 shadow-card">
-          <div className="mb-3 flex items-center gap-2">
-            <StatusDot kind="closed" pulse />
-            <span className="text-xs font-semibold uppercase tracking-wider text-signal-ink">
-              אחרי
-            </span>
-          </div>
-          <h3 className="text-lg font-bold text-slate-ink">{beforeAfter.after.title}</h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-body">{beforeAfter.after.body}</p>
-        </div>
-      </div>
     </Section>
   );
 }

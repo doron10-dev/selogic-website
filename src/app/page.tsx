@@ -8,7 +8,6 @@ import {
   ComparisonSection,
   SlaSection,
   WorkflowSection,
-  BeforeAfterSection,
   TechStackSection,
   FinalCtaSection,
 } from "@/components/home/sections";
@@ -27,9 +26,30 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const managedItItems = services.items.filter((item) => item.href === "/managed-it-services");
+  const trustPrinciples = ["מי מטפל", "מה הסטטוס", "מה תועד", "מה ההמשך"];
+  const supportProcessItems = [...serviceProcess.items, ...channels.items];
+  const coreServiceHrefs = new Set([
+    "/solutions/cybersecurity",
+    "/solutions/backup-and-recovery",
+    "/solutions/microsoft-365-and-cloud",
+    "/solutions/networks-and-communication",
+  ]);
+  const coreServiceItems = services.items.filter((item) => item.href && coreServiceHrefs.has(item.href));
+
   return (
     <>
       <Hero />
+
+      <div className="border-y border-slate-line bg-paper">
+        <div className="container-page grid grid-cols-2 gap-2 py-4 sm:grid-cols-4">
+          {trustPrinciples.map((item) => (
+            <div key={item} className="rounded-pill bg-paper-mute px-4 py-2 text-center text-sm font-semibold text-slate-ink">
+              {item}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <Section tone="paper">
         <SectionHeading title={painPoints.title} body={painPoints.body} />
@@ -37,31 +57,29 @@ export default function HomePage() {
       </Section>
 
       <Section tone="mute">
-        <SectionHeading title={serviceProcess.title} body={serviceProcess.body} />
-        <CardGrid items={serviceProcess.items} cols={3} />
+        <SectionHeading title={services.title} body={services.body} />
+        <CardGrid items={managedItItems} cols={3} />
       </Section>
 
-      <Section tone="paper">
-        <SectionHeading title={channels.title} body={channels.body} />
-        <CardGrid items={channels.items} cols={4} />
+      <Section tone="mute">
+        <SectionHeading title={serviceProcess.title} body={serviceProcess.body} />
+        <CardGrid items={supportProcessItems} cols={4} />
       </Section>
 
       <PortalSection />
 
       <SlaSection />
 
-      <ComparisonSection />
-
       <TechStackSection />
-
-      <WorkflowSection />
-
-      <BeforeAfterSection />
 
       <Section tone="paper">
         <SectionHeading title={services.title} body={services.body} />
-        <CardGrid items={services.items} cols={4} />
+        <CardGrid items={coreServiceItems} cols={4} />
       </Section>
+
+      <WorkflowSection />
+
+      <ComparisonSection />
 
       <Section tone="mute">
         <SectionHeading title={audience.title} body={audience.body} />
