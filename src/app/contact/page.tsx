@@ -75,7 +75,7 @@ export default function ContactPage() {
             פונים אלינו בדרך שנוחה לכם
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            מייל, וואטסאפ, טלפון או הטופס למטה. כל פנייה הופכת לקריאת שירות מסודרת עם סטטוס, בעל טיפול ותיעוד.
+            מייל, טלפון או הטופס למטה. לקביעת שיחת אבחון — מלאו את הטופס; לפנייה כללית — השתמשו בערוצים משמאל.
           </p>
         </div>
       </section>
@@ -105,7 +105,7 @@ export default function ContactPage() {
             </div>
           )}
 
-          <div className="min-w-0 rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
+          <div id="diagnosis" className="min-w-0 scroll-mt-28 rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
             {sent ? (
               <div className="flex flex-col items-start gap-3 py-8">
                 <StatusDot kind="closed" pulse />
@@ -114,7 +114,12 @@ export default function ContactPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
+                <div>
+                  <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
+                  <p className="mt-1 text-sm text-slate-body">
+                    מלאו פרטים ונחזור אליכם לתיאום שיחת היכרות ואבחון ראשוני.
+                  </p>
+                </div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   <Field id="contact-name" label="שם מלא" value={form.name} onChange={update("name")} />
                   <Field id="contact-company" label="שם העסק" value={form.company} onChange={update("company")} />
@@ -160,10 +165,10 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  aria-label="שליחת פנייה לצור קשר"
+                  aria-label="שליחת בקשה לקביעת שיחת אבחון"
                   className="w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
                 >
-                  שליחת פנייה
+                  שליחה לקביעת שיחה
                 </button>
               </form>
             )}

@@ -18,6 +18,8 @@ export const contactDetails = {
 
 export const siteUrls = {
   contact: "/contact",
+  /** טופס קביעת שיחת אבחון — נפרד מעמוד צור קשר הכללי */
+  contactDiagnosis: "/contact#diagnosis",
   clientPortal: "/client-portal",
   /** TODO(production): External portal login URL — falls back to clientPortal page */
   clientPortalExternal: null as string | null,

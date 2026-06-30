@@ -22,7 +22,7 @@ export function PageHero({ eyebrow, title, intro, statusKind = "open" }: PageHer
         </h1>
         <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">{intro}</p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button href={siteUrls.contact} variant="primary">
+          <Button href={siteUrls.contactDiagnosis} variant="primary">
             {siteLabels.contactCta}
           </Button>
           <Button href={siteUrls.technicalSupport} variant="secondary">

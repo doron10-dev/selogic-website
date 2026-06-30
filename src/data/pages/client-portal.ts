@@ -71,7 +71,7 @@ export const clientPortalPage: ServicePageContent = {
       { title: "מערכות ובקרה", body: "Control Tower ודוחות.", href: "/information-systems-and-control" },
       { title: "תמיכה מרחוק", body: "חיבור מהיר.", href: "/remote-support" },
       { title: "פתרונות", body: "כל השירותים.", href: "/solutions" },
-      { title: "צור קשר", body: "שיחת אבחון.", href: "/contact" },
+      { title: "קביעת שיחת אבחון", body: "שיחת אבחון.", href: siteUrls.contactDiagnosis },
     ],
   },
   faq: {
@@ -90,7 +90,7 @@ export const clientPortalPage: ServicePageContent = {
     body: "נראה לכם איך הפורטל עובד — ונבנה יחד תהליך שירות ברור.",
     primary: {
       label: "קבעו שיחת אבחון",
-      href: siteUrls.contact,
+      href: siteUrls.contactDiagnosis,
       sub: "נציג את הפורטל ונתאים לעסק.",
     },
     secondary: {

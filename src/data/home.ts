@@ -7,7 +7,7 @@ export const hero = {
   eyebrow: "חברת IT בוטיק",
   title: "ה-IT של העסק שלך צריך לעבוד. לא להפריע.",
   body: "Selogic מנהלת לעסקים את המחשוב, התמיכה, הרשתות, האבטחה, הגיבויים, הענן ומערכות הבקרה. אתם מקבלים שירות אישי של חברת בוטיק, עם פורטל לקוחות, SLA, תיעוד מלא ושקיפות לאורך כל הדרך.",
-  primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contact },
+  primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
   secondaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
   highlights: [
     { title: "חברת IT בוטיק", sub: "שירות אישי וישיר" },
@@ -222,6 +222,6 @@ export const faq = {
 export const finalCta = {
   title: "רוצים לדעת איפה ה-IT של העסק עומד?",
   body: "נבדוק את סביבת המחשוב, נזהה סיכונים ותקלות חוזרות, ונבנה לכם תהליך שירות ברור.",
-  primary: { label: "קבעו שיחת אבחון", href: siteUrls.contact, sub: "נבין את המצב ונציע צעד ראשון." },
+  primary: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis, sub: "נבין את המצב ונציע צעד ראשון." },
   secondary: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport, sub: "שלחו הודעה ונחזור אליכם." },
 };

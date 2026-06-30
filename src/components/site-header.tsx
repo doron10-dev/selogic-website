@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { contactChannels, siteLabels, siteUrls, getClientPortalHref } from "@/data/contact";
 import { navItems } from "@/data/nav";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const portalHref = getClientPortalHref();
+  const onContactPage = pathname === siteUrls.contact;
 
   useEffect(() => {
     if (!open) return;
@@ -22,12 +25,6 @@ export function SiteHeader() {
       <div className="hidden border-b border-slate-line/60 bg-ink text-paper md:block">
         <div className="container-page flex h-9 items-center justify-between text-xs">
           <div className="flex items-center gap-4">
-            <Link href={siteUrls.contact} className="hover:text-signal-soft transition-colors">
-              {siteLabels.contactCta}
-            </Link>
-            <span className="text-paper/30" aria-hidden="true">
-              ·
-            </span>
             <Link href={portalHref} className="hover:text-signal-soft transition-colors">
               {siteLabels.clientPortal}
             </Link>
@@ -81,12 +78,14 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-3">
-          <Link
-            href={siteUrls.contact}
-            className="hidden rounded-pill bg-signal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink sm:inline-flex"
-          >
-            {siteLabels.contactCta}
-          </Link>
+          {!onContactPage && (
+            <Link
+              href={siteUrls.contactDiagnosis}
+              className="hidden rounded-pill bg-signal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink sm:inline-flex"
+            >
+              {siteLabels.contactCta}
+            </Link>
+          )}
 
           <button
             type="button"
@@ -121,29 +120,31 @@ export function SiteHeader() {
               </Link>
             ))}
 
-            <div className="mt-3 space-y-2 border-t border-slate-line pt-4">
-              <Link
-                href={siteUrls.contact}
-                onClick={() => setOpen(false)}
-                className="flex w-full items-center justify-center rounded-pill bg-signal px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
-              >
-                {siteLabels.contactCta}
-              </Link>
-              {(contactChannels.whatsapp || contactChannels.phone) && (
-                <div className="flex items-center justify-center gap-4 pt-1 text-sm text-slate-body">
-                  {contactChannels.whatsapp && (
-                    <a href={contactChannels.whatsapp} className="hover:text-signal">
-                      וואטסאפ
-                    </a>
-                  )}
-                  {contactChannels.phone && (
-                    <a href={contactChannels.phone} className="hover:text-signal">
-                      טלפון
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
+            {!onContactPage && (
+              <div className="mt-3 space-y-2 border-t border-slate-line pt-4">
+                <Link
+                  href={siteUrls.contactDiagnosis}
+                  onClick={() => setOpen(false)}
+                  className="flex w-full items-center justify-center rounded-pill bg-signal px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-signal-ink"
+                >
+                  {siteLabels.contactCta}
+                </Link>
+                {(contactChannels.whatsapp || contactChannels.phone) && (
+                  <div className="flex items-center justify-center gap-4 pt-1 text-sm text-slate-body">
+                    {contactChannels.whatsapp && (
+                      <a href={contactChannels.whatsapp} className="hover:text-signal">
+                        וואטסאפ
+                      </a>
+                    )}
+                    {contactChannels.phone && (
+                      <a href={contactChannels.phone} className="hover:text-signal">
+                        טלפון
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </nav>
       )}

@@ -1,3 +1,4 @@
+import { siteUrls } from "@/data/contact";
 import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
@@ -69,7 +70,7 @@ export const managedItServicesPage: ServicePageContent = {
       { title: "פורטל לקוחות", body: "שקיפות מלאה לכל קריאה.", href: "/client-portal" },
       { title: "מערכות ובקרה", body: "Selogic Control Tower ודיווח.", href: "/information-systems-and-control" },
       { title: "תמיכה מרחוק", body: "חיבור מהיר לפתרון תקלה.", href: "/remote-support" },
-      { title: "צור קשר", body: "קביעת שיחת אבחון ראשונית.", href: "/contact" },
+      { title: "קביעת שיחת אבחון", body: "קביעת שיחת אבחון ראשונית.", href: siteUrls.contactDiagnosis },
     ],
   },
   faq: {

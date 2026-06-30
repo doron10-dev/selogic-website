@@ -81,7 +81,7 @@ export const remoteSupportPage: ServicePageContent = {
       { title: "מחשוב מנוהל", body: "שירות מלא.", href: "/managed-it-services" },
       { title: "רשתות", body: "תשתית לחיבור.", href: "/solutions/networks-and-communication" },
       { title: "פורטל לקוחות", body: "מעקב קריאות.", href: siteUrls.clientPortal },
-      { title: "צור קשר", body: "תיאום חיבור.", href: siteUrls.contact },
+      { title: "צרו קשר", body: "תיאום חיבור.", href: siteUrls.contact },
       { title: "כל הפתרונות", body: "מבט-על.", href: "/solutions" },
     ],
   },

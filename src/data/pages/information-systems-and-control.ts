@@ -1,3 +1,4 @@
+import { siteUrls } from "@/data/contact";
 import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
@@ -70,7 +71,7 @@ export const informationSystemsPage: ServicePageContent = {
       { title: "פתרונות IT", body: "כל השירותים.", href: "/solutions" },
       { title: "תמיכה טכנית", body: "פתיחת קריאות.", href: "/technical-support" },
       { title: "אודות", body: "הגישה של Selogic.", href: "/about" },
-      { title: "צור קשר", body: "שיחת אבחון.", href: "/contact" },
+      { title: "קביעת שיחת אבחון", body: "שיחת אבחון.", href: siteUrls.contactDiagnosis },
     ],
   },
   faq: {

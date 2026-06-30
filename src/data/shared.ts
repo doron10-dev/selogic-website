@@ -14,7 +14,7 @@ export const defaultFinalCta = {
   body: "נבדוק את סביבת המחשוב, נזהה סיכונים ותקלות חוזרות, ונבנה לכם תהליך שירות ברור.",
   primary: {
     label: "קבעו שיחת אבחון",
-    href: siteUrls.contact,
+    href: siteUrls.contactDiagnosis,
     sub: "נבין את המצב ונציע צעד ראשון.",
   },
   secondary: {

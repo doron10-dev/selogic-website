@@ -1,3 +1,4 @@
+import { siteUrls } from "@/data/contact";
 import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
@@ -68,7 +69,7 @@ export const aboutPage: ServicePageContent = {
       { title: "פתרונות", body: "כל השירותים.", href: "/solutions" },
       { title: "פורטל לקוחות", body: "שקיפות.", href: "/client-portal" },
       { title: "מערכות ובקרה", body: "Control Tower.", href: "/information-systems-and-control" },
-      { title: "צור קשר", body: "שיחת אבחון.", href: "/contact" },
+      { title: "קביעת שיחת אבחון", body: "שיחת אבחון.", href: siteUrls.contactDiagnosis },
       { title: "תמיכה טכנית", body: "פתיחת קריאה.", href: "/technical-support" },
     ],
   },
