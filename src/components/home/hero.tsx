@@ -17,7 +17,7 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page relative grid items-center gap-10 py-12 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:py-24">
+      <div className="container-page relative grid items-center gap-7 py-9 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:py-24">
         {/* Copy */}
         <div className="reveal">
           <span className="eyebrow mb-4">
@@ -30,7 +30,7 @@ export function Hero() {
           <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-body sm:text-lg">
             {hero.body}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Button href={hero.primaryCta.href} variant="primary">
               {hero.primaryCta.label}
             </Button>
@@ -39,7 +39,7 @@ export function Hero() {
             </Button>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-3 sm:gap-4">
+          <div className="mt-6 grid gap-3 sm:mt-8 sm:grid-cols-3 sm:gap-4">
             {hero.highlights.map((h) => (
               <div key={h.title} className="rounded-xl border border-slate-line/80 bg-white/60 px-3 py-3 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:pt-3 sm:border-t sm:border-slate-line">
                 <p className="text-sm font-semibold text-slate-ink">{h.title}</p>
@@ -60,9 +60,9 @@ export function Hero() {
 
 function DispatchBoard() {
   return (
-    <div className="rounded-card border border-slate-line bg-white p-4 shadow-lift sm:p-5">
+    <div className="rounded-card border border-slate-line bg-white p-3 shadow-lift sm:p-5">
       {/* Board header */}
-      <div className="mb-4 flex items-center justify-between gap-3 border-b border-slate-line/70 pb-3">
+      <div className="mb-3 flex items-center justify-between gap-3 border-b border-slate-line/70 pb-2.5 sm:mb-4 sm:pb-3">
         <div className="flex items-center gap-2">
           <StatusDot kind="closed" pulse />
           <span className="text-sm font-semibold text-slate-ink">לוח קריאות חי</span>
@@ -71,17 +71,17 @@ function DispatchBoard() {
       </div>
 
       {/* Metric tiles */}
-      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+      <div className="grid grid-cols-2 gap-2 sm:gap-3">
         {heroBoard.metrics.map((m) => (
-          <div key={m.label} className="rounded-xl border border-slate-line/50 bg-paper-mute p-2.5 sm:p-3">
+          <div key={m.label} className="rounded-xl border border-slate-line/50 bg-paper-mute p-2 sm:p-3">
             <SlaTile item={m} size="sm" />
           </div>
         ))}
       </div>
 
       {/* Ticket list */}
-      <div className="mt-4 rounded-xl border border-slate-line">
-        <div className="flex items-center justify-between border-b border-slate-line px-3 py-2.5">
+      <div className="mt-3 rounded-xl border border-slate-line sm:mt-4">
+        <div className="flex items-center justify-between border-b border-slate-line px-3 py-2">
           <span className="text-xs font-semibold text-slate-ink">רשימת קריאות</span>
           <span className="rounded-pill bg-signal-soft px-2 py-0.5 text-[11px] font-medium text-signal-ink">
             קריאה חדשה
@@ -91,7 +91,7 @@ function DispatchBoard() {
           {heroBoard.tickets.map((t, i) => (
             <li
               key={`${t.label}-${i}`}
-              className={`flex items-center justify-between px-3 py-2.5 ${
+              className={`flex items-center justify-between px-3 py-2 ${
                 i !== heroBoard.tickets.length - 1 ? "border-b border-slate-line/60" : ""
               }`}
             >

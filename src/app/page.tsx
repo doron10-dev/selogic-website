@@ -5,6 +5,8 @@ import { CardGrid } from "@/components/feature-card";
 import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import {
+  ManagedItSection,
+  SupportProcessSection,
   ComparisonSection,
   SlaSection,
   WorkflowSection,
@@ -13,8 +15,6 @@ import {
 } from "@/components/home/sections";
 import {
   painPoints,
-  serviceProcess,
-  channels,
   services,
   audience,
 } from "@/data/home";
@@ -26,9 +26,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  const managedItItems = services.items.filter((item) => item.href === "/managed-it-services");
   const trustPrinciples = ["מי מטפל", "מה הסטטוס", "מה תועד", "מה ההמשך"];
-  const supportProcessItems = [...serviceProcess.items, ...channels.items];
   const coreServiceHrefs = new Set([
     "/solutions/cybersecurity",
     "/solutions/backup-and-recovery",
@@ -56,15 +54,9 @@ export default function HomePage() {
         <CardGrid items={painPoints.items} cols={3} />
       </Section>
 
-      <Section tone="mute">
-        <SectionHeading title={services.title} body={services.body} />
-        <CardGrid items={managedItItems} cols={3} />
-      </Section>
+      <ManagedItSection />
 
-      <Section tone="mute">
-        <SectionHeading title={serviceProcess.title} body={serviceProcess.body} />
-        <CardGrid items={supportProcessItems} cols={4} />
-      </Section>
+      <SupportProcessSection />
 
       <PortalSection />
 
