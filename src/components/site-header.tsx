@@ -38,7 +38,7 @@ export function SiteHeader() {
             )}
             {contactChannels.phone && (
               <a href={contactChannels.phone} className="hover:text-paper transition-colors">
-                {getPhoneDisplayLabel()}
+                טלפון {getPhoneDisplayLabel()}
               </a>
             )}
             {contactChannels.email && (
@@ -122,11 +122,18 @@ export function SiteHeader() {
                 >
                   {siteLabels.contactCta}
                 </Link>
+                <Link
+                  href={siteUrls.technicalSupport}
+                  onClick={() => setOpen(false)}
+                  className="flex w-full items-center justify-center rounded-pill border border-slate-line bg-white px-5 py-3 text-sm font-semibold text-slate-ink transition-colors hover:border-signal/40 hover:text-signal"
+                >
+                  פתחו קריאת שירות
+                </Link>
                 {(contactChannels.whatsapp || contactChannels.phone || contactChannels.email) && (
                   <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 pt-1 text-sm text-slate-body">
                     {contactChannels.phone && (
                       <a href={contactChannels.phone} className="hover:text-signal">
-                        {getPhoneDisplayLabel()}
+                        טלפון {getPhoneDisplayLabel()}
                       </a>
                     )}
                     {contactChannels.email && (

@@ -1,22 +1,12 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
-import {
-  contactChannels,
-  contactDetails,
-  getClientPortalHref,
-  getEmailDisplayLabel,
-  getPhoneDisplayLabel,
-  siteLabels,
-  siteUrls,
-} from "@/data/contact";
+import { contactDetails, siteUrls } from "@/data/contact";
 
 type FooterLink = {
   label: string;
   href: string;
   external?: boolean;
 };
-
-const portalHref = getClientPortalHref();
 
 const footerCols: Array<
   | { title: string; isBrand: true; text: string }
@@ -28,38 +18,34 @@ const footerCols: Array<
     text: "חברת מחשוב בוטיק לעסקים בישראל.",
   },
   {
-    title: "ניווט",
+    title: "שירותים",
     links: [
-      { label: "בית", href: "/" },
-      { label: "שירותים", href: "/managed-it-services" },
-      { label: "פתרונות", href: "/solutions" },
-      { label: "אודות", href: "/about" },
+      { label: "כל השירותים", href: "/solutions" },
+      { label: "שירותי IT מנוהלים", href: "/managed-it-services" },
+      { label: "תמיכה טכנית לעסקים", href: siteUrls.technicalSupport },
+      { label: "אבטחת מידע וסייבר", href: "/solutions/cybersecurity" },
+      { label: "גיבוי והתאוששות", href: "/solutions/backup-and-recovery" },
+      { label: "Microsoft 365 וענן", href: "/solutions/microsoft-365-and-cloud" },
+      { label: "רשתות ותקשורת", href: "/solutions/networks-and-communication" },
     ],
   },
   {
-    title: "פתרונות",
+    title: "ניווט",
     links: [
-      { label: "סייבר", href: "/solutions/cybersecurity" },
-      { label: "גיבוי", href: "/solutions/backup-and-recovery" },
-      { label: "ענן", href: "/solutions/microsoft-365-and-cloud" },
-      { label: "תקשורת", href: "/solutions/networks-and-communication" },
+      { label: "מערכות ובקרה", href: "/information-systems-and-control" },
+      { label: "פורטל לקוחות", href: siteUrls.clientPortal },
+      { label: "תמיכה מרחוק", href: siteUrls.remoteSupport },
+      { label: "אודות", href: "/about" },
+      { label: "צור קשר", href: siteUrls.contact },
     ],
   },
   {
     title: "יצירת קשר",
     links: [
-      ...(contactChannels.phone
-        ? [{ label: getPhoneDisplayLabel(), href: contactChannels.phone, external: true as const }]
-        : []),
-      ...(contactChannels.whatsapp
-        ? [{ label: "וואטסאפ", href: contactChannels.whatsapp, external: true as const }]
-        : []),
-      ...(contactChannels.email
-        ? [{ label: getEmailDisplayLabel(), href: contactChannels.email, external: true as const }]
-        : []),
-      { label: siteLabels.contact, href: siteUrls.contact },
-      { label: siteLabels.clientPortal, href: portalHref },
-      { label: siteLabels.remoteSupport, href: siteUrls.remoteSupport },
+      { label: contactDetails.phone, href: contactDetails.phoneHref, external: true },
+      { label: contactDetails.email, href: `mailto:${contactDetails.email}`, external: true },
+      { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
+      { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
     ],
   },
 ];
