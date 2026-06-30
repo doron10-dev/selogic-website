@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Section } from "@/components/section";
+import { Button } from "@/components/button";
+import { PageFaq } from "@/components/page-faq";
+import { PageFinalCta } from "@/components/page-final-cta";
+import { Section, SectionHeading } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
 import {
   FormErrorNotice,
@@ -10,9 +13,84 @@ import {
   FormSuccessNotice,
 } from "@/components/form-notices";
 import { useFormsOperational } from "@/hooks/use-forms-operational";
-import { formErrorMessage } from "@/data/contact";
+import { contactDetails, formErrorMessage, siteUrls } from "@/data/contact";
 
 const priorities = ["נמוכה", "רגילה", "גבוהה", "דחוף"] as const;
+
+const audienceCards = [
+  {
+    title: "לעסק שבודק ספק IT חדש",
+    body: "כך נראה שירות תמיכה מסודר: פנייה, קריאה, בעל טיפול, סטטוס, תיעוד והמשך.",
+  },
+  {
+    title: "ללקוח קיים שצריך לפתוח קריאה",
+    body: "אפשר לפתוח קריאה בטופס, בטלפון או במייל. כל פנייה נכנסת לתהליך שירות מסודר.",
+  },
+];
+
+const painPoints = [
+  { title: "עובד תקוע בלי סטטוס", body: "אין ודאות מתי חוזרים לעבוד." },
+  { title: "פניות שמתפזרות", body: "טלפון ומייל בלי מעקב מסודר." },
+  { title: "לא ברור מי מטפל", body: "אין בעל טיפול לקריאה." },
+  { title: "אין היסטוריית טיפול", body: "לא רואים מה כבר נעשה." },
+  { title: "מנהל לא רואה מה פתוח", body: "אין תמונת מצב על הקריאות." },
+  { title: "תקלה חוזרת מתחילה מאפס", body: "בלי תיעוד, אין המשכיות." },
+];
+
+const supportSteps = [
+  "פנייה מתקבלת",
+  "נפתחת קריאת שירות",
+  "מוגדר בעל טיפול",
+  "מתועד מה נעשה",
+  "הלקוח מקבל סטטוס והמשך",
+  "הקריאה נסגרת עם היסטוריה",
+];
+
+const requestChannels = [
+  {
+    title: "טלפון",
+    body: contactDetails.phone,
+    href: contactDetails.phoneHref,
+  },
+  {
+    title: "מייל",
+    body: contactDetails.email,
+    href: `mailto:${contactDetails.email}`,
+  },
+  {
+    title: "טופס פתיחת קריאה",
+    body: "פתיחה מסודרת עם פרטי התקלה.",
+    href: "#support-form",
+  },
+  {
+    title: "כלי עזר ללקוח",
+    body: "פתיחה מהירה מהעמדה לפי תהליך השירות.",
+    href: siteUrls.clientPortal,
+  },
+];
+
+const supportFaq = [
+  {
+    q: "איך פותחים קריאת שירות?",
+    a: "בטופס בעמוד הזה, בטלפון או במייל. כל פנייה נכנסת לתהליך שירות מסודר.",
+  },
+  {
+    q: "מה קורה אם הטופס לא פעיל?",
+    a: "מוצגת הודעת fallback עם טלפון ומייל, כדי שאפשר יהיה לפנות בלי שליחה אוטומטית.",
+  },
+  {
+    q: "האם אפשר לפנות בטלפון או במייל?",
+    a: "כן. גם פנייה בטלפון או במייל נכנסת לתהליך שירות עם סטטוס ותיעוד.",
+  },
+  {
+    q: "מה קורה אחרי פתיחת הקריאה?",
+    a: "הקריאה נכנסת לטיפול, מוגדר בעל טיפול, הפעולות מתועדות והסטטוס מתעדכן לפי תהליך השירות.",
+  },
+  {
+    q: "האם מנהל יכול לראות את סטטוס הקריאות?",
+    a: "כן. בפורטל הלקוח ניתן לראות מה פתוח, מה בטיפול ומה ההמשך.",
+  },
+];
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
@@ -93,15 +171,94 @@ export default function TechnicalSupportPage() {
             תמיכה טכנית
           </span>
           <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-slate-ink sm:text-4xl md:text-5xl">
-            פתחו קריאת שירות
+            תמיכה טכנית מסודרת לעסקים
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד. מלאו את הפרטים — או פנו במייל ובטלפון.
+            כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד. לקוח קיים יכול לפתוח קריאה, ועסק שבודק ספק IT יכול לראות איך תהליך התמיכה עובד.
           </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button href="#support-form" variant="primary">
+              פתחו קריאת שירות
+            </Button>
+            <Button href="#support-process" variant="secondary">
+              איך עובד תהליך התמיכה
+            </Button>
+            <Button href={siteUrls.contactDiagnosis} variant="secondary">
+              קבעו שיחת אבחון
+            </Button>
+          </div>
         </div>
       </section>
 
+      <Section tone="paper">
+        <SectionHeading
+          title="שני מסלולים באותו עמוד"
+          body="העמוד מיועד גם להבנת תהליך התמיכה וגם לפתיחת קריאה קיימת."
+        />
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {audienceCards.map((card) => (
+            <InfoCard key={card.title} title={card.title} body={card.body} />
+          ))}
+        </div>
+      </Section>
+
       <Section tone="mute">
+        <SectionHeading
+          title="מה קורה כשאין תהליך תמיכה מסודר"
+          body="תקלות קטנות הופכות לרעש כשאין קריאה, סטטוס ותיעוד."
+        />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {painPoints.map((point) => (
+            <InfoCard key={point.title} title={point.title} body={point.body} />
+          ))}
+        </div>
+      </Section>
+
+      <Section id="support-process" tone="paper">
+        <SectionHeading
+          title="איך קריאת שירות עובדת"
+          body="פנייה אחת נכנסת לתהליך ברור, עד סגירה עם היסטוריה."
+        />
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {supportSteps.map((step, index) => (
+            <li key={step} className="rounded-card border border-slate-line bg-white p-5 shadow-card">
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-signal-soft font-mono text-sm font-bold text-signal-ink">
+                {index + 1}
+              </span>
+              <h3 className="mt-3 text-base font-bold text-slate-ink">{step}</h3>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Section tone="mute">
+        <SectionHeading
+          title="איך פונים אלינו"
+          body="אלה ערוצי הפנייה הבטוחים לתהליך השירות."
+        />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {requestChannels.map((channel) => (
+            <a
+              key={channel.title}
+              href={channel.href}
+              className="group rounded-card border border-slate-line bg-white p-5 shadow-card transition-colors hover:border-signal/40"
+            >
+              <div className="mb-3 flex items-center gap-2">
+                <StatusDot kind="open" />
+                <h3 className="text-base font-bold text-slate-ink group-hover:text-signal">{channel.title}</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-slate-body">{channel.body}</p>
+            </a>
+          ))}
+        </div>
+      </Section>
+
+      <Section tone="mute">
+        <div id="support-form" className="scroll-mt-24" />
+        <SectionHeading
+          title="פתחו קריאת שירות"
+          body="הטופס נשאר הפעולה המרכזית ללקוחות קיימים. אם השליחה אינה פעילה, תוצג הודעת fallback עם פרטי קשר."
+        />
         <div className="mx-auto min-w-0 max-w-2xl rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
           {submitState === "success" ? (
             <FormSuccessNotice kind="support" />
@@ -195,7 +352,56 @@ export default function TechnicalSupportPage() {
           )}
         </div>
       </Section>
+
+      <Section tone="paper">
+        <SectionHeading title="מה קורה אחרי פתיחת הקריאה" />
+        <div className="mt-6 max-w-3xl rounded-card border border-slate-line bg-white p-6 shadow-card">
+          <p className="text-base leading-relaxed text-slate-body">
+            לאחר פתיחת הקריאה, היא נכנסת לתהליך טיפול. לפי סוג הקריאה יוגדר בעל טיפול, יתועדו הפעולות, והסטטוס יתעדכן לפי תהליך השירות.
+          </p>
+        </div>
+      </Section>
+
+      <Section tone="ink">
+        <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr] lg:items-center">
+          <SectionHeading
+            title="סטטוס, תיעוד ופורטל לקוחות"
+            body="קריאת שירות היא לא רק הודעה. היא כוללת סטטוס, בעל טיפול, תיעוד והיסטוריה. בפורטל הלקוח ניתן לראות מה פתוח, מה בטיפול ומה ההמשך."
+            invert
+          />
+          <div className="rounded-card border border-ink-line bg-ink-soft p-6">
+            <Button href={siteUrls.clientPortal} variant="ghost" className="w-full">
+              ראו פורטל לקוחות
+            </Button>
+          </div>
+        </div>
+      </Section>
+
+      <PageFaq title="שאלות נפוצות" body="תשובות קצרות על פתיחת קריאה ותהליך התמיכה." items={supportFaq} />
+
+      <PageFinalCta
+        title="צריכים לפתוח קריאה או לבדוק את תהליך התמיכה?"
+        body="לקוחות קיימים יכולים לפתוח קריאה. עסקים שבודקים ספק IT יכולים להתחיל בשיחת אבחון."
+        primary={{ label: "פתחו קריאת שירות", href: "#support-form", sub: "המסלול המהיר ללקוחות קיימים." }}
+        secondary={{
+          label: "קבעו שיחת אבחון",
+          href: siteUrls.contactDiagnosis,
+          sub: "מתאים לעסק שבודק שירות IT מסודר.",
+        }}
+      />
     </>
+  );
+}
+
+function InfoCard({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-card border border-slate-line bg-white p-5 shadow-card">
+      <div className="mb-3 flex items-center gap-2">
+        <StatusDot kind="progress" />
+        <h3 className="text-base font-bold text-slate-ink">{title}</h3>
+      </div>
+      <p className="text-sm leading-relaxed text-slate-body">{body}</p>
+    </div>
   );
 }
 
