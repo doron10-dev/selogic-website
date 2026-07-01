@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
+import { Button } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
 import {
@@ -12,10 +14,12 @@ import {
 import { useFormsOperational } from "@/hooks/use-forms-operational";
 import {
   contactChannels,
+  contactDetails,
   formErrorMessage,
   getEmailDisplayLabel,
   getPhoneDisplayLabel,
   siteLabels,
+  siteUrls,
 } from "@/data/contact";
 
 type ContactMethod = {
@@ -26,6 +30,9 @@ type ContactMethod = {
 };
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
+
+const formUnavailableMessage =
+  "הטופס אינו זמין כרגע לשליחה. פנו בטלפון או במייל — נחזור לתיאום שיחת אבחון.";
 
 export default function ContactPage() {
   const formsOperational = useFormsOperational();
@@ -47,10 +54,18 @@ export default function ContactPage() {
 
   const methods = useMemo(() => {
     const list: ContactMethod[] = [];
+    if (contactChannels.phone) {
+      list.push({
+        title: "טלפון",
+        desc: "לתיאום שיחת אבחון או פנייה עסקית ראשונית.",
+        href: contactChannels.phone,
+        label: getPhoneDisplayLabel(),
+      });
+    }
     if (contactChannels.email) {
       list.push({
         title: "מייל",
-        desc: "פנייה מסודרת שנכנסת לתהליך שירות מתועד.",
+        desc: "לתיאום שיחת אבחון או פנייה עסקית ראשונית.",
         href: contactChannels.email,
         label: getEmailDisplayLabel(),
       });
@@ -61,14 +76,6 @@ export default function ContactPage() {
         desc: "ערוץ מהיר ללקוח, בלי לוותר על מעקב.",
         href: contactChannels.whatsapp,
         label: "פתיחת וואטסאפ",
-      });
-    }
-    if (contactChannels.phone) {
-      list.push({
-        title: "טלפון",
-        desc: "שיחה אנושית כשצריך מענה ישיר.",
-        href: contactChannels.phone,
-        label: getPhoneDisplayLabel(),
       });
     }
     return list;
@@ -108,7 +115,8 @@ export default function ContactPage() {
       }
 
       if (res.status === 503) {
-        setSubmitState("idle");
+        setErrorMessage(formUnavailableMessage);
+        setSubmitState("error");
         return;
       }
 
@@ -133,25 +141,33 @@ export default function ContactPage() {
   return (
     <>
       <section className="border-b border-slate-line bg-paper">
-        <div className="container-page py-12 sm:py-20">
+        <div className="container-page py-10 sm:py-16 lg:py-20">
           <span className="eyebrow mb-3">
             <StatusDot kind="open" pulse />
             צור קשר
           </span>
-          <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-slate-ink sm:text-4xl md:text-5xl">
+          <h1 className="max-w-3xl text-[1.625rem] font-extrabold leading-[1.2] text-slate-ink sm:text-4xl sm:leading-tight md:text-5xl">
             רוצים להבין איפה ה-IT של העסק עומד?
           </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            דברו איתנו ונבנה יחד תמונת מצב ראשונית. מייל, טלפון, או טופס לקביעת שיחת אבחון למטה.
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-body sm:mt-5 sm:text-lg">
+            שיחת אבחון, מיפוי מצב קיים והבנת פערים — לפני התאמת תהליך שירות. מייל, טלפון, או טופס למטה.
           </p>
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+            <Button href="#diagnosis" variant="primary">
+              {siteLabels.contactCta}
+            </Button>
+            <Button href={siteUrls.technicalSupport} variant="secondary">
+              לקוח קיים? פתחו קריאת שירות
+            </Button>
+          </div>
         </div>
       </section>
 
       <Section tone="mute">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
-          {methods.length > 0 ? (
-            <div className="space-y-4">
-              {methods.map((m) => (
+          <div className="space-y-4">
+            {methods.length > 0 ? (
+              methods.map((m) => (
                 <a
                   key={m.title}
                   href={m.href}
@@ -161,18 +177,26 @@ export default function ContactPage() {
                   <p className="mt-1.5 text-sm leading-relaxed text-slate-body">{m.desc}</p>
                   <span className="mt-3 inline-block text-sm font-semibold text-signal">{m.label} ←</span>
                 </a>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-card border border-slate-line bg-white p-6 shadow-card">
-              <h3 className="text-base font-bold text-slate-ink">{siteLabels.contact}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-body">
-                מלאו את הטופס ונחזור אליכם בהקדם. ניתן גם לפתוח קריאת שירות ישירות.
-              </p>
-            </div>
-          )}
+              ))
+            ) : (
+              <div className="rounded-card border border-slate-line bg-white p-6 shadow-card">
+                <h3 className="text-base font-bold text-slate-ink">{siteLabels.contact}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-body">
+                  מלאו את הטופס ונחזור אליכם לתיאום שיחת אבחון.
+                </p>
+              </div>
+            )}
 
-          <div id="diagnosis" className="min-w-0 scroll-mt-32 rounded-card border border-slate-line bg-white p-5 shadow-card sm:scroll-mt-28 sm:p-8">
+            <div className="rounded-card border border-slate-line bg-white p-5 shadow-card">
+              <h3 className="text-base font-bold text-slate-ink">כתובת</h3>
+              <p className="mt-2 text-sm leading-relaxed text-slate-body">{contactDetails.address}</p>
+            </div>
+          </div>
+
+          <div
+            id="diagnosis"
+            className="min-w-0 scroll-mt-32 rounded-card border border-slate-line bg-white p-5 shadow-card sm:scroll-mt-28 sm:p-8"
+          >
             {submitState === "success" ? (
               <FormSuccessNotice kind="contact" />
             ) : formsOperational === false ? (
@@ -184,7 +208,17 @@ export default function ContactPage() {
                 <div>
                   <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
                   <p className="mt-1 text-sm text-slate-body">
-                    מלאו פרטים — נחזור לתיאום שיחת היכרות ומיפוי ראשוני.
+                    מלאו פרטים — נחזור לתיאום שיחת היכרות, מיפוי ראשוני והבנת פערים.
+                  </p>
+                  <p className="mt-3 text-sm text-slate-body">
+                    לקוח קיים שצריך לפתוח קריאת שירות?{" "}
+                    <Link
+                      href={siteUrls.technicalSupport}
+                      className="font-semibold text-signal hover:text-signal-ink"
+                    >
+                      פתחו קריאת שירות
+                    </Link>
+                    .
                   </p>
                 </div>
 
@@ -274,7 +308,10 @@ export default function ContactPage() {
                 </button>
               </form>
             ) : (
-              <div className="py-8 text-sm text-slate-mute">טוען...</div>
+              <div className="flex flex-col items-start gap-2 py-8">
+                <StatusDot kind="waiting" />
+                <p className="text-sm text-slate-body">בודקים אם הטופס זמין...</p>
+              </div>
             )}
           </div>
         </div>
