@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getSiteUrl } from "@/lib/site-url";
+import { brandAssets } from "@/data/brand-assets";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -31,9 +32,18 @@ export const metadata: Metadata = {
     siteName: "Selogic",
     locale: "he_IL",
     type: "website",
+    images: [
+      {
+        url: brandAssets.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "Selogic - שירותי IT מנוהלים לעסקים",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    images: [brandAssets.ogImage],
   },
 };
 

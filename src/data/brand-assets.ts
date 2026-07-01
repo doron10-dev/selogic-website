@@ -26,6 +26,8 @@ export const brandAssets = {
   /** Existing compact mark used in header/footer */
   logoMark: "/brand/selogic-mark.png",
   logoMark2x: "/brand/selogic-mark@2x.png",
+  /** Open Graph / social share image (1200×630) */
+  ogImage: "/brand/selogic-og-image.png",
 } as const;
 
 /** incoming-brand-assets03.png — incomplete icon strip (SUP missing icon); not published. */
