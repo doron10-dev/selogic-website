@@ -5,47 +5,45 @@ import { PageFaq } from "@/components/page-faq";
 import { PageHero } from "@/components/page-hero";
 import { Section, SectionHeading } from "@/components/section";
 import { defaultFinalCta } from "@/data/shared";
-import { solutionsHubCards, solutionsHubFaq } from "@/data/pages/solutions-hub";
+import {
+  solutionsHubCards,
+  solutionsHubCardsSection,
+  solutionsHubFaq,
+  solutionsHubHero,
+  solutionsHubMetadata,
+  solutionsHubSharedSection,
+} from "@/data/pages/solutions-hub";
 
 export const metadata: Metadata = {
-  title: "פתרונות | Selogic",
-  description:
-    "פתרונות IT מקצה לקצה — תמיכה, אבטחה, גיבוי, Microsoft 365, רשתות, מערכות בקרה, פורטל לקוחות ו-SLA.",
+  title: solutionsHubMetadata.title,
+  description: solutionsHubMetadata.description,
 };
 
 export default function Page() {
   return (
     <>
       <PageHero
-        eyebrow="פתרונות"
-        title="פתרונות IT מקצה לקצה לעסק"
-        intro="Selogic מספקת לעסקים את כל מה שצריך כדי שהמחשוב יעבוד — יציב, בטוח ומתועד. כל פנייה, בכל תחום, הופכת לקריאת שירות עם סטטוס, בעל טיפול ותיעוד בפורטל."
+        eyebrow={solutionsHubHero.eyebrow}
+        title={solutionsHubHero.title}
+        intro={solutionsHubHero.intro}
+        primaryCta={solutionsHubHero.primaryCta}
+        secondaryCta={solutionsHubHero.secondaryCta}
       />
 
       <Section tone="paper">
         <SectionHeading
-          title="בחרו את הפתרון שמתאים לעסק"
-          body="כל פתרון הוא חלק מתהליך שירות מסודר — עם פורטל, SLA ושקיפות. לא חייבים «הכל או כלום»."
+          title={solutionsHubCardsSection.title}
+          body={solutionsHubCardsSection.body}
         />
         <CardGrid items={solutionsHubCards} cols={3} />
       </Section>
 
       <Section tone="mute">
         <SectionHeading
-          title="מה משותף לכל הפתרונות"
-          body="שירות בוטיק אישי — עם מערכות, תיעוד ומדידה."
+          title={solutionsHubSharedSection.title}
+          body={solutionsHubSharedSection.body}
         />
-        <CardGrid
-          items={[
-            { title: "קריאות מסודרות", body: "כל פנייה — במייל, בטלפון, בטופס פתיחת קריאה או בכלי עזר — הופכת לקריאה." },
-            { title: "פורטל לקוחות", body: "מנהלים ומשתמשים רואים סטטוס, היסטוריה ו-SLA." },
-            { title: "תיעוד מלא", body: "כל טיפול, החלטה ופעולה — נשמרים." },
-            { title: "שירות מדיד", body: "מדדי SLA וביצועים — ברורים ונגישים בפורטל." },
-            { title: "יחס אישי", body: "חברת בוטיק שמכירה את העסק." },
-            { title: "בעלים אחד", body: "Selogic מרכזת אחריות — לא אתם." },
-          ]}
-          cols={3}
-        />
+        <CardGrid items={solutionsHubSharedSection.items} cols={3} />
       </Section>
 
       <PageFaq
