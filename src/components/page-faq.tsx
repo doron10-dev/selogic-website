@@ -8,15 +8,16 @@ type PageFaqProps = {
   title: string;
   body: string;
   items: FaqItem[];
+  compact?: boolean;
 };
 
-export function PageFaq({ title, body, items }: PageFaqProps) {
+export function PageFaq({ title, body, items, compact = false }: PageFaqProps) {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   return (
-    <Section tone="mute">
+    <Section tone="mute" className={compact ? "py-8 sm:py-11 lg:py-14" : undefined}>
       <SectionHeading title={title} body={body} />
-      <div className="mt-8 max-w-3xl space-y-3">
+      <div className={`max-w-3xl space-y-3 ${compact ? "mt-6" : "mt-8"}`}>
         {items.map((item, i) => {
           const isOpen = openIdx === i;
           const panelId = `faq-panel-${i}`;

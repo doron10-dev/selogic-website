@@ -2,6 +2,8 @@ export type CardItem = {
   title: string;
   body: string;
   href?: string;
+  /** Hub grid: wider featured card styling */
+  featured?: boolean;
 };
 
 export type WorkflowStep = {

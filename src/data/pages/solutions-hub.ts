@@ -20,6 +20,7 @@ export const solutionsHubCards: CardItem[] = [
     title: "שירותי IT מנוהלים",
     body: "כתובת אחת אחראית לסביבת המחשוב — משתמשים, הרשאות, תמיכה, תיעוד ובקרה.",
     href: "/managed-it-services",
+    featured: true,
   },
   {
     title: "תמיכה טכנית לעסקים",

@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ServicePage content={managedItServicesPage} />;
+  return <ServicePage content={managedItServicesPage} variant="flagship" />;
 }

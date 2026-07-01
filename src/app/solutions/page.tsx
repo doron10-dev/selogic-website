@@ -30,7 +30,7 @@ export default function Page() {
         secondaryCta={solutionsHubHero.secondaryCta}
       />
 
-      <Section tone="paper">
+      <Section tone="paper" className="py-10 sm:py-14 lg:py-16">
         <SectionHeading
           title={solutionsHubCardsSection.title}
           body={solutionsHubCardsSection.body}
@@ -38,12 +38,12 @@ export default function Page() {
         <CardGrid items={solutionsHubCards} cols={3} />
       </Section>
 
-      <Section tone="mute">
+      <Section tone="mute" className="py-10 sm:py-14 lg:py-16">
         <SectionHeading
           title={solutionsHubSharedSection.title}
           body={solutionsHubSharedSection.body}
         />
-        <CardGrid items={solutionsHubSharedSection.items} cols={3} />
+        <CardGrid items={solutionsHubSharedSection.items} cols={3} density="compact" />
       </Section>
 
       <PageFaq
@@ -57,6 +57,7 @@ export default function Page() {
         body={defaultFinalCta.body}
         primary={defaultFinalCta.primary}
         secondary={defaultFinalCta.secondary}
+        compact
       />
     </>
   );

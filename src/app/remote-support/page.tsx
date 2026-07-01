@@ -9,5 +9,11 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ServicePage content={remoteSupportPage} afterHero={<RemoteSupportExtras />} />;
+  return (
+    <ServicePage
+      content={remoteSupportPage}
+      afterHero={<RemoteSupportExtras />}
+      variant="compact"
+    />
+  );
 }

@@ -7,11 +7,12 @@ type PageFinalCtaProps = {
   body: string;
   primary: CtaLink;
   secondary: CtaLink;
+  compact?: boolean;
 };
 
-export function PageFinalCta({ title, body, primary, secondary }: PageFinalCtaProps) {
+export function PageFinalCta({ title, body, primary, secondary, compact = false }: PageFinalCtaProps) {
   return (
-    <Section tone="ink">
+    <Section tone="ink" className={compact ? "py-10 sm:py-14 lg:py-16" : undefined}>
       <div className="mx-auto max-w-3xl text-center">
         <SectionHeading title={title} body={body} align="center" invert />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
