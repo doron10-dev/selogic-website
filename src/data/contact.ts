@@ -3,14 +3,13 @@
  *
  * Forms: gated by FORMS_ENABLED + Resend env vars (see .env.example).
  * TODO(production): Set external client portal login URL when available (clientPortalExternal).
- * TODO(production): Set WhatsApp number when available.
  */
 
 export const contactDetails = {
   companyName: "Selogic",
   phone: "072-777-7777",
   phoneHref: "tel:0727777777",
-  whatsapp: null as string | null,
+  whatsapp: "97246712500",
   email: "info@selogic.co.il",
   address: "רחוב העמקים 3, ת.ד 1582, טבריה",
 } as const;

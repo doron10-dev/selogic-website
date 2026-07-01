@@ -1,5 +1,6 @@
 import { StatusDot } from "@/components/status-dot";
 import {
+  contactChannels,
   contactDetails,
   formErrorMessage,
   formNotConnectedMessage,
@@ -44,6 +45,15 @@ export function FormFallbackNotice() {
         <a href={msg.emailHref} className="font-semibold text-signal hover:text-signal-ink">
           {msg.email}
         </a>
+        {contactChannels.whatsapp ? (
+          <>
+            {" "}
+            או ב
+            <a href={contactChannels.whatsapp} className="font-semibold text-signal hover:text-signal-ink">
+              וואטסאפ
+            </a>
+          </>
+        ) : null}
         .
       </p>
     </div>
@@ -87,6 +97,15 @@ export function FormErrorNotice({ message }: { message: string }) {
         <a href={err.emailHref} className="font-semibold text-signal hover:text-signal-ink">
           {err.email}
         </a>
+        {contactChannels.whatsapp ? (
+          <>
+            {" "}
+            או ב
+            <a href={contactChannels.whatsapp} className="font-semibold text-signal hover:text-signal-ink">
+              וואטסאפ
+            </a>
+          </>
+        ) : null}
         .
       </p>
     </div>

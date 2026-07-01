@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
-import { contactDetails, siteUrls } from "@/data/contact";
+import { contactChannels, contactDetails, siteUrls } from "@/data/contact";
 
 type FooterLink = {
   label: string;
@@ -44,6 +44,9 @@ const footerCols: Array<
     links: [
       { label: contactDetails.phone, href: contactDetails.phoneHref, external: true },
       { label: contactDetails.email, href: `mailto:${contactDetails.email}`, external: true },
+      ...(contactChannels.whatsapp
+        ? [{ label: "וואטסאפ", href: contactChannels.whatsapp, external: true as const }]
+        : []),
       { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
       { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
     ],
