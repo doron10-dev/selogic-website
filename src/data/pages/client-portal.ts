@@ -5,12 +5,12 @@ import type { ServicePageContent } from "@/types/service-page";
 export const clientPortalPage: ServicePageContent = {
   hero: {
     eyebrow: "פורטל לקוחות",
-    title: "מנהל רואה הכל. משתמש רואה שלו.",
+    title: "פורטל לקוחות: מנהל רואה הכל, משתמש רואה שלו",
     intro:
-      "לכל לקוח Selogic יש פורטל ארגוני. מנהל רואה את כל קריאות הארגון — סטטוס, SLA, תקלות חוזרות והיסטוריה. משתמש רואה את הקריאות שלו, מה תועד ומה ההמשך. פחות שיחות «מה קורה?» — יותר שליטה.",
+      "מנהל רואה את כל קריאות הארגון — מה פתוח, מה בטיפול, מה ממתין ומה נסגר. משתמש רואה את הקריאות שלו, הסטטוס, העדכונים וההיסטוריה.",
     statusKind: "closed",
-    primaryCta: { label: "ראו איך הפורטל עובד", href: siteUrls.clientPortal },
-    secondaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
+    primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
+    secondaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
   },
   pain: {
     title: "בלי פורטל — אין שקיפות",
@@ -19,8 +19,8 @@ export const clientPortalPage: ServicePageContent = {
       { title: "«מה קורה?»", body: "שיחות סטטוס חוזרות — בלי תשובה ברורה." },
       { title: "אין היסטוריה", body: "לא ברור מה טופל בעבר." },
       { title: "מידע מפוזר", body: "מייל, טלפון — בלי מקור אמת." },
-      { title: "מנהל עיוור", body: "לא רואה את כל הקריאות בארגון." },
-      { title: "משתמש ממתין", body: "לא יודע מי מטפל ומתי." },
+      { title: "מנהל לא רואה מה פתוח", body: "אין תמונת מצב על כל הקריאות בארגון." },
+      { title: "משתמש לא יודע מה ההמשך", body: "לא ברור מי מטפל, מה הסטטוס ומתי." },
       { title: "אין SLA גלוי", body: "לא ברור איך השירות עומד ביעדים." },
     ],
   },
@@ -38,14 +38,14 @@ export const clientPortalPage: ServicePageContent = {
   },
   clientGains: {
     title: "מה זה נותן",
-    body: "פחות אי-ודאות. יותר שליטה. רשומת שירות מלאה.",
+    body: "מנהל יודע מה פתוח. משתמש יודע מה ההמשך. לכל קריאה — סטטוס, תיעוד והיסטוריה.",
     items: [
-      { title: "פחות רעש", body: "הכל בפורטל — לא צריך לרדוף אחרי עדכונים." },
-      { title: "שקיפות למנהל", body: "תמונת מצב על כל הארגון." },
-      { title: "עצמאות למשתמש", body: "רואה סטטוס ועדכונים — בלי להמתין." },
-      { title: "תיעוד", body: "מה נעשה, מתי, ולמה — לכל קריאה." },
-      { title: "מדידה", body: "SLA וסטטוס — גלויים, לא מוסתרים." },
-      { title: "אמון", body: "תהליך ברור — לא «נבדוק ונחזור»." },
+      { title: "מנהל יודע מה פתוח", body: "תמונת מצב על כל הקריאות בארגון." },
+      { title: "משתמש יודע מה ההמשך", body: "רואה סטטוס, עדכונים ומה תועד — בלי לרדוף." },
+      { title: "סטטוס ברור", body: "פתוח, בטיפול, ממתין, נסגר — תמיד ידוע." },
+      { title: "היסטוריה לכל קריאה", body: "מה נעשה, מתי, ולמה — נשמר לעתיד." },
+      { title: "הרשאות שונות", body: "מנהל רואה את כל הארגון. משתמש — רק את שלו." },
+      { title: "SLA ותיעוד גלויים", body: "איך השירות עומד ביעדים — לא מוסתר." },
     ],
   },
   howItWorks: {
@@ -61,19 +61,19 @@ export const clientPortalPage: ServicePageContent = {
   },
   sla: {
     title: "SLA בפורטל",
-    body: "שירות שנמדד לפי SLA, סטטוס, תיעוד והיסטוריה — גלוי למנהלים, לפי יעדים שהוגדרו יחד.",
+    body: "SLA, סטטוס ותיעוד גלויים למנהל — לפי יעדים שהוגדרו יחד.",
     items: defaultSlaItems,
   },
   related: {
     title: "שירותים קשורים",
     body: "הפורטל הוא החלון — אלה השירותים שמאחוריו.",
     items: [
-      { title: "מחשוב מנוהל", body: "הבסיס.", href: "/managed-it-services" },
-      { title: "תמיכה טכנית", body: "פתיחת קריאות.", href: siteUrls.technicalSupport },
-      { title: "מערכות ובקרה", body: "Selogic Control Tower.", href: "/information-systems-and-control" },
-      { title: "תמיכה מרחוק", body: "חיבור מסודר.", href: siteUrls.remoteSupport },
-      { title: "פתרונות", body: "כל השירותים.", href: "/solutions" },
-      { title: "קביעת שיחת אבחון", body: "נראה לכם את הפורטל.", href: siteUrls.contactDiagnosis },
+      { title: "שירותי IT מנוהלים", body: "כתובת אחת אחראית לסביבת המחשוב.", href: "/managed-it-services" },
+      { title: "תמיכה טכנית", body: "פתיחת קריאות עם סטטוס ותיעוד.", href: siteUrls.technicalSupport },
+      { title: "מערכות ובקרה", body: "בקרה תפעולית על קריאות, ניטור ודוחות.", href: "/information-systems-and-control" },
+      { title: "תמיכה מרחוק", body: "חיבור מסודר — רק לאחר תיאום.", href: siteUrls.remoteSupport },
+      { title: "כל השירותים", body: "אבטחה, גיבוי, ענן, רשתות.", href: "/solutions" },
+      { title: "קביעת שיחת אבחון", body: "נראה לכם את הפורטל בפעולה.", href: siteUrls.contactDiagnosis },
     ],
   },
   faq: {
@@ -81,10 +81,10 @@ export const clientPortalPage: ServicePageContent = {
     body: "שאלות על הפורטל והשקיפות.",
     items: [
       { q: "מי רואה מה?", a: "מנהל — כל קריאות הארגון. משתמש — רק שלו." },
+      { q: "האם יש הרשאות שונות למנהל ולמשתמש?", a: "כן. מנהל רואה את כל הקריאות, SLA והיסטוריה. משתמש רואה רק את הקריאות שלו, הסטטוס והעדכונים." },
       { q: "צריך התקנה?", a: "לא. נגיש מהדפדפן." },
       { q: "אפשר לפתוח קריאה?", a: "כן — וגם ממייל, טלפון או טופס. הכל בפורטל." },
       { q: "מה רואים ב-SLA?", a: "איך השירות עומד ביעדים — סטטוס, תיעוד, קריאות פתוחות." },
-      { q: "יש היסטוריה?", a: "כן — כל קריאה עם תיעוד טיפול מלא." },
     ],
   },
   finalCta: {
