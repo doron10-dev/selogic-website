@@ -14,7 +14,7 @@ import {
   FormSuccessNotice,
 } from "@/components/form-notices";
 import { useFormsOperational } from "@/hooks/use-forms-operational";
-import { contactDetails, formErrorMessage, siteUrls } from "@/data/contact";
+import { contactChannels, contactDetails, formErrorMessage, siteUrls } from "@/data/contact";
 
 const priorities = ["נמוכה", "רגילה", "גבוהה", "דחוף"] as const;
 
@@ -59,6 +59,11 @@ const requestChannels = [
     href: `mailto:${contactDetails.email}`,
   },
   {
+    title: "וואטסאפ",
+    body: "ערוץ מהיר לפנייה.",
+    href: contactChannels.whatsapp ?? "https://wa.me/97246712500",
+  },
+  {
     title: "טופס פתיחת קריאה",
     body: "פתיחה מסודרת עם פרטי התקלה.",
     href: "#support-form",
@@ -73,15 +78,15 @@ const requestChannels = [
 const supportFaq = [
   {
     q: "איך פותחים קריאת שירות?",
-    a: "בטופס בעמוד הזה, בטלפון או במייל. כל פנייה נכנסת לתהליך שירות מסודר.",
+    a: "בטופס בעמוד הזה, בטלפון, במייל או בוואטסאפ. כל פנייה נכנסת לתהליך שירות מסודר.",
   },
   {
     q: "מה קורה אם הטופס לא פעיל?",
-    a: "מוצגת הודעת fallback עם טלפון ומייל, כדי שאפשר יהיה לפנות בלי שליחה אוטומטית.",
+    a: "מוצגת הודעת fallback עם טלפון, מייל או וואטסאפ, כדי שאפשר יהיה לפנות בלי שליחה אוטומטית.",
   },
   {
     q: "האם אפשר לפנות בטלפון או במייל?",
-    a: "כן. גם פנייה בטלפון או במייל נכנסת לתהליך שירות עם סטטוס ותיעוד.",
+    a: "כן. גם פנייה בטלפון, במייל או בוואטסאפ נכנסת לתהליך שירות עם סטטוס ותיעוד.",
   },
   {
     q: "מה קורה אחרי פתיחת הקריאה?",
@@ -361,7 +366,7 @@ export default function TechnicalSupportPage() {
               </button>
             </form>
           ) : (
-            <div className="py-8 text-sm text-slate-mute">טוען...</div>
+            <div className="py-8 text-sm text-slate-mute">בודקים אם הטופס זמין...</div>
           )}
         </div>
       </Section>
