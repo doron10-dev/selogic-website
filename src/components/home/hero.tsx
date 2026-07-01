@@ -17,20 +17,20 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page relative grid items-center gap-7 py-9 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:py-24">
+      <div className="container-page relative grid items-center gap-6 py-8 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:py-24">
         {/* Copy */}
         <div className="reveal">
-          <span className="eyebrow mb-4">
+          <span className="eyebrow mb-3 sm:mb-4">
             <StatusDot kind="open" pulse />
             {hero.eyebrow}
           </span>
-          <h1 className="text-3xl font-extrabold leading-[1.12] tracking-tight text-slate-ink sm:text-4xl md:text-5xl">
+          <h1 className="text-[1.625rem] font-extrabold leading-[1.2] tracking-tight text-slate-ink sm:text-4xl sm:leading-tight md:text-5xl">
             {hero.title}
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-body sm:text-lg">
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-body sm:mt-5 sm:text-lg">
             {hero.body}
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+          <div className="mt-5 flex flex-wrap gap-3 sm:mt-8">
             <Button href={hero.primaryCta.href} variant="primary">
               {hero.primaryCta.label}
             </Button>

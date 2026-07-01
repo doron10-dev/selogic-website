@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { PageFaq } from "@/components/page-faq";
@@ -176,16 +177,28 @@ export default function TechnicalSupportPage() {
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
             כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד. לקוח קיים יכול לפתוח קריאה, ועסק שבודק ספק IT יכול לראות איך תהליך התמיכה עובד.
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="#support-form" variant="primary">
-              פתחו קריאת שירות
-            </Button>
-            <Button href="#support-process" variant="secondary">
-              איך עובד תהליך התמיכה
-            </Button>
-            <Button href={siteUrls.contactDiagnosis} variant="secondary">
+          <div className="mt-6 flex flex-col items-start gap-3 sm:mt-8">
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+              <Button href="#support-form" variant="primary" className="w-full sm:w-auto">
+                פתחו קריאת שירות
+              </Button>
+              <Button href="#support-process" variant="secondary" className="w-full sm:w-auto">
+                איך עובד תהליך התמיכה
+              </Button>
+              <Button
+                href={siteUrls.contactDiagnosis}
+                variant="secondary"
+                className="hidden sm:inline-flex"
+              >
+                קבעו שיחת אבחון
+              </Button>
+            </div>
+            <Link
+              href={siteUrls.contactDiagnosis}
+              className="text-sm font-semibold text-signal underline-offset-2 hover:text-signal-ink hover:underline sm:hidden"
+            >
               קבעו שיחת אבחון
-            </Button>
+            </Link>
           </div>
         </div>
       </section>

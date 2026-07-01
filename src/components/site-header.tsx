@@ -70,14 +70,22 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-3">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           {!onContactPage && (
-            <Link
-              href={siteUrls.contactDiagnosis}
-              className="hidden rounded-pill bg-signal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink sm:inline-flex"
-            >
-              {siteLabels.contactCta}
-            </Link>
+            <>
+              <Link
+                href={siteUrls.contactDiagnosis}
+                className="inline-flex shrink-0 rounded-pill bg-signal px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-signal-ink sm:hidden"
+              >
+                אבחון
+              </Link>
+              <Link
+                href={siteUrls.contactDiagnosis}
+                className="hidden rounded-pill bg-signal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink sm:inline-flex"
+              >
+                {siteLabels.contactCta}
+              </Link>
+            </>
           )}
 
           <button

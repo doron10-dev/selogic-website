@@ -1,5 +1,7 @@
+import { Button } from "@/components/button";
 import { StatusDot } from "@/components/status-dot";
 import { Section, SectionHeading } from "@/components/section";
+import { siteUrls } from "@/data/contact";
 import {
   remoteSupportGuidance,
   remoteSupportSafetyRules,
@@ -28,6 +30,14 @@ export function RemoteSupportExtras() {
       <div className="mt-5 max-w-3xl rounded-card border border-slate-line/80 bg-white/90 p-4 sm:p-5">
         <h2 className="text-base font-bold text-slate-ink">{remoteSupportGuidance.title}</h2>
         <p className="mt-2 text-sm leading-relaxed text-slate-body">{remoteSupportGuidance.body}</p>
+      </div>
+      <div className="mt-6 flex max-w-3xl flex-col gap-3 border-t border-slate-line/60 pt-5 sm:flex-row sm:flex-wrap">
+        <Button href={siteUrls.technicalSupport} variant="primary" className="w-full sm:w-auto">
+          פתחו קריאת שירות
+        </Button>
+        <Button href={siteUrls.contact} variant="secondary" className="w-full sm:w-auto">
+          צרו קשר
+        </Button>
       </div>
     </Section>
   );

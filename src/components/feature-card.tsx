@@ -8,7 +8,7 @@ type CardVariant = "default" | "compact" | "featured";
 
 function cardSurfaceClass(variant: CardVariant) {
   if (variant === "featured") {
-    return "group block min-w-0 rounded-card border-2 border-signal/30 bg-gradient-to-br from-signal-soft/30 to-white p-5 shadow-lift ring-1 ring-signal/10 transition-colors hover:border-signal/45";
+    return "group block min-w-0 rounded-card border-2 border-signal/40 bg-gradient-to-br from-signal-soft/45 to-white p-5 shadow-lift ring-2 ring-signal/15 transition-colors hover:border-signal/50 sm:ring-1 sm:ring-signal/10";
   }
   if (variant === "compact") {
     return "group block min-w-0 rounded-card border border-slate-line/70 bg-white/80 p-4 shadow-none transition-colors hover:border-signal/25";
@@ -49,7 +49,13 @@ function CardInner({
       <p className={bodyClass}>{item.body}</p>
       {item.href ? (
         <span
-          className={`inline-block text-signal transition-colors group-hover:text-signal-ink ${variant === "compact" ? "mt-2 text-xs" : "mt-3"}`}
+          className={`inline-block text-signal transition-colors group-hover:text-signal-ink ${
+            variant === "compact"
+              ? "mt-2 text-xs"
+              : isFeatured
+                ? "mt-3 text-sm font-semibold sm:text-base sm:font-normal"
+                : "mt-3"
+          }`}
           aria-hidden="true"
         >
           ←
