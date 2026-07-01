@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/service-page";
 import { networksPage } from "@/data/pages/networks-and-communication";
 
 export const metadata: Metadata = {
-  title: "רשתות ותקשורת | Selogic",
+  title: "רשתות ותקשורת",
   description: "אינטרנט, רשת אלחוטית, חומות אש, טלפוניה — חיבור יציב ותיאום ספקים.",
 };
 

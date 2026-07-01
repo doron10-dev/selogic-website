@@ -3,8 +3,9 @@ import { ServicePage } from "@/components/service-page";
 import { aboutPage } from "@/data/pages/about";
 
 export const metadata: Metadata = {
-  title: "אודות | Selogic",
-  description: "חברת מחשוב בוטיק לעסקים בישראל — שירות אישי, אחריות, תיעוד, פורטל ו-SLA.",
+  title: "אודות",
+  description:
+    "חברת IT בוטיק מטבריה — תהליך שירות מסודר, פורטל לקוחות, SLA ותיעוד לעסקים בישראל.",
 };
 
 export default function Page() {

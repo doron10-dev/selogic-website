@@ -4,7 +4,7 @@ import { ServicePage } from "@/components/service-page";
 import { remoteSupportPage } from "@/data/pages/remote-support";
 
 export const metadata: Metadata = {
-  title: "תמיכה מרחוק | Selogic",
+  title: "תמיכה מרחוק",
   description: "תמיכה מרחוק מסודרת ובטוחה — רק לאחר תיאום עם נציג. כל חיבור מתועד כקריאת שירות.",
 };
 

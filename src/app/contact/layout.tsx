@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "צור קשר | Selogic",
+  title: "צור קשר",
   description:
-    "רוצים להבין איפה ה-IT של העסק עומד? דברו איתנו במייל, בטלפון או בטופס — כל פנייה הופכת לקריאת שירות מסודרת.",
+    "קבעו שיחת אבחון ומיפוי מצב קיים — בטלפון, במייל, בוואטסאפ או בטופס. כתובת: רחוב העמקים 3, ת.ד 1582, טבריה.",
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

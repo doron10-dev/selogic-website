@@ -3,6 +3,7 @@ import { Heebo, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { getSiteUrl } from "@/lib/site-url";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -19,14 +20,20 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Selogic | שירותי IT מנוהלים לעסקים בישראל",
+  metadataBase: new URL(getSiteUrl()),
+  title: {
+    default: "Selogic",
+    template: "%s | Selogic",
+  },
   description:
-    "חברת IT בוטיק לניהול מחשוב, תמיכה, אבטחה, גיבויים, פורטל לקוחות, SLA ושקיפות מלאה לעסקים בישראל.",
+    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל — Selogic.",
   openGraph: {
-    title: "Selogic | שירותי IT מנוהלים לעסקים בישראל",
-    description:
-      "חברת IT בוטיק לניהול מחשוב, תמיכה, אבטחה, גיבויים, פורטל לקוחות, SLA ושקיפות מלאה לעסקים בישראל.",
+    siteName: "Selogic",
+    locale: "he_IL",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 

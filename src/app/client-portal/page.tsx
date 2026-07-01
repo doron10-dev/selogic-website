@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/service-page";
 import { clientPortalPage } from "@/data/pages/client-portal";
 
 export const metadata: Metadata = {
-  title: "פורטל לקוחות | Selogic",
+  title: "פורטל לקוחות",
   description: "פורטל ארגוני עם שקיפות מלאה — קריאות, סטטוסים, SLA, היסטוריה ופחות שיחות סטטוס.",
 };
 

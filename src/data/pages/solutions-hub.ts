@@ -105,7 +105,7 @@ export const solutionsHubFaq = {
 };
 
 export const solutionsHubMetadata = {
-  title: "שירותי Selogic | Selogic",
+  title: "שירותי IT לעסקים",
   description:
     "שירותי IT לעסקים — IT מנוהל, תמיכה, אבטחה, גיבוי, Microsoft 365, רשתות, בקרה, פורטל לקוחות ותמיכה מרחוק. כל שירות עם קריאות, סטטוס ותיעוד.",
 };

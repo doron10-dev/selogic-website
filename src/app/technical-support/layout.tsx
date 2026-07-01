@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "תמיכה טכנית | Selogic",
+  title: "תמיכה טכנית לעסקים",
   description:
     "פתחו קריאת שירות — כל פנייה מקבלת סטטוס, בעל טיפול ותיעוד. מייל, טלפון או טופס.",
 };

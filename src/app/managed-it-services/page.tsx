@@ -3,7 +3,7 @@ import { ServicePage } from "@/components/service-page";
 import { managedItServicesPage } from "@/data/pages/managed-it-services";
 
 export const metadata: Metadata = {
-  title: "שירותי מחשוב מנוהלים | Selogic",
+  title: "שירותי IT מנוהלים",
   description: "ניהול מלא של סביבת המחשוב לעסק — תשתית, משתמשים, ניטור, תמיכה, תיעוד ו-SLA.",
 };
 
