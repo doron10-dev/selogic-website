@@ -8,6 +8,7 @@ export type NavItem = {
 export const navItems: NavItem[] = [
   { label: "ראשי", href: "/" },
   { label: "שירותי IT מנוהלים", href: "/managed-it-services" },
+  { label: "כל השירותים", href: "/solutions" },
   { label: "תמיכה טכנית לעסקים", href: siteUrls.technicalSupport },
   { label: "פורטל לקוחות", href: siteUrls.clientPortal },
   { label: "מערכות ובקרה", href: "/information-systems-and-control" },
