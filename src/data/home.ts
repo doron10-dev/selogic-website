@@ -1,7 +1,8 @@
 // All Hebrew copy for the home page, centralized for easy editing.
 
 import { siteUrls } from "@/data/contact";
-import { neutralSlaItems, portalFeatureTiles } from "@/data/shared";
+import { neutralSlaItems } from "@/data/shared";
+import type { CardItem } from "@/types/service-page";
 
 export const hero = {
   eyebrow: "חברת IT בוטיק לעסקים",
@@ -9,20 +10,26 @@ export const hero = {
   body: "Selogic מנהלת לעסק את סביבת ה־IT: תמיכה, משתמשים, תשתיות, ספקים ותיעוד. כל פנייה הופכת לקריאת שירות עם בעל טיפול, סטטוס, SLA והיסטוריה בפורטל לקוחות.",
   primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
   secondaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
-  highlights: [
-    { title: "בעל טיפול לכל קריאה", sub: "תמיד ידוע מי מטפל" },
-    { title: "פורטל לכל לקוח", sub: "מנהל רואה הכל · משתמש רואה שלו" },
-    { title: "שירות שנמדד", sub: "SLA · סטטוס · תיעוד · היסטוריה" },
-  ],
+  tertiaryCta: { label: "כל השירותים", href: "/solutions" },
 };
 
 export const heroBoard = {
-  metrics: portalFeatureTiles,
-  tickets: [
-    { status: "progress", label: "בטיפול" },
-    { status: "waiting", label: "ממתין ללקוח" },
-    { status: "closed", label: "נסגר" },
-    { status: "closed", label: "נסגר לאחרונה" },
+  title: "תהליך קריאות — תצוגה להמחשה",
+  note: "תצוגה להמחשה · לא נתונים חיים",
+  statusRows: [
+    { status: "open" as const, label: "פתוח" },
+    { status: "progress" as const, label: "בטיפול" },
+    { status: "waiting" as const, label: "ממתין" },
+    { status: "closed" as const, label: "נסגר" },
+  ],
+};
+
+export const trustStrip = {
+  items: [
+    { label: "מי מטפל", sub: "בעל טיפול לכל קריאה" },
+    { label: "מה הסטטוס", sub: "סטטוס ברור בכל שלב" },
+    { label: "מה תועד", sub: "תיעוד מסודר" },
+    { label: "מה ההמשך", sub: "שקיפות למנהל" },
   ],
 };
 
@@ -51,31 +58,58 @@ export const managedItSolution = {
   ],
 };
 
-export const serviceProcess = {
-  title: "כל פנייה — קריאת שירות מסודרת",
-  body: "לעסק שבודק ספק IT חדש — כך נראה שירות מסודר. ללקוח קיים — כאן מתחילה קריאה. כל פנייה נכנסת לתהליך עם סטטוס, בעל טיפול, תיעוד והמשך ברור.",
-  items: [
-    { title: "סטטוס ברור", body: "פתוח, בטיפול, ממתין או נסגר." },
-    { title: "בעל טיפול", body: "לכל קריאה ברור מי מטפל." },
-    { title: "תיעוד מלא", body: "מה נעשה, מתי ומה הוחלט." },
-    { title: "המשך ברור", body: "הלקוח יודע מה הצעד הבא." },
+export const howWeWork = {
+  title: "תהליך טיפול ברור — מהפנייה ועד סיכום",
+  body: "לעסק שבודק ספק IT חדש — כך נראה שירות מסודר. ללקוח קיים — כאן מתחילה קריאה. כל ערוץ פנייה נכנס לאותו תהליך.",
+  steps: [
+    { n: 1, title: "פתיחת קריאה", body: "פנייה בטלפון, במייל, בטופס או בפורטל — נפתחת כקריאת שירות." },
+    { n: 2, title: "שיוך בעל טיפול", body: "לכל קריאה ברור מי אחראי על הטיפול." },
+    { n: 3, title: "טיפול ותיעוד", body: "מה נעשה, מתי ומה הוחלט — נשמר בתיעוד מסודר." },
+    { n: 4, title: "עדכון סטטוס", body: "פתוח, בטיפול, ממתין או נסגר — סטטוס ברור ללקוח." },
+    { n: 5, title: "סיכום והמשך", body: "הלקוח יודע מה הצעד הבא והקריאה נסגרת עם היסטוריה." },
+  ],
+  channelsTitle: "ערוצי פנייה",
+  channels: [
+    { title: "טלפון", href: siteUrls.contact },
+    { title: "מייל", href: siteUrls.contact },
+    { title: "טופס קריאה", href: siteUrls.technicalSupport },
+    { title: "פורטל לקוחות", href: siteUrls.clientPortal },
   ],
 };
 
-export const channels = {
-  title: "איך פונים אלינו",
-  body: "טלפון, מייל, טופס קריאה או כלי עזר ללקוח — כולם נכנסים לאותו תהליך שירות.",
+export const servicesHub = {
+  title: "איזה שירות מתאים לעסק?",
+  body: "כל תחום נכנס לאותו תהליך — קריאה, סטטוס, בעל טיפול ותיעוד. לא חייבים להתחיל מהכל.",
+  hubCta: { label: "כל השירותים", href: "/solutions" },
   items: [
-    { title: "טלפון", body: "שיחה ישירה כשצריך להתחיל טיפול.", href: siteUrls.contact },
-    { title: "מייל", body: "פנייה כתובה שנשמרת בתהליך.", href: siteUrls.contact },
-    { title: "טופס קריאה", body: "פתיחה מסודרת עם פרטי התקלה.", href: siteUrls.technicalSupport },
-    { title: "כלי עזר ללקוח", body: "פתיחה מהירה מהעמדה לפי תהליך השירות.", href: siteUrls.clientPortal },
-  ],
+    {
+      title: "אבטחת מידע וסייבר",
+      body: "הרשאות, גישה ועדכונים שמנוהלים בצורה מסודרת.",
+      href: "/solutions/cybersecurity",
+    },
+    {
+      title: "גיבוי והתאוששות",
+      body: "מדיניות, ניטור ובדיקות שחזור לפי צרכי העסק.",
+      href: "/solutions/backup-and-recovery",
+    },
+    {
+      title: "Microsoft 365 וענן",
+      body: "משתמשים, דואר, קבצים והרשאות במקום אחד.",
+      href: "/solutions/microsoft-365-and-cloud",
+    },
+    {
+      title: "רשתות ותקשורת",
+      body: "אינטרנט, Wi‑Fi, חומות אש ותיאום מול ספקים.",
+      href: "/solutions/networks-and-communication",
+    },
+  ] satisfies CardItem[],
 };
 
 export const portal = {
-  title: "פורטל לקוחות שמוריד את חוסר הוודאות",
-  body: "מנהל רואה את כל קריאות הארגון: מה פתוח, מה בטיפול, מה ממתין ומה נסגר. משתמש רואה את הקריאות שלו, הסטטוס, העדכונים וההיסטוריה.",
+  title: "פורטל לקוחות — שקיפות למנהל",
+  body: "מנהל רואה את כל קריאות הארגון. משתמש רואה את שלו — סטטוס, תיעוד והמשך.",
+  illustrativeNote: "המחשה של תהליך שירות, לא נתונים חיים.",
+  cta: { label: "ראו פורטל לקוחות", href: siteUrls.clientPortal },
   manager: {
     title: "מנהל / בעלים",
     desc: "כל הקריאות, סטטוסים, בעל טיפול, SLA, היסטוריה ונושאים שחוזרים על עצמם.",
@@ -87,14 +121,26 @@ export const portal = {
 };
 
 export const slaMetrics = {
-  title: "שירות שנמדד לפי SLA, סטטוס ותיעוד",
-  body: "שירות שנמדד לפי SLA, סטטוס, תיעוד והיסטוריית טיפול. כל קריאה מקבלת בעל טיפול והיסטוריה, לפי יעדים שמוגדרים יחד.",
+  title: "שירות שנמדד — לפי יעדים שהוגדרו יחד",
+  body: "SLA, סטטוס, תיעוד והיסטוריית טיפול — לפי יעדים שמוגדרים יחד עם העסק. בלי מספרים שיווקיים.",
   items: neutralSlaItems,
+};
+
+export const compactTechStack = {
+  title: "כלים שמחזקים את תהליך השירות",
+  body: "מערכות אמיתיות שמחברות קריאות, ניטור, תיעוד ודוחות — לא תצוגה שיווקית.",
+  items: [
+    { name: "Zendesk", desc: "כל פנייה הופכת לקריאה עם סטטוס והיסטוריה." },
+    { name: "Atera", desc: "ניטור שמאפשר לזהות תקלות לפני שהן מתרחבות." },
+    { name: "IT Glue", desc: "תיעוד סביבה כדי לא להתחיל מאפס." },
+    { name: "Microsoft 365", desc: "ניהול משתמשים, הרשאות ודואר." },
+    { name: "Selogic Control Tower", desc: "מבט תפעולי על קריאות, ניטור ומדדים.", featured: true },
+  ],
 };
 
 export const comparison = {
   title: "בוטיק לא אומר פחות מקצועי",
-  body: "Selogic משלבת היכרות אישית עם תהליך שירות מסודר. לא מוקד אנונימי ולא טיפול נקודתי בלבד, אלא שותף IT שמכיר את העסק ומנהל את השירות דרך קריאות, פורטל, SLA ובקרה.",
+  body: "Selogic משלבת היכרות אישית עם תהליך שירות מסודר. לא מוקד אנונימי ולא טיפול נקודתי בלבד.",
   columns: [
     { title: "טכנאי מזדמן", body: "נותן מענה נקודתי כשצריך, אבל לרוב חסרים תהליך, היסטוריה ומדידה.", highlight: false },
     { title: "ספק IT גדול", body: "נותן מערך רחב, אבל לא תמיד יש קשר אישי והיכרות רציפה עם העסק.", highlight: false },
@@ -106,53 +152,9 @@ export const comparison = {
   ],
 };
 
-export const techStack = {
-  title: "מערכת הבקרה התפעולית של Selogic",
-  body: "Selogic Control Tower והמערכות סביבו מחברים קריאות, ניטור, תיעוד ודוחות לתהליך שירות אחד. המטרה היא לתת למנהל שליטה במה שקורה ב־IT.",
-  items: [
-    { name: "Zendesk", desc: "כל פנייה הופכת לקריאה עם סטטוס והיסטוריה." },
-    { name: "Atera", desc: "ניטור שמאפשר לזהות תקלות לפני שהן מתרחבות." },
-    { name: "IT Glue", desc: "תיעוד סביבה כדי לא להתחיל מאפס." },
-    { name: "Priority", desc: "חיבור לתהליכים עסקיים כשצריך." },
-    { name: "Microsoft 365", desc: "ניהול משתמשים, הרשאות ודואר." },
-    { name: "Power BI", desc: "דוחות שמסבירים מה קורה בשירות." },
-    { name: "Selogic Control Tower", desc: "מבט תפעולי על קריאות, ניטור ומדדים." },
-  ],
-};
-
-export const workflow = {
-  title: "איך מתחילים לעבוד יחד",
-  body: "מתחילים בהיכרות ומיפוי, ואז בונים תהליך שירות שמתאים לעסק: ערוצי פנייה, פורטל, SLA, תיעוד ובקרה שוטפת.",
-  steps: [
-    { n: 1, title: "שיחת היכרות", body: "מבינים את העסק, המשתמשים והכאבים." },
-    { n: 2, title: "מיפוי ראשוני", body: "בודקים סביבה, ספקים, הרשאות ופערי תיעוד." },
-    { n: 3, title: "הקמת שירות", body: "מגדירים פורטל, SLA וערוצי פנייה." },
-    { n: 4, title: "ניהול שוטף", body: "מטפלים בקריאות, מתעדים ומעדכנים." },
-    { n: 5, title: "בקרה ושיפור", body: "מזהים תקלות חוזרות ומשפרים את התהליך." },
-  ],
-};
-
 export const beforeAfter = {
-  title: "לפני ואחרי Selogic",
-  body: "מה משתנה כשיש בעלים אחד למחשוב.",
   before: { title: "לפני", body: "לא ברור מי מטפל, מה הסטטוס ומה תועד." },
   after: { title: "אחרי", body: "קריאה מסודרת, בעל טיפול, היסטוריה ופורטל שמציג מה ההמשך." },
-};
-
-export const services = {
-  title: "שירותים שמתחברים לתהליך אחד",
-  body: "כל תחום שירות נכנס לאותה שיטת עבודה: קריאה, סטטוס, בעל טיפול, תיעוד ובקרה.",
-  items: [
-    { title: "שירותי IT מנוהלים", body: "בעלים אחד לסביבת המחשוב.", href: "/managed-it-services" },
-    { title: "תמיכה טכנית", body: "קריאות עם סטטוס, תיעוד והמשך.", href: "/technical-support" },
-    { title: "אבטחת מידע וסייבר", body: "הרשאות, גישה ועדכונים שמנוהלים בצורה מסודרת.", href: "/solutions/cybersecurity" },
-    { title: "גיבוי והתאוששות", body: "מדיניות, ניטור ובדיקות שחזור לפי צרכי העסק.", href: "/solutions/backup-and-recovery" },
-    { title: "Microsoft 365 וענן", body: "משתמשים, דואר, קבצים והרשאות במקום אחד.", href: "/solutions/microsoft-365-and-cloud" },
-    { title: "רשתות ותקשורת", body: "אינטרנט, Wi‑Fi, חומות אש ותיאום מול ספקים.", href: "/solutions/networks-and-communication" },
-    { title: "מערכות ובקרה", body: "מערכת בקרה תפעולית לקריאות, תיעוד ודוחות.", href: "/information-systems-and-control" },
-    { title: "פורטל לקוחות", body: "המנהל רואה הכל, המשתמש רואה שלו.", href: siteUrls.clientPortal },
-    { title: "תמיכה מרחוק", body: "חיבור מסודר רק לאחר תיאום.", href: siteUrls.remoteSupport },
-  ],
 };
 
 export const audience = {
@@ -162,9 +164,7 @@ export const audience = {
     { title: "משרדים", body: "תמיכה מסודרת לעובדים וסביבת עבודה יציבה." },
     { title: "מרפאות", body: "רציפות עבודה, הרשאות ותיעוד בסביבה רגישה." },
     { title: "מפעלים", body: "תשתיות, ספקים ומשתמשים שצריכים תיאום אחד." },
-    { title: "חברות שירות", body: "מענה מהיר עם סטטוס והיסטוריה." },
     { title: "עסקים בצמיחה", body: "תהליך IT שגדל עם העסק." },
-    { title: "עסקים עם מידע רגיש", body: "הרשאות, גיבוי ותיעוד כחלק מהשירות." },
   ],
 };
 
@@ -186,7 +186,7 @@ export const faq = {
     },
     {
       q: "איך השירות נמדד?",
-      a: "לפי SLA, סטטוס, תיעוד והיסטוריית טיפול. לא משתמשים במספרים שיווקיים לפני שמגדירים יחד יעדי שירות אמיתיים.",
+      a: "לפי SLA, סטטוס, תיעוד והיסטוריית טיפול — לפי יעדים שהוגדרו יחד. לא משתמשים במספרים שיווקיים לפני שמגדירים יחד יעדי שירות אמיתיים.",
     },
     {
       q: "מה ההבדל מספק גדול?",
@@ -202,6 +202,14 @@ export const faq = {
 export const finalCta = {
   title: "רוצים לדעת איפה ה־IT של העסק עומד?",
   body: "נתחיל בשיחת אבחון קצרה: נבין מה קורה היום, איפה הפערים, ואיך תהליך שירות מסודר יכול להיראות אצלכם.",
-  primary: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis, sub: "מתאים לעסק שרוצה לבנות שירות IT מנוהל." },
-  secondary: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport, sub: "כבר לקוחות? התחילו קריאה מסודרת." },
+  primary: {
+    label: "קבעו שיחת אבחון",
+    href: siteUrls.contactDiagnosis,
+    sub: "מתאים לעסק שבודק שירות IT מסודר.",
+  },
+  secondary: {
+    label: "פתחו קריאת שירות",
+    href: siteUrls.technicalSupport,
+    sub: "כבר לקוחות? התחילו קריאה מסודרת.",
+  },
 };

@@ -1,18 +1,43 @@
+import Link from "next/link";
 import { Button } from "@/components/button";
+import { CardGrid } from "@/components/feature-card";
 import { SlaTile } from "@/components/sla-tile";
 import { StatusDot } from "@/components/status-dot";
 import { Section, SectionHeading } from "@/components/section";
 import {
   managedItSolution,
-  serviceProcess,
-  channels,
+  howWeWork,
+  servicesHub,
   comparison,
   slaMetrics,
-  workflow,
   beforeAfter,
-  techStack,
+  compactTechStack,
   finalCta,
+  trustStrip,
 } from "@/data/home";
+
+export function TrustStripSection() {
+  return (
+    <div className="border-y border-slate-line bg-paper-mute">
+      <div className="container-page py-5 sm:py-6">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          {trustStrip.items.map((item) => (
+            <div
+              key={item.label}
+              className="rounded-card border border-slate-line/80 bg-white px-3 py-3 text-center shadow-card sm:px-4 sm:py-4"
+            >
+              <div className="mb-2 flex justify-center">
+                <StatusDot kind="progress" />
+              </div>
+              <p className="text-sm font-bold text-slate-ink">{item.label}</p>
+              <p className="mt-1 text-xs leading-snug text-slate-mute">{item.sub}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function ManagedItSection() {
   const item = managedItSolution.items[0];
@@ -32,9 +57,12 @@ export function ManagedItSection() {
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
               {managedItSolution.body}
             </p>
-            <div className="mt-7">
-              <Button href={item.href} variant="primary">
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button href={item.href!} variant="primary">
                 ראו שירותי IT מנוהלים
+              </Button>
+              <Button href={servicesHub.hubCta.href} variant="secondary">
+                {servicesHub.hubCta.label}
               </Button>
             </div>
           </div>
@@ -52,47 +80,54 @@ export function ManagedItSection() {
   );
 }
 
-export function SupportProcessSection() {
+export function HowWeWorkSection() {
   return (
-    <Section tone="mute">
-      <SectionHeading title={serviceProcess.title} body={serviceProcess.body} />
+    <Section tone="paper">
+      <SectionHeading title={howWeWork.title} body={howWeWork.body} />
 
-      <div className="mt-10 grid gap-5 lg:grid-cols-[1fr_1fr]">
-        <div className="rounded-card border border-slate-line bg-white p-5 shadow-card sm:p-6">
-          <div className="mb-5 flex items-center gap-2">
-            <StatusDot kind="progress" />
-            <h3 className="text-lg font-bold text-slate-ink">תהליך הקריאה</h3>
-          </div>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {serviceProcess.items.map((item) => (
-              <div key={item.title} className="rounded-xl border border-slate-line bg-paper-mute p-4">
-                <h4 className="text-sm font-bold text-slate-ink">{item.title}</h4>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-body">{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <ol className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4">
+        {howWeWork.steps.map((step) => (
+          <li
+            key={step.n}
+            className="min-w-0 rounded-card border border-slate-line bg-white p-4 shadow-card sm:p-5"
+          >
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-signal-soft font-mono text-sm font-bold text-signal-ink">
+              {step.n}
+            </span>
+            <h3 className="mt-3 text-sm font-bold text-slate-ink">{step.title}</h3>
+            <p className="mt-1.5 text-xs leading-relaxed text-slate-body">{step.body}</p>
+          </li>
+        ))}
+      </ol>
 
-        <div className="rounded-card border border-slate-line bg-white p-5 shadow-card sm:p-6">
-          <div className="mb-5 flex items-center gap-2">
-            <StatusDot kind="open" />
-            <h3 className="text-lg font-bold text-slate-ink">{channels.title}</h3>
-          </div>
-          <p className="mb-5 text-sm leading-relaxed text-slate-body">{channels.body}</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {channels.items.map((item) => (
-              <a
-                key={item.title}
-                href={item.href}
-                className="group rounded-xl border border-slate-line bg-paper-mute p-4 transition-colors hover:border-signal/40"
-              >
-                <h4 className="text-sm font-bold text-slate-ink group-hover:text-signal">{item.title}</h4>
-                <p className="mt-1.5 text-sm leading-relaxed text-slate-body">{item.body}</p>
-              </a>
-            ))}
-          </div>
+      <div className="mt-8 rounded-card border border-slate-line bg-paper-mute p-4 sm:p-5">
+        <p className="mb-3 text-sm font-semibold text-slate-ink">{howWeWork.channelsTitle}</p>
+        <div className="flex flex-wrap gap-2">
+          {howWeWork.channels.map((ch) => (
+            <Link
+              key={ch.title}
+              href={ch.href}
+              className="inline-flex min-h-10 items-center rounded-pill border border-slate-line bg-white px-4 py-2 text-sm font-medium text-slate-ink transition-colors hover:border-signal/40 hover:text-signal"
+            >
+              {ch.title}
+            </Link>
+          ))}
         </div>
       </div>
+    </Section>
+  );
+}
+
+export function ServicesHubSection() {
+  return (
+    <Section tone="mute">
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <SectionHeading title={servicesHub.title} body={servicesHub.body} />
+        <Button href={servicesHub.hubCta.href} variant="primary" className="shrink-0 sm:mb-1">
+          {servicesHub.hubCta.label}
+        </Button>
+      </div>
+      <CardGrid items={servicesHub.items} cols={4} density="compact" />
     </Section>
   );
 }
@@ -101,11 +136,11 @@ export function ComparisonSection() {
   return (
     <Section tone="paper">
       <SectionHeading title={comparison.title} body={comparison.body} />
-      <div className="mt-10 grid gap-4 lg:grid-cols-3 lg:items-stretch">
+      <div className="mt-8 grid gap-4 lg:grid-cols-3 lg:items-stretch">
         {comparison.columns.map((col) => (
           <div
             key={col.title}
-            className={`rounded-card border p-6 min-w-0 ${
+            className={`min-w-0 rounded-card border p-5 sm:p-6 ${
               col.highlight
                 ? "border-signal bg-ink text-paper shadow-lift lg:-translate-y-1 lg:ring-2 lg:ring-signal/30"
                 : "border-slate-line bg-white shadow-card"
@@ -114,11 +149,7 @@ export function ComparisonSection() {
             <h3 className={`text-lg font-bold ${col.highlight ? "text-paper" : "text-slate-ink"}`}>
               {col.title}
             </h3>
-            <p
-              className={`mt-3 text-sm leading-relaxed ${
-                col.highlight ? "text-paper/75" : "text-slate-body"
-              }`}
-            >
+            <p className={`mt-3 text-sm leading-relaxed ${col.highlight ? "text-paper/75" : "text-slate-body"}`}>
               {col.body}
             </p>
             {col.highlight && (
@@ -129,18 +160,22 @@ export function ComparisonSection() {
           </div>
         ))}
       </div>
-      <div className="mt-6 grid gap-4 md:grid-cols-2">
-        <div className="rounded-card border border-slate-line bg-white p-5 shadow-card">
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-card border border-slate-line bg-white p-4 shadow-card sm:p-5">
           <div className="mb-2 flex items-center gap-2">
             <StatusDot kind="waiting" />
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-mute">לפני</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-mute">
+              {beforeAfter.before.title}
+            </span>
           </div>
           <p className="text-sm leading-relaxed text-slate-body">{beforeAfter.before.body}</p>
         </div>
-        <div className="rounded-card border border-signal/40 bg-signal-soft p-5 shadow-card">
+        <div className="rounded-card border border-signal/40 bg-signal-soft p-4 shadow-card sm:p-5">
           <div className="mb-2 flex items-center gap-2">
             <StatusDot kind="closed" pulse />
-            <span className="text-xs font-semibold uppercase tracking-wider text-signal-ink">אחרי</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-signal-ink">
+              {beforeAfter.after.title}
+            </span>
           </div>
           <p className="text-sm leading-relaxed text-slate-body">{beforeAfter.after.body}</p>
         </div>
@@ -153,12 +188,9 @@ export function SlaSection() {
   return (
     <Section tone="ink">
       <SectionHeading title={slaMetrics.title} body={slaMetrics.body} invert />
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
         {slaMetrics.items.map((m) => (
-          <div
-            key={m.label}
-            className="rounded-card border border-ink-line bg-ink-soft p-4 min-w-0 sm:p-5"
-          >
+          <div key={m.label} className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-4 sm:p-5">
             <SlaTile item={m} invert />
           </div>
         ))}
@@ -167,50 +199,27 @@ export function SlaSection() {
   );
 }
 
-export function WorkflowSection() {
+export function CompactTechStackSection() {
   return (
-    <Section tone="paper">
-      <SectionHeading title={workflow.title} body={workflow.body} />
-      {/* A real sequence — numbered markers earn their place here */}
-      <ol className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {workflow.steps.map((step) => (
-          <li
-            key={step.n}
-            className="relative min-w-0 rounded-card border border-slate-line bg-white p-5 shadow-card"
-          >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-signal-soft font-mono text-sm font-bold text-signal-ink">
-              {step.n}
-            </span>
-            <h3 className="mt-3 text-sm font-bold text-slate-ink">{step.title}</h3>
-            <p className="mt-1.5 text-xs leading-relaxed text-slate-body">{step.body}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
-  );
-}
-
-export function TechStackSection() {
-  return (
-    <Section tone="paper">
-      <SectionHeading title={techStack.title} body={techStack.body} />
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {techStack.items.map((t) => {
-          const isControlTower = t.name === "Selogic Control Tower";
+    <Section tone="paper" className="py-10 sm:py-14 lg:py-16">
+      <SectionHeading title={compactTechStack.title} body={compactTechStack.body} />
+      <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {compactTechStack.items.map((t) => {
+          const isFeatured = "featured" in t && t.featured;
 
           return (
             <div
               key={t.name}
-              className={`rounded-card border p-5 shadow-card ${
-                isControlTower
-                  ? "border-signal/50 bg-ink text-paper sm:col-span-2 lg:col-span-2"
+              className={`rounded-card border p-4 shadow-card sm:p-5 ${
+                isFeatured
+                  ? "border-signal/50 bg-ink text-paper sm:col-span-2 lg:col-span-1"
                   : "border-slate-line bg-white border-t-2 border-t-signal/35"
               }`}
             >
-              <p className={`font-mono text-sm font-bold ${isControlTower ? "text-paper" : "text-slate-ink"}`}>
+              <p className={`font-mono text-sm font-bold ${isFeatured ? "text-paper" : "text-slate-ink"}`}>
                 {t.name}
               </p>
-              <p className={`mt-2 text-sm ${isControlTower ? "text-paper/70" : "text-slate-body"}`}>
+              <p className={`mt-2 text-sm leading-relaxed ${isFeatured ? "text-paper/70" : "text-slate-body"}`}>
                 {t.desc}
               </p>
             </div>
@@ -228,12 +237,14 @@ export function FinalCtaSection() {
         <SectionHeading title={finalCta.title} body={finalCta.body} align="center" invert />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
           <div className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-6 text-right">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-paper/50">לעסקים חדשים</p>
             <Button href={finalCta.primary.href} variant="primary" className="w-full">
               {finalCta.primary.label}
             </Button>
             <p className="mt-3 text-xs text-paper/60">{finalCta.primary.sub}</p>
           </div>
           <div className="min-w-0 rounded-card border border-ink-line bg-ink-soft p-6 text-right">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-paper/50">ללקוחות קיימים</p>
             <Button href={finalCta.secondary.href} variant="ghost" className="w-full">
               {finalCta.secondary.label}
             </Button>
