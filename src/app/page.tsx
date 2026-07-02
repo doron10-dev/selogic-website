@@ -5,77 +5,65 @@ import { CardGrid } from "@/components/feature-card";
 import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import {
-  ComparisonSection,
-  SlaSection,
+  TrustStrip,
+  FlagshipSection,
   WorkflowSection,
-  BeforeAfterSection,
-  TechStackSection,
+  ServicesHubSection,
+  SlaControlSection,
+  ComparisonSection,
   FinalCtaSection,
 } from "@/components/home/sections";
-import {
-  painPoints,
-  serviceProcess,
-  channels,
-  services,
-  audience,
-  trust,
-} from "@/data/home";
+import { painPoints, audience } from "@/data/home";
 
 export const metadata: Metadata = {
-  title: "סלוג׳יק | שירותי מחשוב מנוהלים לעסקים בישראל",
+  title: "סלוג׳יק | IT מנוהל עם קריאות, סטטוס ושקיפות למנהל",
   description:
-    "חברת מחשוב בוטיק לניהול IT, תמיכה, אבטחה, גיבויים, פורטל לקוחות, SLA ושקיפות מלאה לעסקים בישראל.",
+    "סלוג׳יק מנהלת לעסקים את התמיכה, התשתיות, הענן, האבטחה והמעקב השוטף — עם קריאות, סטטוס, תיעוד ופורטל לקוחות.",
 };
 
 export default function HomePage() {
   return (
     <>
+      {/* 1. Hero — headline, short text, CTAs, compact illustrative board */}
       <Hero />
 
+      {/* 2. Trust strip — מי מטפל · מה הסטטוס · מה תועד · מה ההמשך */}
+      <TrustStrip />
+
+      {/* 3. Pain points — the business reality before Selogic (kept tight) */}
       <Section tone="paper">
         <SectionHeading title={painPoints.title} body={painPoints.body} />
         <CardGrid items={painPoints.items} cols={3} />
       </Section>
 
-      <Section tone="mute">
-        <SectionHeading title={serviceProcess.title} body={serviceProcess.body} />
-        <CardGrid items={serviceProcess.items} cols={3} />
-      </Section>
+      {/* 4. Flagship managed IT — the main offering */}
+      <FlagshipSection />
 
-      <Section tone="paper">
-        <SectionHeading title={channels.title} body={channels.body} />
-        <CardGrid items={channels.items} cols={4} />
-      </Section>
-
-      <PortalSection />
-
-      <SlaSection />
-
-      <ComparisonSection />
-
-      <TechStackSection />
-
+      {/* 5. How Selogic works — one clear flow */}
       <WorkflowSection />
 
-      <BeforeAfterSection />
+      {/* 6. Services hub — choose the right service, "כל השירותים" prominent */}
+      <ServicesHubSection />
 
-      <Section tone="paper">
-        <SectionHeading title={services.title} body={services.body} />
-        <CardGrid items={services.items} cols={4} />
-      </Section>
+      {/* 7. Portal and transparency — manager vs user, illustrative */}
+      <PortalSection />
 
+      {/* 8. SLA and control — badge tiles, no fake numbers */}
+      <SlaControlSection />
+
+      {/* 9. Trust comparison — respectful boutique positioning */}
+      <ComparisonSection />
+
+      {/* 10. Audience — who the service fits */}
       <Section tone="mute">
         <SectionHeading title={audience.title} body={audience.body} />
         <CardGrid items={audience.items} cols={4} />
       </Section>
 
-      <Section tone="paper">
-        <SectionHeading title={trust.title} body={trust.body} />
-        <CardGrid items={trust.items} cols={3} />
-      </Section>
-
+      {/* 11. FAQ — accordion, incl. honest SLA question */}
       <FaqSection />
 
+      {/* 12. Final CTA — separate prospects from existing clients */}
       <FinalCtaSection />
     </>
   );

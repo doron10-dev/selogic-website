@@ -16,39 +16,36 @@ export function Hero() {
         }}
       />
 
-      <div className="container-page relative grid items-center gap-12 py-16 sm:py-24 lg:grid-cols-2">
+      {/* Mobile: stacked (headline → text → CTAs → compact board). Desktop: two columns. */}
+      <div className="container-page relative grid items-center gap-10 py-14 sm:py-20 lg:grid-cols-2 lg:gap-12">
         {/* Copy */}
         <div className="reveal">
           <span className="eyebrow mb-4">
             <StatusDot kind="open" pulse />
             {hero.eyebrow}
           </span>
-          <h1 className="text-3xl font-extrabold leading-[1.1] text-slate-ink sm:text-4xl md:text-5xl">
+          <h1 className="text-balance text-3xl font-extrabold leading-[1.15] text-slate-ink sm:text-4xl md:text-5xl">
             {hero.title}
           </h1>
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-slate-body sm:text-lg">
+          <p className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-slate-body sm:text-lg">
             {hero.body}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button href={hero.primaryCta.href} variant="primary">
+
+          {/* CTAs — primary + support, with "all services" as a clear tertiary link */}
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Button href={hero.primaryCta.href} variant="primary" className="w-full sm:w-auto">
               {hero.primaryCta.label}
             </Button>
-            <Button href={hero.secondaryCta.href} variant="secondary">
+            <Button href={hero.secondaryCta.href} variant="secondary" className="w-full sm:w-auto">
               {hero.secondaryCta.label}
             </Button>
-          </div>
-
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {hero.highlights.map((h) => (
-              <div key={h.title} className="border-t border-slate-line pt-3">
-                <p className="text-sm font-semibold text-slate-ink">{h.title}</p>
-                <p className="mt-0.5 text-xs text-slate-mute">{h.sub}</p>
-              </div>
-            ))}
+            <Button href={hero.servicesCta.href} variant="ghost-ink" className="w-full sm:w-auto">
+              {hero.servicesCta.label}
+            </Button>
           </div>
         </div>
 
-        {/* Signature: live dispatch board */}
+        {/* Signature: compact dispatch board (illustrative) */}
         <div className="reveal" style={{ animationDelay: "120ms" }}>
           <DispatchBoard />
         </div>
@@ -59,52 +56,35 @@ export function Hero() {
 
 function DispatchBoard() {
   return (
-    <div className="rounded-card border border-slate-line bg-white p-5 shadow-lift">
+    <div className="mx-auto w-full max-w-md rounded-card border border-slate-line bg-white p-4 shadow-lift sm:p-5">
       {/* Board header */}
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <StatusDot kind="closed" pulse />
-          <span className="text-sm font-semibold text-slate-ink">לוח קריאות חי</span>
+          <StatusDot kind="open" pulse />
+          <span className="text-sm font-semibold text-slate-ink">{heroBoard.title}</span>
         </div>
-        <span className="font-mono text-xs text-slate-mute">SLA · בזמן אמת</span>
+        <span className="rounded-pill bg-paper-mute px-2.5 py-1 font-mono text-[11px] text-slate-mute">
+          {heroBoard.note}
+        </span>
       </div>
 
-      {/* Metric tiles */}
-      <div className="grid grid-cols-2 gap-3">
-        {heroBoard.metrics.map((m) => (
-          <div key={m.label} className="rounded-xl bg-paper-mute p-3">
-            <p className="font-mono text-2xl font-bold text-slate-ink">{m.value}</p>
-            <p className="mt-1 text-xs font-medium text-slate-ink">{m.label}</p>
-            <p className="text-[11px] text-slate-mute">{m.sub}</p>
-          </div>
+      {/* Status rows */}
+      <ul className="overflow-hidden rounded-xl border border-slate-line">
+        {heroBoard.rows.map((row, i) => (
+          <li
+            key={row.id}
+            className={`flex items-center justify-between px-3 py-3 ${
+              i !== heroBoard.rows.length - 1 ? "border-b border-slate-line/60" : ""
+            }`}
+          >
+            <span className="flex items-center gap-2.5">
+              <StatusDot kind={row.kind} />
+              <span className="text-sm font-medium text-slate-ink">{row.label}</span>
+            </span>
+            <span className="font-mono text-xs text-slate-mute">{row.id}</span>
+          </li>
         ))}
-      </div>
-
-      {/* Ticket list */}
-      <div className="mt-4 rounded-xl border border-slate-line">
-        <div className="flex items-center justify-between border-b border-slate-line px-3 py-2.5">
-          <span className="text-xs font-semibold text-slate-ink">רשימת קריאות</span>
-          <span className="rounded-pill bg-signal-soft px-2 py-0.5 text-[11px] font-medium text-signal-ink">
-            קריאה חדשה
-          </span>
-        </div>
-        <ul>
-          {heroBoard.tickets.map((t, i) => (
-            <li
-              key={`${t.label}-${i}`}
-              className={`flex items-center justify-between px-3 py-2.5 ${
-                i !== heroBoard.tickets.length - 1 ? "border-b border-slate-line/60" : ""
-              }`}
-            >
-              <span className="text-sm text-slate-body">קריאה</span>
-              <span className="flex items-center gap-2">
-                <span className="text-xs text-slate-mute">{t.label}</span>
-                <StatusDot kind={t.status as "progress" | "waiting" | "closed"} />
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      </ul>
     </div>
   );
 }
