@@ -14,91 +14,13 @@ import {
   FormSuccessNotice,
 } from "@/components/form-notices";
 import { useFormsOperational } from "@/hooks/use-forms-operational";
-import { contactChannels, contactDetails, formErrorMessage, siteUrls } from "@/data/contact";
-
-const priorities = ["נמוכה", "רגילה", "גבוהה", "דחוף"] as const;
-
-const audienceCards = [
-  {
-    title: "לעסק שבודק ספק IT חדש",
-    body: "כך נראה שירות תמיכה מסודר: פנייה, קריאה, בעל טיפול, סטטוס, תיעוד והמשך.",
-  },
-  {
-    title: "ללקוח קיים שצריך לפתוח קריאה",
-    body: "אפשר לפתוח קריאה בטופס, בטלפון או במייל. כל פנייה נכנסת לתהליך שירות מסודר.",
-  },
-];
-
-const painPoints = [
-  { title: "עובד תקוע בלי סטטוס", body: "אין ודאות מתי חוזרים לעבוד." },
-  { title: "פניות שמתפזרות", body: "טלפון ומייל בלי מעקב מסודר." },
-  { title: "לא ברור מי מטפל", body: "אין בעל טיפול לקריאה." },
-  { title: "אין היסטוריית טיפול", body: "לא רואים מה כבר נעשה." },
-  { title: "מנהל לא רואה מה פתוח", body: "אין תמונת מצב על הקריאות." },
-  { title: "תקלה חוזרת מתחילה מאפס", body: "בלי תיעוד, אין המשכיות." },
-];
-
-const supportSteps = [
-  "פנייה מתקבלת",
-  "נפתחת קריאת שירות",
-  "מוגדר בעל טיפול",
-  "מתועד מה נעשה",
-  "הלקוח מקבל סטטוס והמשך",
-  "הקריאה נסגרת עם היסטוריה",
-];
-
-const requestChannels = [
-  {
-    title: "טלפון",
-    body: contactDetails.phone,
-    href: contactDetails.phoneHref,
-  },
-  {
-    title: "מייל",
-    body: contactDetails.email,
-    href: `mailto:${contactDetails.email}`,
-  },
-  {
-    title: "וואטסאפ",
-    body: "ערוץ מהיר לפנייה.",
-    href: contactChannels.whatsapp ?? "https://wa.me/97246712500",
-  },
-  {
-    title: "טופס פתיחת קריאה",
-    body: "פתיחה מסודרת עם פרטי התקלה.",
-    href: "#support-form",
-  },
-  {
-    title: "כלי עזר ללקוח",
-    body: "פתיחה מהירה מהעמדה לפי תהליך השירות.",
-    href: siteUrls.clientPortal,
-  },
-];
-
-const supportFaq = [
-  {
-    q: "איך פותחים קריאת שירות?",
-    a: "בטופס בעמוד הזה, בטלפון, במייל או בוואטסאפ. כל פנייה נכנסת לתהליך שירות מסודר.",
-  },
-  {
-    q: "מה קורה אם הטופס לא פעיל?",
-    a: "מוצגת הודעת fallback עם טלפון, מייל או וואטסאפ, כדי שאפשר יהיה לפנות בלי שליחה אוטומטית.",
-  },
-  {
-    q: "האם אפשר לפנות בטלפון או במייל?",
-    a: "כן. גם פנייה בטלפון, במייל או בוואטסאפ נכנסת לתהליך שירות עם סטטוס ותיעוד.",
-  },
-  {
-    q: "מה קורה אחרי פתיחת הקריאה?",
-    a: "הקריאה נכנסת לטיפול, מוגדר בעל טיפול, הפעולות מתועדות והסטטוס מתעדכן לפי תהליך השירות.",
-  },
-  {
-    q: "האם מנהל יכול לראות את סטטוס הקריאות?",
-    a: "כן. בפורטל הלקוח ניתן לראות מה פתוח, מה בטיפול ומה ההמשך.",
-  },
-];
+import { formErrorMessage } from "@/data/contact";
+import { technicalSupportPage } from "@/data/pages/technical-support";
+import { SUPPORT_PRIORITIES } from "@/lib/forms";
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
+
+const content = technicalSupportPage;
 
 export default function TechnicalSupportPage() {
   const formsOperational = useFormsOperational();
@@ -174,71 +96,62 @@ export default function TechnicalSupportPage() {
         <div className="container-page py-16 sm:py-20">
           <span className="eyebrow mb-3">
             <StatusDot kind="progress" pulse />
-            תמיכה טכנית
+            {content.hero.eyebrow}
           </span>
           <h1 className="max-w-3xl text-3xl font-extrabold leading-tight text-slate-ink sm:text-4xl md:text-5xl">
-            תמיכה טכנית מסודרת לעסקים
+            {content.hero.title}
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-body sm:text-lg">
-            כל פנייה הופכת לקריאה עם סטטוס, בעל טיפול ותיעוד. לקוח קיים יכול לפתוח קריאה, ועסק שבודק ספק IT יכול לראות איך תהליך התמיכה עובד.
+            {content.hero.intro}
           </p>
           <div className="mt-6 flex flex-col items-start gap-3 sm:mt-8">
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-              <Button href="#support-form" variant="primary" className="w-full sm:w-auto">
-                פתחו קריאת שירות
+              <Button href={content.hero.primaryCta.href} variant="primary" className="w-full sm:w-auto">
+                {content.hero.primaryCta.label}
               </Button>
-              <Button href="#support-process" variant="secondary" className="w-full sm:w-auto">
-                איך עובד תהליך התמיכה
+              <Button href={content.hero.secondaryCta.href} variant="secondary" className="w-full sm:w-auto">
+                {content.hero.secondaryCta.label}
               </Button>
               <Button
-                href={siteUrls.contactDiagnosis}
+                href={content.hero.diagnosisCta.href}
                 variant="secondary"
                 className="hidden sm:inline-flex"
               >
-                קבעו שיחת אבחון
+                {content.hero.diagnosisCta.label}
               </Button>
             </div>
             <Link
-              href={siteUrls.contactDiagnosis}
+              href={content.hero.diagnosisCta.href}
               className="text-sm font-semibold text-signal underline-offset-2 hover:text-signal-ink hover:underline sm:hidden"
             >
-              קבעו שיחת אבחון
+              {content.hero.diagnosisCta.label}
             </Link>
           </div>
         </div>
       </section>
 
       <Section tone="paper">
-        <SectionHeading
-          title="שני מסלולים באותו עמוד"
-          body="העמוד מיועד גם להבנת תהליך התמיכה וגם לפתיחת קריאה קיימת."
-        />
+        <SectionHeading title={content.audience.title} body={content.audience.body} />
         <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {audienceCards.map((card) => (
+          {content.audience.items.map((card) => (
             <InfoCard key={card.title} title={card.title} body={card.body} />
           ))}
         </div>
       </Section>
 
       <Section tone="mute">
-        <SectionHeading
-          title="מה קורה כשאין תהליך תמיכה מסודר"
-          body="תקלות קטנות הופכות לרעש כשאין קריאה, סטטוס ותיעוד."
-        />
+        <SectionHeading title={content.pain.title} body={content.pain.body} />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {painPoints.map((point) => (
+          {content.pain.items.map((point) => (
             <InfoCard key={point.title} title={point.title} body={point.body} />
           ))}
         </div>
       </Section>
 
-      <Section id="support-process" tone="paper">
-        <SectionHeading
-          title="איך קריאת שירות עובדת"
-          body="פנייה אחת נכנסת לתהליך ברור, עד סגירה עם היסטוריה."
-        />
+      <Section id={content.process.id} tone="paper">
+        <SectionHeading title={content.process.title} body={content.process.body} />
         <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {supportSteps.map((step, index) => (
+          {content.process.steps.map((step, index) => (
             <li key={step} className="rounded-card border border-slate-line bg-white p-5 shadow-card">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-signal-soft font-mono text-sm font-bold text-signal-ink">
                 {index + 1}
@@ -250,12 +163,9 @@ export default function TechnicalSupportPage() {
       </Section>
 
       <Section tone="mute">
-        <SectionHeading
-          title="איך פונים אלינו"
-          body="אלה ערוצי הפנייה הבטוחים לתהליך השירות."
-        />
+        <SectionHeading title={content.channels.title} body={content.channels.body} />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {requestChannels.map((channel) => (
+          {content.channels.items.map((channel) => (
             <a
               key={channel.title}
               href={channel.href}
@@ -272,11 +182,8 @@ export default function TechnicalSupportPage() {
       </Section>
 
       <Section tone="mute">
-        <div id="support-form" className="scroll-mt-24" />
-        <SectionHeading
-          title="פתחו קריאת שירות"
-          body="הטופס נשאר הפעולה המרכזית ללקוחות קיימים. אם השליחה אינה פעילה, תוצג הודעת fallback עם פרטי קשר."
-        />
+        <div id={content.form.id} className="scroll-mt-24" />
+        <SectionHeading title={content.form.title} body={content.form.body} />
         <div className="mx-auto min-w-0 max-w-2xl rounded-card border border-slate-line bg-white p-6 shadow-card sm:p-8">
           {submitState === "success" ? (
             <FormSuccessNotice kind="support" />
@@ -319,7 +226,7 @@ export default function TechnicalSupportPage() {
               <fieldset>
                 <legend className="mb-1.5 block text-sm font-medium text-slate-ink">דחיפות</legend>
                 <div className="flex flex-wrap gap-2">
-                  {priorities.map((p) => (
+                  {SUPPORT_PRIORITIES.map((p) => (
                     <button
                       key={p}
                       type="button"
@@ -366,46 +273,36 @@ export default function TechnicalSupportPage() {
               </button>
             </form>
           ) : (
-            <div className="py-8 text-sm text-slate-mute">בודקים אם הטופס זמין...</div>
+            <div className="py-8 text-sm text-slate-mute">{content.form.loadingText}</div>
           )}
         </div>
       </Section>
 
       <Section tone="paper">
-        <SectionHeading title="מה קורה אחרי פתיחת הקריאה" />
+        <SectionHeading title={content.afterForm.title} />
         <div className="mt-6 max-w-3xl rounded-card border border-slate-line bg-white p-6 shadow-card">
-          <p className="text-base leading-relaxed text-slate-body">
-            לאחר פתיחת הקריאה, היא נכנסת לתהליך טיפול. לפי סוג הקריאה יוגדר בעל טיפול, יתועדו הפעולות, והסטטוס יתעדכן לפי תהליך השירות.
-          </p>
+          <p className="text-base leading-relaxed text-slate-body">{content.afterForm.body}</p>
         </div>
       </Section>
 
       <Section tone="ink">
         <div className="grid gap-8 lg:grid-cols-[1fr_0.75fr] lg:items-center">
-          <SectionHeading
-            title="סטטוס, תיעוד ופורטל לקוחות"
-            body="קריאת שירות היא לא רק הודעה. היא כוללת סטטוס, בעל טיפול, תיעוד והיסטוריה. בפורטל הלקוח ניתן לראות מה פתוח, מה בטיפול ומה ההמשך."
-            invert
-          />
+          <SectionHeading title={content.portal.title} body={content.portal.body} invert />
           <div className="rounded-card border border-ink-line bg-ink-soft p-6">
-            <Button href={siteUrls.clientPortal} variant="ghost" className="w-full">
-              ראו פורטל לקוחות
+            <Button href={content.portal.cta.href} variant="ghost" className="w-full">
+              {content.portal.cta.label}
             </Button>
           </div>
         </div>
       </Section>
 
-      <PageFaq title="שאלות נפוצות" body="תשובות קצרות על פתיחת קריאה ותהליך התמיכה." items={supportFaq} />
+      <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} />
 
       <PageFinalCta
-        title="צריכים לפתוח קריאה או לבדוק את תהליך התמיכה?"
-        body="לקוחות קיימים יכולים לפתוח קריאה. עסקים שבודקים ספק IT יכולים להתחיל בשיחת אבחון."
-        primary={{ label: "פתחו קריאת שירות", href: "#support-form", sub: "המסלול המהיר ללקוחות קיימים." }}
-        secondary={{
-          label: "קבעו שיחת אבחון",
-          href: siteUrls.contactDiagnosis,
-          sub: "מתאים לעסק שבודק שירות IT מסודר.",
-        }}
+        title={content.finalCta.title}
+        body={content.finalCta.body}
+        primary={content.finalCta.primary}
+        secondary={content.finalCta.secondary}
       />
     </>
   );
