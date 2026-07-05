@@ -51,7 +51,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["var(--font-noto-sans-hebrew)", "system-ui", "sans-serif"],
-        display: ["var(--font-noto-sans-hebrew)", "system-ui", "sans-serif"],
+        display: ["var(--font-rubik)", "var(--font-noto-sans-hebrew)", "system-ui", "sans-serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       borderRadius: {

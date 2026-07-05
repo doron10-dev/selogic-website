@@ -8,9 +8,8 @@ import { hero } from "@/data/home";
 /** Local server-room background (also in public/hero/hero-bg.jpg). */
 const HERO_BG = "/hero/hero-bg.jpg";
 
-/** Poster frame while hero video loads. */
-const HERO_POSTER =
-  "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=1920&auto=format&fit=crop";
+/** Local poster/still — shown while the video loads and used as the mobile/reduced-motion fallback. */
+const HERO_POSTER = "/hero/hero-bg.jpg";
 
 const TRUST_STRIP = [
   { label: "זמינות מערכות", value: "99.9%" },

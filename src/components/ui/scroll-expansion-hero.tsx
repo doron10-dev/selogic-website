@@ -115,7 +115,7 @@ export function ScrollExpandMedia({
             titleBlend={titleBlend}
           />
           <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl" style={{ maxHeight: "70vh" }}>
-            <HeroMedia mediaType={mediaType} mediaSrc={mediaSrc} posterSrc={posterSrc} alt={resolvedLine1} />
+            <HeroMedia mediaType={mediaType} mediaSrc={mediaSrc} posterSrc={posterSrc} alt={resolvedLine1} staticOnly />
           </div>
           <div className="relative w-full px-2 pt-2 sm:px-4 md:px-8">{children}</div>
         </section>
@@ -161,6 +161,7 @@ export function ScrollExpandMedia({
                 posterSrc={posterSrc}
                 alt={resolvedLine1}
                 overlayOpacity={overlayOpacity}
+                staticOnly={isMobile}
               />
 
               <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-2 bg-gradient-to-b from-[#0c0a24]/90 to-transparent px-4 pb-8 pt-3">
@@ -250,10 +251,19 @@ type MediaProps = {
   posterSrc?: string;
   alt?: string;
   overlayOpacity?: ReturnType<typeof useTransform<number, number>>;
+  /** Render a static poster image instead of the video (mobile / reduced-motion) to save the heavy video download. */
+  staticOnly?: boolean;
 };
 
-function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity }: MediaProps) {
-  if (mediaType === "video") {
+function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity, staticOnly }: MediaProps) {
+  const overlay = (
+    <motion.div
+      className="absolute inset-0 bg-gradient-to-b from-[#0c0a24]/60 via-transparent to-[#0c0a24]/35"
+      style={overlayOpacity ? { opacity: overlayOpacity } : undefined}
+    />
+  );
+
+  if (mediaType === "video" && !staticOnly) {
     return (
       <div className="pointer-events-none relative h-full w-full">
         <video
@@ -263,27 +273,30 @@ function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity }: Medi
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           className="h-full w-full object-cover object-center"
           controls={false}
           disablePictureInPicture
           disableRemotePlayback
         />
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-b from-[#0c0a24]/60 via-transparent to-[#0c0a24]/35"
-          style={overlayOpacity ? { opacity: overlayOpacity } : undefined}
-        />
+        {overlay}
       </div>
     );
   }
 
+  // Static path: use the poster for a video, or the image source directly.
+  const imageSrc = mediaType === "video" ? posterSrc ?? mediaSrc : mediaSrc;
+
   return (
     <div className="relative h-full w-full">
-      <Image src={mediaSrc} alt={alt || "Media content"} width={1280} height={720} className="h-full w-full object-cover" />
-      <motion.div
-        className="absolute inset-0 bg-black/50"
-        style={overlayOpacity ? { opacity: overlayOpacity } : undefined}
+      <Image
+        src={imageSrc}
+        alt={alt || "Media content"}
+        fill
+        sizes="(max-width: 768px) 95vw, 1280px"
+        className="object-cover object-center"
       />
+      {overlay}
     </div>
   );
 }

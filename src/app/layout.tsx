@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans_Hebrew, JetBrains_Mono } from "next/font/google";
+import { Noto_Sans_Hebrew, Rubik, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -15,6 +15,15 @@ const notoSansHebrew = Noto_Sans_Hebrew({
   subsets: ["hebrew", "latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-noto-sans-hebrew",
+  display: "swap",
+  preload: true,
+});
+
+/** Distinct display face for headings — geometric, high-impact, Hebrew-native. */
+const rubik = Rubik({
+  subsets: ["hebrew", "latin"],
+  weight: ["500", "600", "700", "800", "900"],
+  variable: "--font-rubik",
   display: "swap",
   preload: true,
 });
@@ -55,7 +64,7 @@ export default function RootLayout({
       dir="rtl"
       data-theme="dark"
       suppressHydrationWarning
-      className={`${notoSansHebrew.variable} ${notoSansHebrew.className} ${mono.variable}`}
+      className={`${notoSansHebrew.variable} ${rubik.variable} ${notoSansHebrew.className} ${mono.variable}`}
     >
       <head>
         <ThemeScript />

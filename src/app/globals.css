@@ -60,7 +60,8 @@
   h4 {
     color: var(--theme-heading);
     @apply font-display font-bold;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.011em;
+    word-spacing: 0.02em;
   }
 
   ::selection {
