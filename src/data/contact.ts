@@ -12,17 +12,31 @@ export const contactDetails = {
   whatsapp: "97246712500",
   email: "info@selogic.co.il",
   address: "רחוב העמקים 3, ת.ד 1582, טבריה",
+  /** Used for maps / Waze links on contact page */
+  mapsQuery: "רחוב העמקים 3, טבריה",
 } as const;
+
+export function getAddressMapsUrl(): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(contactDetails.mapsQuery)}`;
+}
+
+export function getAddressWazeUrl(): string {
+  return `https://waze.com/ul?q=${encodeURIComponent(contactDetails.mapsQuery)}&navigate=yes`;
+}
 
 export const siteUrls = {
   contact: "/contact",
   /** טופס קביעת שיחת אבחון — נפרד מעמוד צור קשר הכללי */
   contactDiagnosis: "/contact#diagnosis",
   clientPortal: "/client-portal",
+  /** Anchor on portal marketing page when external login is not configured yet */
+  clientPortalLogin: "/client-portal#portal-login",
   /** TODO(production): External portal login URL — falls back to clientPortal page */
   clientPortalExternal: null as string | null,
   remoteSupport: "/remote-support",
   technicalSupport: "/technical-support",
+  privacy: "/privacy",
+  terms: "/terms",
 } as const;
 
 export const siteLabels = {
@@ -41,6 +55,14 @@ export type ContactChannelLinks = {
 
 export function getClientPortalHref(): string {
   return siteUrls.clientPortalExternal ?? siteUrls.clientPortal;
+}
+
+export function getClientPortalLoginHref(): string {
+  return siteUrls.clientPortalExternal ?? siteUrls.clientPortalLogin;
+}
+
+export function hasExternalPortalLogin(): boolean {
+  return Boolean(siteUrls.clientPortalExternal);
 }
 
 export function getContactChannels(): ContactChannelLinks {
@@ -80,13 +102,21 @@ export const formNotConnectedMessage = {
 export const formSuccessMessages = {
   contact: {
     title: "הבקשה נשלחה",
-    body: "קיבלנו את הפרטים. נחזור אליכם בהקדם לתיאום שיחת אבחון.",
+    body: "קיבלנו את הפרטים. נחזור אליכם תוך יום עסקים אחד לתיאום שיחת אבחון.",
+    nextStep:
+      "לקוח קיים שצריך תמיכה דחופה? אפשר לפתוח קריאת שירות במקביל.",
+    nextStepLink: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
   },
   support: {
     title: "הקריאה נשלחה",
-    body: "קיבלנו את הפרטים. נחזור אליכם בהקדם.",
+    body: "קיבלנו את הפרטים. נחזור אליכם בהקדם לפי דחיפות הקריאה.",
+    nextStep: "לדחיפות גבוהה, אפשר גם להתקשר ישירות.",
   },
 } as const;
+
+/** Shown when forms are disabled mid-session (503) or unavailable at submit time. */
+export const formUnavailableMessage =
+  "הטופס אינו זמין כרגע לשליחה. פנו בטלפון או במייל, נחזור לתיאום שיחת אבחון.";
 
 export const formErrorMessage = {
   title: "לא הצלחנו לשלוח",

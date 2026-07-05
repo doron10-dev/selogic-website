@@ -3,17 +3,22 @@ import { siteUrls } from "@/data/contact";
 export type NavItem = {
   label: string;
   href: string;
+  /** Shorter label for desktop header when space is tight */
+  shortLabel?: string;
 };
 
-export const navItems: NavItem[] = [
-  { label: "ראשי", href: "/" },
-  { label: "שירותי IT מנוהלים", href: "/managed-it-services" },
-  { label: "כל השירותים", href: "/solutions" },
-  { label: "תמיכה טכנית לעסקים", href: siteUrls.technicalSupport },
-  { label: "פורטל לקוחות", href: siteUrls.clientPortal },
-  { label: "מערכות ובקרה", href: "/information-systems-and-control" },
-  { label: "אודות", href: "/about" },
-  { label: "צור קשר", href: siteUrls.contact },
+/** Approved main navigation — desktop and mobile (no /solutions in header) */
+export const headerNavItems: NavItem[] = [
+  { label: "ראשי", href: "/", shortLabel: "ראשי" },
+  { label: "שירותי IT מנוהלים", href: "/managed-it-services", shortLabel: "IT מנוהלים" },
+  { label: "תמיכה טכנית", href: siteUrls.technicalSupport, shortLabel: "תמיכה" },
+  { label: "פורטל לקוחות", href: siteUrls.clientPortal, shortLabel: "פורטל" },
+  { label: "מערכות ובקרה", href: "/information-systems-and-control", shortLabel: "מערכות" },
+  { label: "אודות", href: "/about", shortLabel: "אודות" },
+  { label: "צור קשר", href: siteUrls.contact, shortLabel: "צור קשר" },
 ];
 
-export { contactChannels, siteLabels, siteUrls, getClientPortalHref } from "@/data/contact";
+/** Mobile menu — same routes; solutions hub remains in footer only */
+export const navItems: NavItem[] = headerNavItems;
+
+export { contactChannels, siteLabels, siteUrls, getClientPortalHref, getClientPortalLoginHref, hasExternalPortalLogin } from "@/data/contact";

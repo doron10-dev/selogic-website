@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
   try {
     await sendFormEmail({
-      subject: `[Selogic] קריאת שירות [${data.priority}] — ${data.org} — ${data.subject}`,
+      subject: `[Selogic] קריאת שירות [${data.priority}], ${data.org}, ${data.subject}`,
       text: formatSupportEmailBody(data),
     });
     return Response.json({ ok: true });

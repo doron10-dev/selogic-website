@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { StatusDot } from "@/components/status-dot";
 import {
   contactChannels,
@@ -33,23 +34,23 @@ export function FormHoneypot({
 export function FormFallbackNotice() {
   const msg = formNotConnectedMessage;
   return (
-    <div className="flex flex-col items-start gap-3 rounded-xl border border-slate-line bg-paper-mute p-5">
+    <div className="theme-notice-panel">
       <StatusDot kind="waiting" />
-      <h2 className="text-lg font-bold text-slate-ink">{msg.title}</h2>
-      <p className="text-sm leading-relaxed text-slate-body">
+      <h2 className="theme-text-heading text-lg font-bold">{msg.title}</h2>
+      <p className="theme-text-body text-sm leading-relaxed">
         {msg.lead}{" "}
-        <a href={msg.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
+        <a href={msg.phoneHref} className="font-semibold text-blue-600 hover:text-blue-700">
           {msg.phone}
         </a>{" "}
         {msg.emailLead}{" "}
-        <a href={msg.emailHref} className="font-semibold text-signal hover:text-signal-ink">
+        <a href={msg.emailHref} className="font-semibold text-blue-600 hover:text-blue-700">
           {msg.email}
         </a>
         {contactChannels.whatsapp ? (
           <>
             {" "}
             או ב
-            <a href={contactChannels.whatsapp} className="font-semibold text-signal hover:text-signal-ink">
+            <a href={contactChannels.whatsapp} className="font-semibold text-blue-600 hover:text-blue-700">
               וואטסאפ
             </a>
           </>
@@ -65,14 +66,20 @@ export function FormSuccessNotice({ kind }: { kind: "contact" | "support" }) {
   return (
     <div className="flex flex-col items-start gap-3 py-4">
       <StatusDot kind="closed" />
-      <h2 className="text-lg font-bold text-slate-ink">{msg.title}</h2>
-      <p className="text-sm leading-relaxed text-slate-body">{msg.body}</p>
-      {kind === "support" ? (
-        <p className="text-sm text-slate-body">
-          לדחיפות:{" "}
-          <a href={contactDetails.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
-            {contactDetails.phone}
-          </a>
+      <h2 className="theme-text-heading text-lg font-bold">{msg.title}</h2>
+      <p className="theme-text-body text-sm leading-relaxed">{msg.body}</p>
+      {"nextStep" in msg && msg.nextStep ? (
+        <p className="theme-text-body text-sm leading-relaxed">
+          {msg.nextStep}{" "}
+          {"nextStepLink" in msg && msg.nextStepLink ? (
+            <Link href={msg.nextStepLink.href} className="font-semibold text-signal hover:text-signal-ink">
+              {msg.nextStepLink.label}
+            </Link>
+          ) : (
+            <a href={contactDetails.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
+              {contactDetails.phone}
+            </a>
+          )}
         </p>
       ) : null}
     </div>
@@ -82,13 +89,10 @@ export function FormSuccessNotice({ kind }: { kind: "contact" | "support" }) {
 export function FormErrorNotice({ message }: { message: string }) {
   const err = formErrorMessage;
   return (
-    <div
-      className="mb-4 rounded-xl border border-status-progress/30 bg-status-progress/10 px-4 py-3 text-sm text-slate-ink"
-      role="alert"
-    >
-      <p className="font-semibold">{err.title}</p>
-      <p className="mt-1 leading-relaxed">{message}</p>
-      <p className="mt-2 leading-relaxed">
+    <div className="mb-4 rounded-xl border border-status-progress/30 bg-status-progress/10 px-4 py-3 text-sm" role="alert">
+      <p className="theme-text-heading font-semibold">{err.title}</p>
+      <p className="theme-text-body mt-1 leading-relaxed">{message}</p>
+      <p className="theme-text-body mt-2 leading-relaxed">
         {err.lead}{" "}
         <a href={err.phoneHref} className="font-semibold text-signal hover:text-signal-ink">
           {err.phone}

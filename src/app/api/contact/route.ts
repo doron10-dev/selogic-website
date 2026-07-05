@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
   try {
     await sendFormEmail({
-      subject: `[Selogic] בקשת אבחון — ${data.company} — ${data.name}`,
+      subject: `[Selogic] בקשת אבחון | ${data.company}, ${data.name}`,
       text: formatContactEmailBody(data),
       replyTo: data.email,
     });

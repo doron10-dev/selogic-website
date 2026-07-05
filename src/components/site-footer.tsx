@@ -15,7 +15,7 @@ const footerCols: Array<
   {
     title: "brand",
     isBrand: true,
-    text: "חברת מחשוב בוטיק לעסקים בישראל.",
+    text: "חברת מחשוב בוטיק לעסקים בישראל, שירותי IT מנוהלים, תמיכה טכנית ופורטל לקוחות.",
   },
   {
     title: "שירותים",
@@ -54,7 +54,7 @@ const footerCols: Array<
 ];
 
 function FooterLinkItem({ link }: { link: FooterLink }) {
-  const className = "inline-block break-words text-sm text-paper/70 transition-colors hover:text-paper";
+  const className = "theme-footer-link";
 
   if (link.external) {
     return (
@@ -73,7 +73,7 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-ink-line bg-ink text-paper">
+    <footer className="theme-footer">
       <div className="container-page py-12 sm:py-14">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {footerCols.map((col) => (
@@ -81,12 +81,12 @@ export function SiteFooter() {
               {col.isBrand ? (
                 <>
                   <SiteLogo variant="footer" className="mb-4" />
-                  <p className="text-sm leading-relaxed text-paper/60">{col.text}</p>
+                  <p className="theme-text-muted max-w-prose text-[17px] leading-relaxed">{col.text}</p>
                 </>
               ) : (
                 <>
-                  <h3 className="mb-3 text-sm font-bold text-paper">{col.title}</h3>
-                  <ul className="space-y-2">
+                  <h3 className="theme-text-heading mb-3 text-sm font-semibold">{col.title}</h3>
+                  <ul className="space-y-2.5">
                     {col.links.map((link) => (
                       <li key={`${col.title}-${link.label}-${link.href}`}>
                         <FooterLinkItem link={link} />
@@ -100,11 +100,19 @@ export function SiteFooter() {
         </div>
 
         {contactDetails.address && (
-          <p className="mt-8 text-sm text-paper/60">{contactDetails.address}</p>
+          <p className="theme-text-muted mt-8 text-sm leading-relaxed">{contactDetails.address}</p>
         )}
 
-        <div className="mt-12 border-t border-ink-line pt-6 text-xs text-paper/40">
-          © סלוג׳יק — כל הזכויות שמורות
+        <div className="theme-footer-bar">
+          <p>© סלוג׳יק. כל הזכויות שמורות</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <Link href={siteUrls.privacy} className="theme-footer-link">
+              מדיניות פרטיות
+            </Link>
+            <Link href={siteUrls.terms} className="theme-footer-link">
+              תנאי שימוש
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

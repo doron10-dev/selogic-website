@@ -1,130 +1,49 @@
-"use client";
-
-import { useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/button";
-import { StatusDot } from "@/components/status-dot";
-import { Section, SectionHeading } from "@/components/section";
+import { PortalMockup } from "@/components/home/portal-mockup";
+import { Section } from "@/components/section";
 import { portal } from "@/data/home";
-import { siteLabels } from "@/data/contact";
 
-const managerRows = [
-  { status: "progress" as const, label: "בטיפול" },
-  { status: "waiting" as const, label: "ממתין" },
-  { status: "closed" as const, label: "נסגר" },
-];
+function CheckIcon() {
+  return (
+    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
+      <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5">
+        <path d="M3 8l3 3 7-7" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}
 
 export function PortalSection() {
-  const [tab, setTab] = useState<"manager" | "user">("manager");
-
   return (
-    <Section tone="paper" className="py-10 sm:py-14 lg:py-16">
-      <SectionHeading title={portal.title} body={portal.body} />
+    <Section tone="tint" className="py-12 sm:py-16 lg:py-20">
+      <div className="grid items-center gap-10 xl:grid-cols-2 xl:gap-12">
+        <div className="min-w-0 max-w-prose">
+          <p className="theme-eyebrow">{portal.eyebrow}</p>
+          <h2 className="font-display theme-text-heading mt-3 text-3xl font-bold leading-tight sm:text-4xl">
+            {portal.title}
+          </h2>
+          <p className="theme-text-body mt-4 text-[17px] leading-relaxed">{portal.body}</p>
 
-      <p className="mt-4 max-w-2xl text-sm text-slate-mute">{portal.illustrativeNote}</p>
+          <ul className="mt-6 space-y-4">
+            {portal.checklist.map((item) => (
+              <li key={item} className="flex items-start gap-3">
+                <CheckIcon />
+                <span className="theme-text-muted text-sm leading-relaxed">{item}</span>
+              </li>
+            ))}
+          </ul>
 
-      <div
-        className="mt-6 inline-flex w-full max-w-md rounded-pill border border-slate-line bg-white p-1 sm:w-auto"
-        role="tablist"
-        aria-label="תצוגת פורטל"
-      >
-        <button
-          type="button"
-          role="tab"
-          id="portal-tab-manager"
-          aria-selected={tab === "manager"}
-          aria-controls="portal-panel-manager"
-          onClick={() => setTab("manager")}
-          className={`min-h-10 flex-1 rounded-pill px-4 py-2 text-sm font-semibold transition-colors sm:flex-none sm:px-5 ${
-            tab === "manager" ? "bg-signal text-white shadow-sm" : "text-slate-body hover:text-slate-ink"
-          }`}
-        >
-          {portal.manager.title}
-        </button>
-        <button
-          type="button"
-          role="tab"
-          id="portal-tab-user"
-          aria-selected={tab === "user"}
-          aria-controls="portal-panel-user"
-          onClick={() => setTab("user")}
-          className={`min-h-10 flex-1 rounded-pill px-4 py-2 text-sm font-semibold transition-colors sm:flex-none sm:px-5 ${
-            tab === "user" ? "bg-signal text-white shadow-sm" : "text-slate-body hover:text-slate-ink"
-          }`}
-        >
-          {portal.user.title}
-        </button>
-      </div>
-
-      <div
-        id={tab === "manager" ? "portal-panel-manager" : "portal-panel-user"}
-        role="tabpanel"
-        aria-labelledby={tab === "manager" ? "portal-tab-manager" : "portal-tab-user"}
-        className="mt-5 min-w-0 overflow-hidden rounded-card border border-slate-line bg-white shadow-card"
-      >
-        <div className="flex items-center justify-between gap-3 border-b border-slate-line bg-paper-mute/60 px-4 py-2.5 sm:px-5">
-          <div className="flex items-center gap-2">
-            <StatusDot kind="open" />
-            <span className="text-xs font-semibold text-slate-ink">{siteLabels.clientPortal}</span>
+          <div className="mt-8">
+            <Button href={portal.cta.href} variant="secondary">
+              {portal.cta.label}
+            </Button>
           </div>
-          <span className="font-mono text-[11px] text-slate-mute">SLA · סטטוס · תיעוד</span>
         </div>
 
-        <div className="p-4 sm:p-5">
-          {tab === "manager" ? (
-            <div>
-              <p className="text-sm leading-relaxed text-slate-body">{portal.manager.desc}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {(["open", "progress", "waiting", "closed"] as const).map((s, i) => (
-                  <span
-                    key={s}
-                    className="inline-flex items-center gap-1.5 rounded-pill border border-slate-line/70 bg-paper-mute px-2.5 py-1 text-xs font-medium text-slate-ink"
-                  >
-                    <StatusDot kind={s} />
-                    {["פתוח", "בטיפול", "ממתין", "נסגר"][i]}
-                  </span>
-                ))}
-              </div>
-              <ul className="mt-4 overflow-hidden rounded-xl border border-slate-line">
-                {managerRows.map((row, i) => (
-                  <li
-                    key={row.label}
-                    className={`flex items-center justify-between gap-3 px-3 py-2 ${
-                      i !== managerRows.length - 1 ? "border-b border-slate-line/60" : ""
-                    }`}
-                  >
-                    <span className="text-sm text-slate-body">קריאה</span>
-                    <span className="flex items-center gap-2">
-                      <span className="text-xs text-slate-mute">{row.label}</span>
-                      <StatusDot kind={row.status} />
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <div>
-              <p className="text-sm leading-relaxed text-slate-body">{portal.user.desc}</p>
-              <div className="mt-4 grid gap-2 sm:grid-cols-2">
-                <div className="rounded-xl border border-slate-line/70 bg-paper-mute p-3">
-                  <p className="text-xs font-semibold text-slate-ink">סטטוס</p>
-                  <p className="mt-1.5 flex items-center gap-2 text-sm text-slate-body">
-                    <StatusDot kind="progress" /> בטיפול
-                  </p>
-                </div>
-                <div className="rounded-xl border border-slate-line/70 bg-paper-mute p-3">
-                  <p className="text-xs font-semibold text-slate-ink">היסטוריה</p>
-                  <p className="mt-1.5 text-sm text-slate-body">תיעוד מסודר לכל קריאה</p>
-                </div>
-              </div>
-            </div>
-          )}
+        <div className="min-w-0">
+          <PortalMockup />
         </div>
-      </div>
-
-      <div className="mt-6">
-        <Button href={portal.cta.href} variant="secondary">
-          {portal.cta.label}
-        </Button>
       </div>
     </Section>
   );

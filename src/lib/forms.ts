@@ -57,6 +57,38 @@ function isValidEmail(email: string): boolean {
   return EMAIL_RE.test(email) && email.length <= 254;
 }
 
+export type ContactFieldKey = keyof ContactPayload;
+
+export function getContactFieldError(key: ContactFieldKey, value: string): string | null {
+  const trimmed = value.trim();
+
+  switch (key) {
+    case "name":
+      if (!trimmed) return "נא למלא שם מלא";
+      if (trimmed.length < 2) return "שם קצר מדי";
+      return null;
+    case "company":
+      if (!trimmed) return "נא למלא שם העסק";
+      if (trimmed.length < 2) return "שם העסק קצר מדי";
+      return null;
+    case "phone":
+      if (!trimmed) return "נא למלא טלפון";
+      if (digitsOnlyPhone(trimmed).length < 9) return "נא למלא מספר טלפון תקין";
+      return null;
+    case "email":
+      if (!trimmed) return "נא למלא מייל";
+      if (!isValidEmail(trimmed)) return "נא למלא כתובת מייל תקינה";
+      return null;
+    default:
+      return null;
+  }
+}
+
+export function validateContactStepOne(form: Pick<ContactPayload, "name" | "company" | "phone" | "email">): ContactFieldKey[] {
+  const fields = ["name", "company", "phone", "email"] as const;
+  return fields.filter((key) => getContactFieldError(key, form[key]) !== null);
+}
+
 export function validateContactPayload(raw: Record<string, unknown>): ValidationResult<ContactPayload> {
   const data: ContactPayload = {
     name: cleanField(raw.name, 100),
@@ -111,20 +143,20 @@ export function validateSupportPayload(raw: Record<string, unknown>): Validation
 
 export function formatContactEmailBody(data: ContactPayload): string {
   const lines = [
-    "בקשת אבחון IT — Selogic",
+    "בקשת אבחון IT | Selogic",
     "",
     `שם: ${data.name}`,
     `עסק: ${data.company}`,
-    `תפקיד: ${data.role || "—"}`,
+    `תפקיד: ${data.role || "לא צוין"}`,
     `טלפון: ${data.phone}`,
     `מייל: ${data.email}`,
-    `מספר עובדים: ${data.employees || "—"}`,
+    `מספר עובדים: ${data.employees || "לא צוין"}`,
     "",
     "מה הכי כואב היום ב-IT?",
-    data.pain || "—",
+    data.pain || "לא צוין",
     "",
     "הודעה:",
-    data.message || "—",
+    data.message || "לא צוין",
     "",
     `נשלח: ${new Date().toISOString()}`,
   ];
@@ -133,7 +165,7 @@ export function formatContactEmailBody(data: ContactPayload): string {
 
 export function formatSupportEmailBody(data: SupportPayload): string {
   const lines = [
-    "קריאת שירות — Selogic",
+    "קריאת שירות | Selogic",
     "",
     `שם: ${data.name}`,
     `ארגון: ${data.org}`,

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "צור קשר",
   description:
-    "קבעו שיחת אבחון ומיפוי מצב קיים — בטלפון, במייל, בוואטסאפ או בטופס. כתובת: רחוב העמקים 3, ת.ד 1582, טבריה.",
-};
+    "קבעו שיחת אבחון ומיפוי מצב קיים, בטלפון, במייל, בוואטסאפ או בטופס. כתובת: רחוב העמקים 3, ת.ד 1582, טבריה.",
+  path: "/contact",
+});
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {
   return children;

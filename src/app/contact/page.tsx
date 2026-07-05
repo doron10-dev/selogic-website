@@ -5,6 +5,8 @@ import { useMemo, useRef, useState } from "react";
 import { Button } from "@/components/button";
 import { Section } from "@/components/section";
 import { StatusDot } from "@/components/status-dot";
+import { ServiceIconChip } from "@/lib/service-icons";
+import { MapPin } from "lucide-react";
 import {
   FormErrorNotice,
   FormFallbackNotice,
@@ -16,11 +18,19 @@ import {
   contactChannels,
   contactDetails,
   formErrorMessage,
+  formUnavailableMessage,
+  getAddressMapsUrl,
+  getAddressWazeUrl,
   getEmailDisplayLabel,
   getPhoneDisplayLabel,
   siteLabels,
   siteUrls,
 } from "@/data/contact";
+import {
+  getContactFieldError,
+  validateContactStepOne,
+  type ContactFieldKey,
+} from "@/lib/forms";
 
 type ContactMethod = {
   title: string;
@@ -31,9 +41,6 @@ type ContactMethod = {
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-const formUnavailableMessage =
-  "הטופס אינו זמין כרגע לשליחה. פנו בטלפון או במייל — נחזור לתיאום שיחת אבחון.";
-
 export default function ContactPage() {
   const formsOperational = useFormsOperational();
   const formLoadedAt = useRef(Date.now());
@@ -41,6 +48,9 @@ export default function ContactPage() {
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<string[]>([]);
+  const [step, setStep] = useState<1 | 2>(1);
+  const [touched, setTouched] = useState<Partial<Record<ContactFieldKey, boolean>>>({});
+  const [localHints, setLocalHints] = useState<Partial<Record<ContactFieldKey, string>>>({});
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -81,11 +91,44 @@ export default function ContactPage() {
     return list;
   }, []);
 
-  const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
-    setForm((f) => ({ ...f, [key]: e.target.value }));
+  const update = (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    setForm((f) => ({ ...f, [key]: value }));
+    if (touched[key as ContactFieldKey]) {
+      const hint = getContactFieldError(key as ContactFieldKey, value);
+      setLocalHints((h) => ({ ...h, [key]: hint ?? undefined }));
+    }
+  };
+
+  const markTouched = (key: ContactFieldKey) => () => {
+    setTouched((t) => ({ ...t, [key]: true }));
+    const hint = getContactFieldError(key, form[key]);
+    setLocalHints((h) => ({ ...h, [key]: hint ?? undefined }));
+  };
+
+  const goToStepTwo = () => {
+    const invalid = validateContactStepOne(form);
+    setTouched({ name: true, company: true, phone: true, email: true });
+    const hints: Partial<Record<ContactFieldKey, string>> = {};
+    (["name", "company", "phone", "email"] as const).forEach((key) => {
+      const hint = getContactFieldError(key, form[key]);
+      if (hint) hints[key] = hint;
+    });
+    setLocalHints(hints);
+    if (invalid.length > 0) {
+      setFieldErrors(invalid);
+      return;
+    }
+    setFieldErrors([]);
+    setStep(2);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (step === 1) {
+      goToStepTwo();
+      return;
+    }
     if (!formsOperational) return;
 
     setSubmitState("submitting");
@@ -111,6 +154,7 @@ export default function ContactPage() {
 
       if (res.ok && data.ok) {
         setSubmitState("success");
+        setStep(1);
         return;
       }
 
@@ -135,22 +179,23 @@ export default function ContactPage() {
     }
   };
 
-  const showForm = formsOperational !== false && submitState !== "success";
+  const showForm = submitState !== "success";
   const formDisabled = formsOperational !== true || submitState === "submitting";
+  const showDisabledBanner = formsOperational === false;
 
   return (
     <>
-      <section className="border-b border-slate-line bg-paper">
+      <section className="theme-page-hero">
         <div className="container-page py-10 sm:py-16 lg:py-20">
           <span className="eyebrow mb-3">
             <StatusDot kind="open" pulse />
             צור קשר
           </span>
-          <h1 className="max-w-3xl text-[1.625rem] font-extrabold leading-[1.2] text-slate-ink sm:text-4xl sm:leading-tight md:text-5xl">
+          <h1 className="font-display theme-text-heading max-w-3xl text-[1.625rem] font-extrabold leading-[1.2] sm:text-4xl sm:leading-tight md:text-5xl">
             רוצים להבין איפה ה-IT של העסק עומד?
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-body sm:mt-5 sm:text-lg">
-            שיחת אבחון, מיפוי מצב קיים והבנת פערים — לפני התאמת תהליך שירות. מייל, טלפון, או טופס למטה.
+          <p className="theme-text-body mt-4 max-w-prose text-[17px] leading-relaxed sm:mt-5 sm:text-lg">
+            שיחת אבחון, מיפוי מצב קיים והבנת פערים, לפני התאמת תהליך שירות. מייל, טלפון, או טופס למטה.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Button href="#diagnosis" variant="primary">
@@ -164,7 +209,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <Section tone="mute">
+      <Section tone="muted" className="py-10 sm:py-14 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
           <div className="space-y-4">
             {methods.length > 0 ? (
@@ -172,148 +217,238 @@ export default function ContactPage() {
                 <a
                   key={m.title}
                   href={m.href}
-                  className="block min-w-0 rounded-card border border-slate-line bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-signal/40 hover:shadow-lift"
+                  className="theme-card-interactive group block min-w-0"
                 >
-                  <h3 className="text-base font-bold text-slate-ink">{m.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-slate-body">{m.desc}</p>
-                  <span className="mt-3 inline-block text-sm font-semibold text-signal">{m.label} ←</span>
+                  <ServiceIconChip title={m.title} href={m.href} />
+                  <h3 className="theme-text-heading mt-4 text-lg font-semibold">{m.title}</h3>
+                  <p className="theme-text-muted mt-2 text-sm leading-relaxed">{m.desc}</p>
+                  <span className="mt-4 inline-block text-sm font-medium text-blue-600 transition-transform duration-200 group-hover:-translate-x-1">
+                    {m.label} ←
+                  </span>
                 </a>
               ))
             ) : (
-              <div className="rounded-card border border-slate-line bg-white p-6 shadow-card">
-                <h3 className="text-base font-bold text-slate-ink">{siteLabels.contact}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-body">
+              <div className="theme-card-interactive">
+                <h3 className="theme-text-heading text-lg font-semibold">{siteLabels.contact}</h3>
+                <p className="theme-text-muted mt-2 text-sm leading-relaxed">
                   מלאו את הטופס ונחזור אליכם לתיאום שיחת אבחון.
                 </p>
               </div>
             )}
 
-            <div className="rounded-card border border-slate-line bg-white p-5 shadow-card">
-              <h3 className="text-base font-bold text-slate-ink">כתובת</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-body">{contactDetails.address}</p>
+            <div className="theme-card-interactive">
+              <span className="icon-chip !h-11 !w-11">
+                <MapPin size={22} aria-hidden="true" />
+              </span>
+              <h3 className="theme-text-heading mt-4 text-lg font-semibold">כתובת</h3>
+              <p className="theme-text-muted mt-2 text-sm leading-relaxed">{contactDetails.address}</p>
+              <div className="mt-4 flex flex-wrap gap-3 text-sm font-medium">
+                <a
+                  href={getAddressMapsUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 transition-colors hover:text-blue-700"
+                >
+                  Google Maps
+                </a>
+                <a
+                  href={getAddressWazeUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 transition-colors hover:text-blue-700"
+                >
+                  Waze
+                </a>
+              </div>
             </div>
           </div>
 
-          <div
-            id="diagnosis"
-            className="min-w-0 scroll-mt-32 rounded-card border border-slate-line bg-white p-5 shadow-card sm:scroll-mt-28 sm:p-8"
-          >
+          <div id="diagnosis" className="theme-contact-form-panel">
             {submitState === "success" ? (
               <FormSuccessNotice kind="contact" />
-            ) : formsOperational === false ? (
-              <FormFallbackNotice />
             ) : showForm ? (
               <form onSubmit={handleSubmit} className="relative space-y-5">
                 <FormHoneypot value={honeypot} onChange={setHoneypot} />
 
+                {showDisabledBanner ? <FormFallbackNotice /> : null}
+
+                {formsOperational === null ? (
+                  <div className="theme-text-muted flex items-center gap-2 py-2 text-sm">
+                    <StatusDot kind="waiting" />
+                    בודקים אם הטופס זמין...
+                  </div>
+                ) : null}
+
+                <div className={showDisabledBanner || formsOperational === null ? "space-y-5 opacity-60" : "space-y-5"}>
+
                 <div>
-                  <h2 className="text-lg font-bold text-slate-ink">קבעו שיחת אבחון</h2>
-                  <p className="mt-1 text-sm text-slate-body">
-                    מלאו פרטים — נחזור לתיאום שיחת היכרות, מיפוי ראשוני והבנת פערים.
+                  <h2 className="theme-text-heading text-lg font-semibold">קבעו שיחת אבחון</h2>
+                  <p className="theme-text-body mt-1 text-sm">
+                    מלאו פרטים, נחזור לתיאום שיחת היכרות, מיפוי ראשוני והבנת פערים.
                   </p>
-                  <p className="mt-3 text-sm text-slate-body">
+                  <p className="theme-text-body mt-3 text-sm">
                     לקוח קיים שצריך לפתוח קריאת שירות?{" "}
-                    <Link
-                      href={siteUrls.technicalSupport}
-                      className="font-semibold text-signal hover:text-signal-ink"
-                    >
+                    <Link href={siteUrls.technicalSupport} className="font-semibold text-blue-700 hover:text-blue-800">
                       פתחו קריאת שירות
                     </Link>
                     .
                   </p>
+
+                  <div className="mt-5 flex items-center gap-3" aria-label="התקדמות בטופס">
+                    <span className={`theme-step-dot ${step === 1 ? "is-active" : ""}`}>1</span>
+                    <span className="theme-step-line" aria-hidden="true" />
+                    <span className={`theme-step-dot ${step === 2 ? "is-active" : ""}`}>2</span>
+                    <span className="theme-text-body text-sm">
+                      {step === 1 ? "פרטי קשר" : "פרטים נוספים (אופציונלי)"}
+                    </span>
+                  </div>
                 </div>
 
                 {submitState === "error" ? <FormErrorNotice message={errorMessage} /> : null}
 
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field
-                    id="contact-name"
-                    label="שם מלא"
-                    value={form.name}
-                    onChange={update("name")}
-                    required
-                    invalid={fieldErrors.includes("name")}
-                  />
-                  <Field
-                    id="contact-company"
-                    label="שם העסק"
-                    value={form.company}
-                    onChange={update("company")}
-                    required
-                    invalid={fieldErrors.includes("company")}
-                  />
+                {step === 1 ? (
+                  <>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field
+                        id="contact-name"
+                        label="שם מלא"
+                        value={form.name}
+                        onChange={update("name")}
+                        onBlur={markTouched("name")}
+                        required
+                        invalid={fieldErrors.includes("name") || Boolean(localHints.name)}
+                        hint={localHints.name}
+                        disabled={formDisabled}
+                      />
+                      <Field
+                        id="contact-company"
+                        label="שם העסק"
+                        value={form.company}
+                        onChange={update("company")}
+                        onBlur={markTouched("company")}
+                        required
+                        invalid={fieldErrors.includes("company") || Boolean(localHints.company)}
+                        hint={localHints.company}
+                        disabled={formDisabled}
+                      />
+                    </div>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field
+                        id="contact-phone"
+                        label="טלפון"
+                        value={form.phone}
+                        onChange={update("phone")}
+                        onBlur={markTouched("phone")}
+                        type="tel"
+                        required
+                        invalid={fieldErrors.includes("phone") || Boolean(localHints.phone)}
+                        hint={localHints.phone}
+                        disabled={formDisabled}
+                      />
+                      <Field
+                        id="contact-email"
+                        label="מייל"
+                        value={form.email}
+                        onChange={update("email")}
+                        onBlur={markTouched("email")}
+                        type="email"
+                        required
+                        invalid={fieldErrors.includes("email") || Boolean(localHints.email)}
+                        hint={localHints.email}
+                        disabled={formDisabled}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={goToStepTwo}
+                      disabled={formDisabled}
+                      className="btn-cta w-full"
+                    >
+                      המשך לפרטים נוספים
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                      <Field
+                        id="contact-role"
+                        label="תפקיד"
+                        value={form.role}
+                        onChange={update("role")}
+                        disabled={formDisabled}
+                        optional
+                      />
+                      <Field
+                        id="contact-employees"
+                        label="מספר עובדים"
+                        value={form.employees}
+                        onChange={update("employees")}
+                        disabled={formDisabled}
+                        optional
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-pain" className="theme-field-label">
+                        מה הכי כואב היום ב-IT? <span className="theme-text-muted font-normal">(אופציונלי)</span>
+                      </label>
+                      <textarea
+                        id="contact-pain"
+                        name="pain"
+                        value={form.pain}
+                        onChange={update("pain")}
+                        rows={3}
+                        disabled={formDisabled}
+                        className="theme-field-input"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-message" className="theme-field-label">
+                        הודעה <span className="theme-text-muted font-normal">(אופציונלי)</span>
+                      </label>
+                      <textarea
+                        id="contact-message"
+                        name="message"
+                        value={form.message}
+                        onChange={update("message")}
+                        rows={4}
+                        disabled={formDisabled}
+                        className="theme-field-input"
+                      />
+                    </div>
+
+                    <p className="theme-text-body text-sm leading-relaxed">
+                      הפרטים נשמרים אצלנו בלבד. נחזור אליכם בדרך כלל בתוך יום עסקים, בלי ספאם ובלי העברה לצד שלישי.
+                    </p>
+
+                    <div className="flex flex-col gap-3 sm:flex-row">
+                      <button
+                        type="button"
+                        onClick={() => setStep(1)}
+                        disabled={formDisabled}
+                        className="inline-flex min-h-11 w-full items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                        style={{
+                          borderColor: "var(--theme-border)",
+                          backgroundColor: "var(--theme-input)",
+                          color: "var(--theme-heading)",
+                        }}
+                      >
+                        חזרה
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={formDisabled}
+                        aria-label="שליחת בקשה לקביעת שיחת אבחון"
+                        aria-busy={submitState === "submitting"}
+                        className="btn-cta w-full flex-1"
+                      >
+                        {submitState === "submitting" ? "שולח..." : "שליחה לקביעת שיחה"}
+                      </button>
+                    </div>
+                  </>
+                )}
                 </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field id="contact-role" label="תפקיד" value={form.role} onChange={update("role")} />
-                  <Field
-                    id="contact-phone"
-                    label="טלפון"
-                    value={form.phone}
-                    onChange={update("phone")}
-                    type="tel"
-                    required
-                    invalid={fieldErrors.includes("phone")}
-                  />
-                </div>
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <Field
-                    id="contact-email"
-                    label="מייל"
-                    value={form.email}
-                    onChange={update("email")}
-                    type="email"
-                    required
-                    invalid={fieldErrors.includes("email")}
-                  />
-                  <Field
-                    id="contact-employees"
-                    label="מספר עובדים"
-                    value={form.employees}
-                    onChange={update("employees")}
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-pain" className="mb-1.5 block text-sm font-medium text-slate-ink">
-                    מה הכי כואב היום ב-IT?
-                  </label>
-                  <textarea
-                    id="contact-pain"
-                    name="pain"
-                    value={form.pain}
-                    onChange={update("pain")}
-                    rows={3}
-                    className="w-full rounded-xl border border-slate-line bg-paper px-4 py-3 text-sm text-slate-ink outline-none transition-colors focus:border-signal"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="contact-message" className="mb-1.5 block text-sm font-medium text-slate-ink">
-                    הודעה
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    value={form.message}
-                    onChange={update("message")}
-                    rows={4}
-                    className="w-full rounded-xl border border-slate-line bg-paper px-4 py-3 text-sm text-slate-ink outline-none transition-colors focus:border-signal"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={formDisabled}
-                  aria-label="שליחת בקשה לקביעת שיחת אבחון"
-                  aria-busy={submitState === "submitting"}
-                  className="min-h-11 w-full rounded-pill bg-signal px-6 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-signal-ink disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {submitState === "submitting" ? "שולח..." : "שליחה לקביעת שיחה"}
-                </button>
               </form>
-            ) : (
-              <div className="flex flex-col items-start gap-2 py-8">
-                <StatusDot kind="waiting" />
-                <p className="text-sm text-slate-body">בודקים אם הטופס זמין...</p>
-              </div>
-            )}
+            ) : null}
           </div>
         </div>
       </Section>
@@ -326,23 +461,33 @@ function Field({
   label,
   value,
   onChange,
+  onBlur,
   type = "text",
   required = false,
+  optional = false,
   invalid = false,
+  hint,
+  disabled = false,
 }: {
   id: string;
   label: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
   type?: string;
   required?: boolean;
+  optional?: boolean;
   invalid?: boolean;
+  hint?: string;
+  disabled?: boolean;
 }) {
+  const hintId = hint ? `${id}-hint` : undefined;
+
   return (
     <div>
-      <label htmlFor={id} className="mb-1.5 block text-sm font-medium text-slate-ink">
+      <label htmlFor={id} className="theme-field-label">
         {label}
-        {required ? " *" : ""}
+        {required ? " *" : optional ? <span className="theme-text-muted font-normal"> (אופציונלי)</span> : null}
       </label>
       <input
         id={id}
@@ -350,12 +495,18 @@ function Field({
         type={type}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
         required={required}
-        aria-invalid={invalid}
-        className={`w-full rounded-xl border bg-paper px-4 py-3 text-sm text-slate-ink outline-none transition-colors focus:border-signal ${
-          invalid ? "border-status-progress" : "border-slate-line"
-        }`}
+        disabled={disabled}
+        aria-invalid={invalid || Boolean(hint)}
+        aria-describedby={hintId}
+        className={`theme-field-input ${invalid || hint ? "theme-field-input--invalid" : ""}`}
       />
+      {hint ? (
+        <p id={hintId} className="mt-1.5 text-xs text-orange-700" role="alert">
+          {hint}
+        </p>
+      ) : null}
     </div>
   );
 }

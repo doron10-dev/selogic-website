@@ -9,3 +9,9 @@ npm-debug.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# local/generated leftovers (not for repo)
+.tmp-tailwind-out.css
+.cursor/
+.claude/
+imagery/

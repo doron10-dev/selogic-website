@@ -1,51 +1,29 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
-import { Section, SectionHeading } from "@/components/section";
-import { CardGrid } from "@/components/feature-card";
 import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
-import {
-  TrustStripSection,
-  ManagedItSection,
-  HowWeWorkSection,
-  ServicesHubSection,
-  ComparisonSection,
-  SlaSection,
-  CompactTechStackSection,
-  FinalCtaSection,
-} from "@/components/home/sections";
-import { painPoints, audience } from "@/data/home";
+import { WhySection, ServicesBentoSection, ProcessSection, FinalCtaSection } from "@/components/home/sections";
+import { JsonLd } from "@/components/json-ld";
+import { faq } from "@/data/home";
+import { buildFaqJsonLd } from "@/lib/json-ld";
+import { buildPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "שירותי IT מנוהלים לעסקים בישראל",
   description:
-    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל — כולל אזור טבריה והצפון.",
-};
+    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל, כולל אזור טבריה והצפון.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={buildFaqJsonLd(faq.items)} />
       <Hero />
-      <TrustStripSection />
-
-      <Section tone="paper">
-        <SectionHeading title={painPoints.title} body={painPoints.body} />
-        <CardGrid items={painPoints.items} cols={3} density="compact" />
-      </Section>
-
-      <ManagedItSection />
-      <HowWeWorkSection />
-      <ServicesHubSection />
+      <WhySection />
+      <ServicesBentoSection />
       <PortalSection />
-      <SlaSection />
-      <CompactTechStackSection />
-      <ComparisonSection />
-
-      <Section tone="mute">
-        <SectionHeading title={audience.title} body={audience.body} />
-        <CardGrid items={audience.items} cols={4} density="compact" />
-      </Section>
-
+      <ProcessSection />
       <FaqSection />
       <FinalCtaSection />
     </>
