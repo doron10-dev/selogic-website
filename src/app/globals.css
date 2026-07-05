@@ -323,12 +323,14 @@
   }
 
   .theme-footer-link {
-    @apply inline-block break-words text-sm transition-colors;
+    @apply inline-block break-words text-sm underline decoration-transparent underline-offset-4 transition-colors;
     color: var(--theme-muted);
+    text-decoration-color: transparent;
   }
 
   .theme-footer-link:hover {
     color: var(--theme-link);
+    text-decoration-color: currentColor;
   }
 
   .theme-footer-bar {
@@ -502,7 +504,7 @@
     border-color: var(--theme-border);
     background-color: var(--theme-input);
     color: var(--theme-heading);
-    @apply border shadow-sm transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0;
+    @apply border shadow-sm transition-all duration-200;
   }
 
   .theme-btn-secondary:hover:not(:disabled) {
@@ -574,6 +576,13 @@
     @apply hover:border-blue-500/50;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .card-surface-hover:hover,
+    .theme-featured-card:hover {
+      transform: none !important;
+    }
+  }
+
   .btn-cta {
     @apply inline-flex min-h-11 items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-white shadow-md transition-all disabled:cursor-not-allowed disabled:opacity-60;
     background-color: #4f46e5;
@@ -583,16 +592,44 @@
     background-color: #6366f1;
   }
 
+  .btn-lift {
+    @apply transition-all duration-200;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn-lift:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-lift:active {
+      transform: translateY(0);
+    }
+  }
+
   .dark-card {
     @apply rounded-panel border border-white/15 bg-white/10 backdrop-blur-sm;
   }
 
   .icon-chip {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600;
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-[transform,background-color,color] duration-200;
   }
 
   html[data-theme="dark"] .icon-chip {
     @apply bg-blue-950/50 text-blue-300;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .group:hover .icon-chip {
+      transform: scale(1.06);
+    }
+  }
+
+  .group:hover .icon-chip {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  html[data-theme="dark"] .group:hover .icon-chip {
+    @apply bg-blue-900/60 text-blue-200;
   }
 
   .badge-pill {
