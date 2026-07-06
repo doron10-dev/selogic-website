@@ -2,6 +2,7 @@
 
 import { StatusProgressRow, type BarTone } from "@/components/home/illustrative-bar";
 import { MockupLiveIndicator } from "@/components/mockup-live-indicator";
+import { StatusDot } from "@/components/status-dot";
 import { useInViewOnce } from "@/hooks/use-in-view-once";
 
 export type MiniMockupVariant =
@@ -12,6 +13,9 @@ export type MiniMockupVariant =
   | "network"
   | "monitoring"
   | "support";
+
+/** Visual layout families — same design system, different operational feel. */
+type MockLayout = "board" | "queue" | "tiles" | "monitor";
 
 type MockRow = {
   title: string;
@@ -101,9 +105,40 @@ const CONFIGS: Record<MiniMockupVariant, MockConfig> = {
   },
 };
 
+const LAYOUT_BY_VARIANT: Record<MiniMockupVariant, MockLayout> = {
+  dispatch: "board",
+  security: "board",
+  m365: "board",
+  support: "queue",
+  portal: "tiles",
+  monitoring: "monitor",
+  network: "monitor",
+};
+
+const BADGE_CLASS: Record<BarTone, string> = {
+  orange: "theme-status-badge theme-status-badge--orange",
+  blue: "theme-status-badge theme-status-badge--blue",
+  green: "theme-status-badge theme-status-badge--green",
+};
+
+const DOT_KIND: Record<BarTone, "progress" | "waiting" | "closed"> = {
+  orange: "progress",
+  blue: "waiting",
+  green: "closed",
+};
+
+function Badge({ tone, children }: { tone: BarTone; children: string }) {
+  return (
+    <span className={`badge-pill shrink-0 border px-2.5 py-1 text-xs font-semibold ${BADGE_CLASS[tone]}`}>
+      {children}
+    </span>
+  );
+}
+
 export function MiniMockup({ variant }: { variant: MiniMockupVariant }) {
   const { ref, inView } = useInViewOnce();
   const config = CONFIGS[variant];
+  const layout = LAYOUT_BY_VARIANT[variant];
 
   return (
     <div ref={ref} className="theme-mockup-shell">
@@ -119,21 +154,91 @@ export function MiniMockup({ variant }: { variant: MiniMockupVariant }) {
           {config.note ? <span className="theme-badge-note">{config.note}</span> : null}
         </div>
 
-        <div className="space-y-3">
-          {config.rows.map((row, index) => (
-            <StatusProgressRow
-              key={row.title}
-              title={row.title}
-              sub={row.sub}
-              badge={row.badge}
-              tone={row.tone}
-              fillPercent={row.fillPercent}
-              animateFill={inView}
-              fillDelayMs={index * 160}
-            />
-          ))}
-        </div>
+        {layout === "board" ? <BoardBody rows={config.rows} inView={inView} /> : null}
+        {layout === "queue" ? <QueueBody rows={config.rows} /> : null}
+        {layout === "tiles" ? <TilesBody rows={config.rows} inView={inView} /> : null}
+        {layout === "monitor" ? <MonitorBody rows={config.rows} /> : null}
       </div>
+    </div>
+  );
+}
+
+/** Managed IT / solutions — progress-driven control board. */
+function BoardBody({ rows, inView }: { rows: MockRow[]; inView: boolean }) {
+  return (
+    <div className="space-y-3">
+      {rows.map((row, index) => (
+        <StatusProgressRow
+          key={row.title}
+          title={row.title}
+          sub={row.sub}
+          badge={row.badge}
+          tone={row.tone}
+          fillPercent={row.fillPercent}
+          animateFill={inView}
+          fillDelayMs={index * 160}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Technical / remote support — service-desk queue. */
+function QueueBody({ rows }: { rows: MockRow[] }) {
+  return (
+    <div className="space-y-2">
+      <p className="theme-text-muted mb-1 text-[11px] font-medium">{rows.length} קריאות בתור</p>
+      {rows.map((row, index) => (
+        <div key={row.title} className="theme-status-row flex items-center gap-3">
+          <span className="theme-step-dot h-7 w-7 text-xs" aria-hidden="true">
+            {index + 1}
+          </span>
+          <div className="min-w-0 flex-1 text-right">
+            <p className="theme-text-heading text-sm font-semibold">{row.title}</p>
+            {row.sub ? <p className="theme-text-muted mt-0.5 text-xs">{row.sub}</p> : null}
+          </div>
+          <Badge tone={row.tone}>{row.badge}</Badge>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Client portal — visibility status tiles. */
+function TilesBody({ rows, inView }: { rows: MockRow[]; inView: boolean }) {
+  return (
+    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+      {rows.map((row) => (
+        <div key={row.title} className="theme-inner-card flex flex-col items-center gap-2 text-center">
+          <Badge tone={row.tone}>{row.badge}</Badge>
+          <p className="theme-text-heading text-sm font-semibold leading-snug">{row.title}</p>
+          <span
+            className={`status-dot ${row.tone === "green" ? "bg-status-closed" : row.tone === "blue" ? "bg-status-waiting" : "bg-status-progress"} ${
+              inView && row.tone === "orange" ? "animate-pulse-dot" : ""
+            }`}
+            aria-hidden="true"
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Monitoring / network — alerts & readouts feed. */
+function MonitorBody({ rows }: { rows: MockRow[] }) {
+  return (
+    <div className="space-y-2">
+      {rows.map((row) => (
+        <div key={row.title} className="theme-status-row flex items-center gap-3">
+          <StatusDot kind={DOT_KIND[row.tone]} pulse={row.tone === "orange"} />
+          <div className="min-w-0 flex-1 text-right">
+            <p className="theme-text-heading text-sm font-semibold">{row.title}</p>
+            {row.sub ? <p className="theme-text-muted mt-0.5 text-xs">{row.sub}</p> : null}
+          </div>
+          <span className="theme-text-muted shrink-0 font-mono text-xs tabular-nums">{row.fillPercent}%</span>
+          <Badge tone={row.tone}>{row.badge}</Badge>
+        </div>
+      ))}
     </div>
   );
 }

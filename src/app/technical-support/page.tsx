@@ -115,6 +115,7 @@ export default function TechnicalSupportPage() {
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
         mockupVariant="support"
+        layout="compact"
         breadcrumbs={breadcrumbs}
         extraActions={
           <Button href={content.hero.diagnosisCta.href} variant="secondary" className="hidden sm:inline-flex">

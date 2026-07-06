@@ -1,11 +1,11 @@
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageFaq } from "@/components/page-faq";
-import { PageHero } from "@/components/page-hero";
+import { PageHero, type HeroLayout } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { JsonLd } from "@/components/json-ld";
 import type { MiniMockupVariant } from "@/components/mini-mockup";
 import { BenefitsChecklist } from "@/components/sections/benefits-checklist";
-import { PainSection } from "@/components/sections/pain-section";
+import { PainSection, type PainLayout } from "@/components/sections/pain-section";
 import { ProcessTimeline } from "@/components/sections/process-timeline";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { SlaBand } from "@/components/sections/sla-band";
@@ -21,24 +21,46 @@ import { ReactNode } from "react";
 const gridSectionClass = "py-10 sm:py-14 lg:py-16";
 const compactSectionClass = "py-8 sm:py-11 lg:py-14";
 
+/** Per-page rhythm so related service pages feel varied, not templated. */
+function pageRhythm(pagePath: string): { heroLayout: HeroLayout; painLayout: PainLayout } {
+  const p = pagePath;
+  if (p === "/managed-it-services") return { heroLayout: "editorial", painLayout: "checklist" };
+  if (p === "/about") return { heroLayout: "editorial", painLayout: "list" };
+  if (p.includes("cybersecurity")) return { heroLayout: "split", painLayout: "cards" };
+  if (p.includes("microsoft-365")) return { heroLayout: "split", painLayout: "list" };
+  if (p.includes("networks-and-communication")) return { heroLayout: "split", painLayout: "cards" };
+  if (p.includes("backup-and-recovery")) return { heroLayout: "split", painLayout: "checklist" };
+  if (p.includes("information-systems")) return { heroLayout: "compact", painLayout: "cards" };
+  if (p.includes("remote-support")) return { heroLayout: "compact", painLayout: "list" };
+  if (p.includes("client-portal")) return { heroLayout: "compact", painLayout: "checklist" };
+  return { heroLayout: "default", painLayout: "grid" };
+}
+
 export function ServicePage({
   content,
   pagePath,
   afterHero,
   variant = "default",
   mockupVariant = "dispatch",
+  heroLayout,
+  painLayout,
 }: {
   content: ServicePageContent;
   pagePath: string;
   afterHero?: ReactNode;
   variant?: "default" | "flagship" | "compact";
   mockupVariant?: MiniMockupVariant;
+  heroLayout?: HeroLayout;
+  painLayout?: PainLayout;
 }) {
   const cta = content.finalCta ?? defaultFinalCta;
   const isCompact = variant === "compact";
   const sectionPad = isCompact ? compactSectionClass : gridSectionClass;
   const gridDensity = isCompact ? "compact" : "default";
   const breadcrumbs = getBreadcrumbTrail(pagePath);
+  const rhythm = pageRhythm(pagePath);
+  const resolvedHeroLayout = heroLayout ?? rhythm.heroLayout;
+  const resolvedPainLayout = painLayout ?? rhythm.painLayout;
 
   return (
     <>
@@ -52,6 +74,7 @@ export function ServicePage({
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
         mockupVariant={mockupVariant}
+        layout={resolvedHeroLayout}
         breadcrumbs={breadcrumbs}
       />
 
@@ -64,6 +87,7 @@ export function ServicePage({
         body={content.pain.body}
         items={content.pain.items}
         tone="tint"
+        layout={resolvedPainLayout}
         className={sectionPad}
       />
 

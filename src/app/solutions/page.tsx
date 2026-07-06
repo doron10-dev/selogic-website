@@ -44,6 +44,7 @@ export default function Page() {
         primaryCta={solutionsHubHero.primaryCta}
         secondaryCta={solutionsHubHero.secondaryCta}
         mockupVariant="dispatch"
+        layout="editorial"
         breadcrumbs={breadcrumbs}
       />
 
