@@ -274,7 +274,7 @@ function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity, static
           loop
           playsInline
           preload="metadata"
-          className="h-full w-full object-cover object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           controls={false}
           disablePictureInPicture
           disableRemotePlayback
