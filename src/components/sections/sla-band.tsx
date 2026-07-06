@@ -39,7 +39,7 @@ function SlaBandCard({ item }: { item: SlaItem }) {
         <StatusDot kind={status} pulse={status === "open"} />
         <p className="font-display mt-4 text-xl font-bold leading-tight text-white sm:text-2xl">{item.badge}</p>
         <p className="mt-2 text-sm leading-relaxed text-slate-300">{item.label}</p>
-        {item.sub ? <p className="mt-1.5 text-xs text-slate-500">{item.sub}</p> : null}
+        {item.sub ? <p className="mt-1.5 text-xs text-slate-400">{item.sub}</p> : null}
       </div>
     </article>
   );
