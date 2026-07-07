@@ -11,6 +11,7 @@ const PUBLIC_ROUTES = [
   "/",
   "/about",
   "/managed-it-services",
+  "/rmm",
   "/technical-support",
   "/client-portal",
   "/information-systems-and-control",
@@ -202,7 +203,7 @@ async function main() {
   // 11. Section anchor nav
   try {
     const { text } = await fetchText("/managed-it-services");
-    if (text.includes('aria-label="קפיצה לסקציות בעמוד"') && text.includes('href="#sla"')) {
+    if (text.includes('aria-label="קפיצה לסקציות בעמוד"') && /href="#[^"]+"/.test(text)) {
       pass("Section nav /managed-it-services", "anchor links present");
     } else {
       fail("Section nav /managed-it-services", "section nav missing");

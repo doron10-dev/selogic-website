@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/service-page";
+import { Section } from "@/components/section";
 import { informationSystemsPage } from "@/data/pages/information-systems-and-control";
+import { doronInfoSystemsNote } from "@/data/credentials";
 import { buildPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -11,5 +13,17 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Page() {
-  return <ServicePage content={informationSystemsPage} pagePath="/information-systems-and-control" mockupVariant="monitoring" />;
+  return (
+    <ServicePage
+      content={informationSystemsPage}
+      pagePath="/information-systems-and-control"
+      mockupVariant="monitoring"
+      afterHero={
+        <Section tone="muted" className="py-8 sm:py-10">
+          <p className="theme-eyebrow mb-2">מי מוביל את התחום</p>
+          <p className="theme-text-body max-w-3xl text-[17px] leading-relaxed">{doronInfoSystemsNote}</p>
+        </Section>
+      }
+    />
+  );
 }

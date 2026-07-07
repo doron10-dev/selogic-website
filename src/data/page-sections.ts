@@ -21,9 +21,17 @@ export const solutionsHubNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const rmmNavSections: PageSectionLink[] = [
+  { id: "how", label: "איך זה עובד" },
+  { id: "scope", label: "מה מנטרים" },
+  { id: "value", label: "הערך ללקוח" },
+  { id: "reports", label: "דוחות ו-KPI" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const technicalSupportNavSections: PageSectionLink[] = [
   { id: "audience", label: "למי זה מתאים" },
-  { id: "pain", label: "אתגרים" },
   { id: "support-process", label: "תהליך" },
   { id: "channels", label: "ערוצי פנייה" },
   { id: "support-form", label: "פתיחת קריאה" },

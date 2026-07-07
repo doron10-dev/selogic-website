@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/hero";
 import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { WhySection, ServicesBentoSection, ProcessSection, FinalCtaSection } from "@/components/home/sections";
+import { TrustBar } from "@/components/sections/trust-bar";
 import { JsonLd } from "@/components/json-ld";
 import { faq } from "@/data/home";
 import { buildFaqJsonLd } from "@/lib/json-ld";
@@ -20,6 +21,7 @@ export default function HomePage() {
     <>
       <JsonLd data={buildFaqJsonLd(faq.items)} />
       <Hero />
+      <TrustBar heading="אמון, תקנים וניסיון" />
       <WhySection />
       <ServicesBentoSection />
       <PortalSection />

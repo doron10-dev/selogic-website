@@ -11,7 +11,7 @@ import {
   getPhoneDisplayLabel,
   getEmailDisplayLabel,
 } from "@/data/contact";
-import { headerNavItems, navItems } from "@/data/nav";
+import { headerNavItems, secondaryNavItems } from "@/data/nav";
 import { SiteLogo } from "@/components/site-logo";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/button";
@@ -111,7 +111,7 @@ export function SiteHeader() {
           aria-label="ניווט נייד"
         >
           <div className="container-page flex flex-col gap-1 py-3">
-            {navItems.map((item) => {
+            {headerNavItems.map((item) => {
               const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
               return (
                 <Link
@@ -125,6 +125,26 @@ export function SiteHeader() {
                 </Link>
               );
             })}
+
+            <div className="theme-divider mt-2 pt-3">
+              <p className="theme-text-muted px-1 pb-1 text-[11px] font-semibold uppercase tracking-[0.14em]">
+                עוד באתר
+              </p>
+              {secondaryNavItems.map((item) => {
+                const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    aria-current={isActive ? "page" : undefined}
+                    className={`theme-nav-item ${isActive ? "is-active" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
 
             {!onContactPage && (
               <div className="theme-divider mt-3 space-y-2 pt-4">

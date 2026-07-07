@@ -35,6 +35,7 @@ export const siteUrls = {
   clientPortalExternal: null as string | null,
   remoteSupport: "/remote-support",
   technicalSupport: "/technical-support",
+  rmm: "/rmm",
   privacy: "/privacy",
   terms: "/terms",
 } as const;

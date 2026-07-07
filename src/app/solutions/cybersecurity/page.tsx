@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/service-page";
+import { TrustBar } from "@/components/sections/trust-bar";
 import { cybersecurityPage } from "@/data/pages/cybersecurity";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -10,5 +11,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Page() {
-  return <ServicePage content={cybersecurityPage} pagePath="/solutions/cybersecurity" mockupVariant="security" />;
+  return (
+    <ServicePage
+      content={cybersecurityPage}
+      pagePath="/solutions/cybersecurity"
+      mockupVariant="security"
+      afterHero={<TrustBar heading="אבטחת מידע מבוססת סטנדרטים וניסיון" showPublicBodies={false} tone="muted" />}
+    />
+  );
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteLogo } from "@/components/site-logo";
 import { contactChannels, contactDetails, siteUrls } from "@/data/contact";
+import { isoCredentials } from "@/data/credentials";
 
 type FooterLink = {
   label: string;
@@ -22,6 +23,7 @@ const footerCols: Array<
     links: [
       { label: "כל השירותים", href: "/solutions" },
       { label: "שירותי IT מנוהלים", href: "/managed-it-services" },
+      { label: "ניטור ובקרה RMM", href: siteUrls.rmm },
       { label: "תמיכה טכנית לעסקים", href: siteUrls.technicalSupport },
       { label: "אבטחת מידע וסייבר", href: "/solutions/cybersecurity" },
       { label: "גיבוי והתאוששות", href: "/solutions/backup-and-recovery" },
@@ -101,6 +103,10 @@ export function SiteFooter() {
 
         {contactDetails.address && (
           <p className="theme-text-muted mt-8 text-sm leading-relaxed">{contactDetails.address}</p>
+        )}
+
+        {isoCredentials().length > 0 && (
+          <p className="theme-text-muted mt-2 text-sm leading-relaxed">{isoCredentials().join(" · ")}</p>
         )}
 
         <div className="theme-footer-bar">

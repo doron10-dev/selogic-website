@@ -6,6 +6,7 @@ export type BreadcrumbItem = {
 /** Segments after "דף הבית"; last item is the current page (no href). */
 const breadcrumbRoutes: Record<string, BreadcrumbItem[]> = {
   "/managed-it-services": [{ label: "שירותי IT מנוהלים" }],
+  "/rmm": [{ label: "ניטור ובקרה RMM" }],
   "/technical-support": [{ label: "תמיכה טכנית" }],
   "/client-portal": [{ label: "פורטל לקוחות" }],
   "/information-systems-and-control": [{ label: "מערכות ובקרה" }],
