@@ -16,7 +16,7 @@ const breadcrumbRoutes: Record<string, BreadcrumbItem[]> = {
   "/solutions": [{ label: "פתרונות" }],
   "/solutions/cybersecurity": [
     { label: "פתרונות", href: "/solutions" },
-    { label: "אבטחת מידע וסייבר" },
+    { label: "אבטחת מידע וגיבוי" },
   ],
   "/solutions/backup-and-recovery": [
     { label: "פתרונות", href: "/solutions" },

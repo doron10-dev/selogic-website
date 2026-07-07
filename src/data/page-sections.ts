@@ -30,6 +30,15 @@ export const rmmNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const cybersecurityNavSections: PageSectionLink[] = [
+  { id: "method", label: "אבטחה כשיטה" },
+  { id: "layers", label: "שכבות הגנה" },
+  { id: "reports", label: "דוחות ו-KPI" },
+  { id: "tikkun-13", label: "תיקון 13" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const informationSystemsNavSections: PageSectionLink[] = [
   { id: "process", label: "מהתהליך" },
   { id: "build", label: "מה בונים" },
