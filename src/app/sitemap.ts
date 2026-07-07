@@ -9,6 +9,7 @@ const publicRoutes: Array<{
   { path: "", changeFrequency: "weekly", priority: 1 },
   { path: "/managed-it-services", changeFrequency: "monthly", priority: 0.9 },
   { path: "/rmm", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/site-dossier", changeFrequency: "monthly", priority: 0.7 },
   { path: "/technical-support", changeFrequency: "monthly", priority: 0.9 },
   { path: "/client-portal", changeFrequency: "monthly", priority: 0.8 },
   { path: "/information-systems-and-control", changeFrequency: "monthly", priority: 0.8 },

@@ -12,6 +12,7 @@ const PUBLIC_ROUTES = [
   "/about",
   "/managed-it-services",
   "/rmm",
+  "/site-dossier",
   "/technical-support",
   "/client-portal",
   "/information-systems-and-control",

@@ -36,6 +36,7 @@ export const siteUrls = {
   remoteSupport: "/remote-support",
   technicalSupport: "/technical-support",
   rmm: "/rmm",
+  siteDossier: "/site-dossier",
   privacy: "/privacy",
   terms: "/terms",
 } as const;

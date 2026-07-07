@@ -35,6 +35,7 @@ const footerCols: Array<
     title: "ניווט",
     links: [
       { label: "מערכות ובקרה", href: "/information-systems-and-control" },
+      { label: "תיק אתר / תיק לקוח", href: siteUrls.siteDossier },
       { label: "פורטל לקוחות", href: siteUrls.clientPortal },
       { label: "תמיכה מרחוק", href: siteUrls.remoteSupport },
       { label: "אודות", href: "/about" },

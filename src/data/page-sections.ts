@@ -30,6 +30,16 @@ export const rmmNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const siteDossierNavSections: PageSectionLink[] = [
+  { id: "why", label: "למה צריך" },
+  { id: "contents", label: "מה כולל" },
+  { id: "asset", label: "נכס שלכם" },
+  { id: "maintain", label: "תחזוקה" },
+  { id: "security", label: "אבטחה" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const technicalSupportNavSections: PageSectionLink[] = [
   { id: "audience", label: "למי זה מתאים" },
   { id: "support-process", label: "תהליך" },

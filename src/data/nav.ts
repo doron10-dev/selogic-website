@@ -27,6 +27,7 @@ export const headerNavItems: NavItem[] = [
  * technical support, remote support, client portal.
  */
 export const secondaryNavItems: NavItem[] = [
+  { label: "תיק אתר / תיק לקוח", href: siteUrls.siteDossier },
   { label: "תמיכה טכנית", href: siteUrls.technicalSupport },
   { label: "תמיכה מרחוק", href: siteUrls.remoteSupport },
   { label: "פורטל לקוחות", href: siteUrls.clientPortal },

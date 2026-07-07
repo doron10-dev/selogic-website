@@ -7,6 +7,7 @@ export type BreadcrumbItem = {
 const breadcrumbRoutes: Record<string, BreadcrumbItem[]> = {
   "/managed-it-services": [{ label: "שירותי IT מנוהלים" }],
   "/rmm": [{ label: "ניטור ובקרה RMM" }],
+  "/site-dossier": [{ label: "תיק אתר / תיק לקוח" }],
   "/technical-support": [{ label: "תמיכה טכנית" }],
   "/client-portal": [{ label: "פורטל לקוחות" }],
   "/information-systems-and-control": [{ label: "מערכות ובקרה" }],

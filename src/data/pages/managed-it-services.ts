@@ -70,6 +70,7 @@ export const managedItServicesPage: ServicePageContent = {
       { title: "תמיכה טכנית", body: "פתיחת קריאות עם סטטוס ותיעוד.", href: siteUrls.technicalSupport },
       { title: "פורטל לקוחות", body: "מנהל רואה הכל, משתמש רואה שלו.", href: siteUrls.clientPortal },
       { title: "מערכות ובקרה", body: "בקרה תפעולית על קריאות, ניטור ודוחות.", href: "/information-systems-and-control" },
+      { title: "תיק אתר / תיק לקוח", body: "המידע על סביבת המחשוב מתועד ומסודר.", href: siteUrls.siteDossier },
       { title: "כל השירותים", body: "אבטחה, גיבוי, ענן, רשתות.", href: "/solutions" },
       { title: "תמיכה מרחוק", body: "חיבור מסודר, רק לאחר תיאום.", href: siteUrls.remoteSupport },
       { title: "קביעת שיחת אבחון", body: "תמונת מצב ראשונית לסביבת המחשוב.", href: siteUrls.contactDiagnosis },
