@@ -45,7 +45,7 @@ export function buildLocalBusinessJsonLd() {
     "@type": "ProfessionalService",
     name: contactDetails.companyName,
     description:
-      "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל, כולל אזור טבריה והצפון.",
+      "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ותהליך שירות מסודר לעסקים בישראל, כולל אזור טבריה והצפון.",
     url: `${getSiteUrl()}/`,
     email: contactDetails.email,
     telephone: contactDetails.phone,

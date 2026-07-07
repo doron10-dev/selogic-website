@@ -13,7 +13,7 @@ import { buildPageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = buildPageMetadata({
   title: "שירותי IT מנוהלים לעסקים בישראל",
   description:
-    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל, כולל אזור טבריה והצפון.",
+    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ותהליך שירות מסודר לעסקים בישראל, כולל אזור טבריה והצפון.",
   path: "/",
 });
 

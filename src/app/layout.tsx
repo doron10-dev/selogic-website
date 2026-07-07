@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     template: "%s | Selogic",
   },
   description:
-    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ו-SLA לעסקים בישראל, Selogic.",
+    "שירותי IT מנוהלים, תמיכה טכנית, פורטל לקוחות ותהליך שירות מסודר לעסקים בישראל, Selogic.",
   openGraph: {
     siteName: "Selogic",
     locale: "he_IL",
