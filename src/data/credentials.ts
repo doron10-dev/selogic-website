@@ -29,7 +29,14 @@ export const credentialCopy = {
   publicBodiesShort: "שירות לגופים ציבוריים ותשתיתיים",
   publicBodiesFull:
     "סלוג׳יק מספקת שירותים גם לגופים ציבוריים, מועצות, עיריות, גופים תשתיתיים וארגונים גדולים, בהם חברת החשמל ומשרד הביטחון.",
+  isoNarrative:
+    "סלוג׳יק פועלת עם תקן ISO 9001 לניהול איכות ועם תקן ISO 27001 לניהול אבטחת מידע. התקנים מחזקים את תפיסת העבודה של החברה: שירות מסודר, תיעוד, תהליכים, בקרה וניהול אחראי של מידע.",
 } as const;
+
+/** ISO narrative paragraph, only when at least one ISO flag is on. */
+export function isoNarrative(): string | undefined {
+  return isoCredentials().length > 0 ? credentialCopy.isoNarrative : undefined;
+}
 
 /** Combined, flag-gated chip for Naor's personal honors (Technion + Unit 8200). */
 export function naorHonorsChip(): string | null {

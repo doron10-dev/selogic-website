@@ -3,6 +3,8 @@ import { credentialCopy, trustChips } from "@/data/credentials";
 
 type TrustBarProps = {
   heading?: string;
+  /** Optional narrative paragraph rendered above the chips (e.g. ISO wording). */
+  intro?: string;
   /** Show the full, approved public-bodies sentence (incl. named entities). */
   showPublicBodies?: boolean;
   tone?: SectionTone;
@@ -15,6 +17,7 @@ type TrustBarProps = {
  */
 export function TrustBar({
   heading,
+  intro,
   showPublicBodies = true,
   tone = "tint",
   className = "py-8 sm:py-10",
@@ -24,6 +27,7 @@ export function TrustBar({
   return (
     <Section tone={tone} className={className}>
       {heading ? <p className="theme-eyebrow mb-4">{heading}</p> : null}
+      {intro ? <p className="theme-text-body mb-5 max-w-3xl text-[17px] leading-relaxed">{intro}</p> : null}
       <ul className="flex flex-wrap items-center gap-x-3 gap-y-2.5">
         {chips.map((chip) => (
           <li
