@@ -30,6 +30,15 @@ export const rmmNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const informationSystemsNavSections: PageSectionLink[] = [
+  { id: "process", label: "מהתהליך" },
+  { id: "build", label: "מה בונים" },
+  { id: "work-process", label: "תהליך העבודה" },
+  { id: "examples", label: "דוגמאות" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const siteDossierNavSections: PageSectionLink[] = [
   { id: "why", label: "למה צריך" },
   { id: "contents", label: "מה כולל" },

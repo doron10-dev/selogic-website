@@ -10,7 +10,7 @@ const breadcrumbRoutes: Record<string, BreadcrumbItem[]> = {
   "/site-dossier": [{ label: "תיק אתר / תיק לקוח" }],
   "/technical-support": [{ label: "תמיכה טכנית" }],
   "/client-portal": [{ label: "פורטל לקוחות" }],
-  "/information-systems-and-control": [{ label: "מערכות ובקרה" }],
+  "/information-systems-and-control": [{ label: "מערכות מידע ובקרה" }],
   "/remote-support": [{ label: "תמיכה מרחוק" }],
   "/about": [{ label: "אודות" }],
   "/solutions": [{ label: "פתרונות" }],
