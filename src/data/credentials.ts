@@ -17,16 +17,27 @@ export const credentialFlags = {
   naorTechnion: true,
 } as const;
 
-/** Approved, exact wording. */
+/** Approved, exact wording. Named entities live here only — single source of truth. */
 export const credentialCopy = {
   iso9001: "ISO 9001 לניהול איכות",
   iso27001: "ISO 27001 לניהול אבטחת מידע",
   experience: "כ־30 שנות ניסיון",
   unit8200: "בוגרי יחידה 8200",
+  technion: "בוגר הטכניון",
+  clientFile: "תיק לקוח מתוחזק",
+  monitoringReports: "ניטור, דוחות ו־KPI",
   publicBodiesShort: "שירות לגופים ציבוריים ותשתיתיים",
   publicBodiesFull:
     "סלוג׳יק מספקת שירותים גם לגופים ציבוריים, מועצות, עיריות, גופים תשתיתיים וארגונים גדולים, בהם חברת החשמל ומשרד הביטחון.",
 } as const;
+
+/** Combined, flag-gated chip for Naor's personal honors (Technion + Unit 8200). */
+export function naorHonorsChip(): string | null {
+  if (credentialFlags.naorTechnion && credentialFlags.naorUnit8200) return "בוגר הטכניון ויחידה 8200";
+  if (credentialFlags.naorTechnion) return credentialCopy.technion;
+  if (credentialFlags.naorUnit8200) return credentialCopy.unit8200;
+  return null;
+}
 
 export type CredentialChip = { label: string; sub?: string };
 
@@ -38,14 +49,20 @@ export function isoCredentials(): string[] {
   return list;
 }
 
-/** Compact chips for the trust bar. Order: quality, security, experience, 8200, public bodies. */
+/**
+ * Compact chips for the trust bar. Order: quality, security, experience,
+ * Naor honors, public bodies, client file, monitoring/reports.
+ */
 export function trustChips(): CredentialChip[] {
   const chips: CredentialChip[] = [];
   if (credentialFlags.iso9001) chips.push({ label: "ISO 9001", sub: "ניהול איכות" });
   if (credentialFlags.iso27001) chips.push({ label: "ISO 27001", sub: "ניהול אבטחת מידע" });
-  chips.push({ label: credentialCopy.experience });
-  if (credentialFlags.naorUnit8200) chips.push({ label: credentialCopy.unit8200 });
+  chips.push({ label: credentialCopy.experience, sub: "ניהולי וטכנולוגי" });
+  const honors = naorHonorsChip();
+  if (honors) chips.push({ label: honors });
   chips.push({ label: credentialCopy.publicBodiesShort });
+  chips.push({ label: credentialCopy.clientFile });
+  chips.push({ label: credentialCopy.monitoringReports });
   return chips;
 }
 

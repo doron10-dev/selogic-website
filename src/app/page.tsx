@@ -4,8 +4,9 @@ import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { WhySection, ServicesBentoSection, ProcessSection, FinalCtaSection } from "@/components/home/sections";
 import { TrustBar } from "@/components/sections/trust-bar";
+import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { JsonLd } from "@/components/json-ld";
-import { faq } from "@/data/home";
+import { faq, reportsKpi } from "@/data/home";
 import { buildFaqJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -24,6 +25,18 @@ export default function HomePage() {
       <TrustBar heading="אמון, תקנים וניסיון" />
       <WhySection />
       <ServicesBentoSection />
+      <ReportsKpiSection
+        title={reportsKpi.title}
+        body={reportsKpi.body}
+        reportTitle={reportsKpi.reportTitle}
+        reportItems={reportsKpi.reportItems}
+        reportCaption={reportsKpi.reportCaption}
+        kpiTitle={reportsKpi.kpiTitle}
+        kpiItems={reportsKpi.kpiItems}
+        kpiCaption={reportsKpi.kpiCaption}
+        disclaimer={reportsKpi.disclaimer}
+        tone="muted"
+      />
       <PortalSection />
       <ProcessSection />
       <FaqSection />

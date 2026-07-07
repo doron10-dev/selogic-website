@@ -8,6 +8,9 @@ type ReportsKpiSectionProps = {
   reportItems: string[];
   kpiTitle: string;
   kpiItems: string[];
+  /** Optional captions under each card header. */
+  reportCaption?: string;
+  kpiCaption?: string;
   /** Mandatory illustration-only label. */
   disclaimer: string;
   id?: string;
@@ -27,6 +30,8 @@ export function ReportsKpiSection({
   reportItems,
   kpiTitle,
   kpiItems,
+  reportCaption,
+  kpiCaption,
   disclaimer,
   id = "reports",
   tone = "muted",
@@ -49,6 +54,11 @@ export function ReportsKpiSection({
             </span>
             <span className="theme-badge-note">להמחשה</span>
           </div>
+          {reportCaption ? (
+            <p className="theme-text-muted border-b px-5 py-2.5 text-sm leading-relaxed" style={{ borderColor: "var(--theme-border)" }}>
+              {reportCaption}
+            </p>
+          ) : null}
           <ul>
             {reportItems.map((item, index) => (
               <li
@@ -75,6 +85,11 @@ export function ReportsKpiSection({
             <span className="theme-text-heading text-sm font-semibold">{kpiTitle}</span>
             <span className="theme-badge-note">להמחשה</span>
           </div>
+          {kpiCaption ? (
+            <p className="theme-text-muted border-b px-5 py-2.5 text-sm leading-relaxed" style={{ borderColor: "var(--theme-border)" }}>
+              {kpiCaption}
+            </p>
+          ) : null}
           <div className="flex flex-wrap gap-2 p-5">
             {kpiItems.map((item) => (
               <span
