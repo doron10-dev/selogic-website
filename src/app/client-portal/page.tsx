@@ -168,7 +168,8 @@ export default function ClientPortalPage() {
         body={content.related.body}
         items={content.related.items}
         tone="white"
-        className="py-10 sm:py-14 lg:py-16"
+        quiet
+        className="pb-12 pt-4 sm:pb-16"
       />
 
       <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} compact />

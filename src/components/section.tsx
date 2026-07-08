@@ -29,6 +29,20 @@ export function Section({ children, className = "", id, tone = "white" }: Sectio
   );
 }
 
+/**
+ * Invisible scroll anchors, so section-nav links keep working when a page's
+ * signature section subsumes the generic pain/what-we-do/benefits/process slots.
+ */
+export function SectionAnchors({ ids }: { ids: string[] }) {
+  return (
+    <>
+      {ids.map((anchorId) => (
+        <span key={anchorId} id={anchorId} aria-hidden="true" className="block scroll-mt-32" />
+      ))}
+    </>
+  );
+}
+
 type SectionHeadingProps = {
   eyebrow?: string;
   title: string;

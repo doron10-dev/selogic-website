@@ -7,8 +7,7 @@ import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { BenefitsChecklist } from "@/components/sections/benefits-checklist";
-import { PainSection } from "@/components/sections/pain-section";
-import { ProcessTimeline } from "@/components/sections/process-timeline";
+import { ServiceJourneySection } from "@/components/sections/service-journey";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { Section, SectionHeading } from "@/components/section";
 import {
@@ -135,15 +134,7 @@ export default function TechnicalSupportPage() {
         className="py-10 sm:py-14 lg:py-16"
       />
 
-      <PainSection
-        title={content.pain.title}
-        body={content.pain.body}
-        items={content.pain.items}
-        tone="tint"
-        className="py-10 sm:py-14 lg:py-16"
-      />
-
-      <ProcessTimeline
+      <ServiceJourneySection
         id={content.process.id}
         title={content.process.title}
         body={content.process.body}

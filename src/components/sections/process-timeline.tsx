@@ -1,5 +1,9 @@
 import { Section, SectionHeading } from "@/components/section";
+import { StatusDot } from "@/components/status-dot";
 import type { WorkflowStep } from "@/types/service-page";
+
+export type ProcessVariant = "numbered" | "flow" | "stack";
+export type ProcessTone = "light" | "muted" | "dark";
 
 type ProcessTimelineStepsProps = {
   steps: WorkflowStep[];
@@ -8,6 +12,7 @@ type ProcessTimelineStepsProps = {
   className?: string;
 };
 
+/** Numbered process — big circles, horizontal on desktop, vertical rail on mobile. */
 export function ProcessTimelineSteps({
   steps,
   invert = false,
@@ -84,13 +89,61 @@ export function ProcessTimelineSteps({
   );
 }
 
+const flowKind = (index: number, len: number): "open" | "progress" | "closed" =>
+  index === len - 1 ? "closed" : index === 0 ? "open" : "progress";
+
+/** Operational flow — compact status cards (dot + step label), for operational pages. */
+function FlowStrip({ steps, className = "" }: { steps: WorkflowStep[]; className?: string }) {
+  const cols = steps.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4";
+  return (
+    <ol className={`grid gap-3 sm:grid-cols-2 ${cols} ${className}`}>
+      {steps.map((step, index) => (
+        <li key={step.n} className="theme-inner-card p-4">
+          <div className="flex items-center gap-2">
+            <StatusDot kind={flowKind(index, steps.length)} pulse={index === 0} />
+            <span className="theme-text-muted font-mono text-[11px] font-semibold uppercase tracking-[0.16em]">
+              שלב {String(step.n).padStart(2, "0")}
+            </span>
+          </div>
+          <h3 className="theme-text-heading mt-2.5 text-base font-semibold">{step.title}</h3>
+          {step.body ? (
+            <p className="theme-text-muted mt-1.5 text-sm leading-relaxed">{step.body}</p>
+          ) : null}
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** Vertical process stack — full rows with number badge + connecting rail, for solution pages. */
+function ProcessStack({ steps, className = "" }: { steps: WorkflowStep[]; className?: string }) {
+  return (
+    <ol className={`relative space-y-3 ${className}`}>
+      {steps.map((step) => (
+        <li key={step.n} className="theme-inner-card flex items-start gap-4 p-5">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-semibold text-white">
+            {String(step.n).padStart(2, "0")}
+          </span>
+          <div className="min-w-0">
+            <h3 className="theme-text-heading text-lg font-semibold">{step.title}</h3>
+            {step.body ? (
+              <p className="theme-text-body mt-1.5 text-base leading-relaxed">{step.body}</p>
+            ) : null}
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 type ProcessTimelineProps = {
   title: string;
   body: string;
   steps: WorkflowStep[];
   id?: string;
   className?: string;
-  tone?: "light" | "dark";
+  tone?: ProcessTone;
+  variant?: ProcessVariant;
 };
 
 export function ProcessTimeline({
@@ -99,19 +152,24 @@ export function ProcessTimeline({
   steps,
   id = "process",
   className = "",
-  tone = "dark",
+  tone = "light",
+  variant = "numbered",
 }: ProcessTimelineProps) {
   const isDark = tone === "dark";
+  const sectionTone = isDark ? "dark" : tone === "muted" ? "muted" : "white";
 
   return (
-    <Section tone={isDark ? "dark" : "white"} id={id} className={className}>
+    <Section tone={sectionTone} id={id} className={className}>
       <SectionHeading title={title} body={body} invert={isDark} />
-      <ProcessTimelineSteps
-        steps={steps}
-        invert={isDark}
-        boxed={isDark}
-        className="mt-8 lg:mt-10"
-      />
+      <div className="mt-8 lg:mt-10">
+        {variant === "flow" ? (
+          <FlowStrip steps={steps} />
+        ) : variant === "stack" ? (
+          <ProcessStack steps={steps} />
+        ) : (
+          <ProcessTimelineSteps steps={steps} invert={isDark} boxed={isDark} />
+        )}
+      </div>
     </Section>
   );
 }

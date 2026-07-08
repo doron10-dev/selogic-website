@@ -148,8 +148,9 @@ export default function Microsoft365Page() {
         title={content.related.title}
         body={content.related.body}
         items={content.related.items}
-        tone="tint"
-        className="py-10 sm:py-14 lg:py-16"
+        tone="white"
+        quiet
+        className="pb-12 pt-4 sm:pb-16"
       />
 
       <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} compact />
