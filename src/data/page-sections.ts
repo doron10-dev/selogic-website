@@ -48,6 +48,15 @@ export const informationSystemsNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const clientPortalNavSections: PageSectionLink[] = [
+  { id: "why", label: "למה צריך" },
+  { id: "see", label: "מה רואים" },
+  { id: "transparency", label: "שקיפות" },
+  { id: "reports", label: "דוחות ו-KPI" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const microsoft365NavSections: PageSectionLink[] = [
   { id: "why", label: "למה ניהול" },
   { id: "manage", label: "מה מנהלים" },
