@@ -1,6 +1,21 @@
 import { FileBarChart2, Info } from "lucide-react";
 import { Section, SectionHeading, type SectionTone } from "@/components/section";
 
+/**
+ * Per-row accent colors so each report line reads as an intentional, color-coded
+ * category rather than a neutral loading skeleton. Order follows the canonical
+ * report structure (service calls, security, backups, updates, gaps, next steps)
+ * and simply cycles for longer lists. These are category accents, not metrics.
+ */
+const REPORT_ACCENTS = [
+  "#6366f1", // service calls — indigo/blue
+  "#f59e0b", // security events — amber
+  "#10b981", // backups — emerald
+  "#3b82f6", // updates — blue
+  "#f97316", // open gaps — orange
+  "#8b5cf6", // recommendations — purple
+];
+
 type ReportsKpiSectionProps = {
   title: string;
   body: string;
@@ -60,19 +75,29 @@ export function ReportsKpiSection({
             </p>
           ) : null}
           <ul>
-            {reportItems.map((item, index) => (
-              <li
-                key={item}
-                className={`flex items-center justify-between gap-3 px-5 py-2.5 ${index > 0 ? "theme-divider" : ""}`}
-              >
-                <span className="theme-text-body text-sm">{item}</span>
-                <span
-                  className="h-2 w-14 rounded-full sm:w-20"
-                  style={{ backgroundColor: "color-mix(in srgb, var(--theme-border) 70%, transparent)" }}
-                  aria-hidden="true"
-                />
-              </li>
-            ))}
+            {reportItems.map((item, index) => {
+              const accent = REPORT_ACCENTS[index % REPORT_ACCENTS.length];
+              return (
+                <li
+                  key={item}
+                  className={`flex items-center justify-between gap-3 px-5 py-2.5 ${index > 0 ? "theme-divider" : ""}`}
+                >
+                  <span className="flex min-w-0 items-center gap-2.5">
+                    <span
+                      className="h-4 w-1 shrink-0 rounded-full"
+                      style={{ backgroundColor: accent }}
+                      aria-hidden="true"
+                    />
+                    <span className="theme-text-body text-sm">{item}</span>
+                  </span>
+                  <span
+                    className="h-1.5 w-12 shrink-0 rounded-full sm:w-16"
+                    style={{ backgroundColor: `color-mix(in srgb, ${accent} 60%, transparent)` }}
+                    aria-hidden="true"
+                  />
+                </li>
+              );
+            })}
           </ul>
         </div>
 
