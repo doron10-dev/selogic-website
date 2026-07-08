@@ -48,6 +48,15 @@ export const informationSystemsNavSections: PageSectionLink[] = [
   { id: "contact", label: "יצירת קשר" },
 ];
 
+export const microsoft365NavSections: PageSectionLink[] = [
+  { id: "why", label: "למה ניהול" },
+  { id: "manage", label: "מה מנהלים" },
+  { id: "permissions", label: "הרשאות" },
+  { id: "backup", label: "גיבוי" },
+  { id: "faq", label: "שאלות נפוצות" },
+  { id: "contact", label: "יצירת קשר" },
+];
+
 export const siteDossierNavSections: PageSectionLink[] = [
   { id: "why", label: "למה צריך" },
   { id: "contents", label: "מה כולל" },
