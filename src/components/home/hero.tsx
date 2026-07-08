@@ -12,15 +12,15 @@ const HERO_BG = "/hero/hero-bg.jpg";
 const HERO_POSTER = "/hero/hero-bg.jpg";
 
 const TRUST_STRIP = [
-  { label: "זמינות מערכות", value: "99.9%" },
-  { label: "זמן תגובה ראשון", value: "< 15 דק׳" },
-  { label: "קריאות מתועדות", value: "100%" },
+  { label: "ניהול שירות", value: "קריאות, סטטוסים ותיעוד" },
+  { label: "ניטור ובקרה", value: "התראות, דוחות והמלצות" },
+  { label: "תיק לקוח", value: "מידע מסודר ומתועד" },
 ];
 
 const VALUE_POINTS = [
-  { icon: Headphones, label: "תמיכה ותיעוד לכל קריאה" },
-  { icon: BarChart3, label: "SLA וסטטוס גלוי בפורטל" },
-  { icon: Shield, label: "גיבוי, רשתות ואבטחת מידע" },
+  { icon: Headphones, label: "תמיכה ותיעוד קריאות שירות" },
+  { icon: BarChart3, label: "סטטוס ושקיפות בפורטל הלקוח" },
+  { icon: Shield, label: "גיבוי, הרשאות ואבטחת מידע" },
 ];
 
 const SERVICE_PILLS = ["תמיכה טכנית", "Microsoft 365", "ענן וגיבוי", "פורטל לקוחות"];
