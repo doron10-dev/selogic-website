@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Reveal } from "@/components/reveal";
 
 export type SectionTone = "white" | "muted" | "tint" | "dark" | "paper" | "mute" | "ink";
 
@@ -7,6 +8,8 @@ type SectionProps = {
   className?: string;
   id?: string;
   tone?: SectionTone;
+  /** Subtle scroll-reveal on entrance (opacity + translateY). Opt out with `reveal={false}`. */
+  reveal?: boolean;
 };
 
 const toneMap: Record<SectionTone, string> = {
@@ -19,12 +22,12 @@ const toneMap: Record<SectionTone, string> = {
   ink: "bg-slate-950 text-white",
 };
 
-export function Section({ children, className = "", id, tone = "white" }: SectionProps) {
+export function Section({ children, className = "", id, tone = "white", reveal = true }: SectionProps) {
   const scrollClass = id ? "scroll-mt-32" : "";
 
   return (
     <section id={id} className={`${toneMap[tone]} py-14 sm:py-20 lg:py-24 ${scrollClass} ${className}`}>
-      <div className="container-page">{children}</div>
+      <div className="container-page">{reveal ? <Reveal>{children}</Reveal> : children}</div>
     </section>
   );
 }
