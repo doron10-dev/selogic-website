@@ -49,10 +49,11 @@ export const informationSystemsNavSections: PageSectionLink[] = [
 ];
 
 export const clientPortalNavSections: PageSectionLink[] = [
-  { id: "why", label: "למה צריך" },
-  { id: "see", label: "מה רואים" },
-  { id: "transparency", label: "שקיפות" },
+  { id: "why", label: "האתגר" },
+  { id: "see", label: "מסך הפורטל" },
+  { id: "transparency", label: "למה זה חשוב" },
   { id: "reports", label: "דוחות ו-KPI" },
+  { id: "connection", label: "תיק לקוח" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },
 ];

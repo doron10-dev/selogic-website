@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { AlertCircle, CheckCircle2, Eye } from "lucide-react";
+import Link from "next/link";
+import { CheckCircle2 } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { PortalLoginBand } from "@/components/portal-login-band";
 import { Section, SectionHeading } from "@/components/section";
-import { RelatedServicesRow } from "@/components/sections/related-services-row";
+import { PortalDashboard } from "@/components/sections/portal-dashboard";
 import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { clientPortalNavSections } from "@/data/page-sections";
@@ -43,134 +44,68 @@ export default function ClientPortalPage() {
       <PageSectionNav sections={clientPortalNavSections} />
 
       <Section tone="muted" id="why" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.why.title} />
-            <p className="theme-text-body mt-4 leading-relaxed">{content.why.body}</p>
-            <p className="theme-card mt-6 p-4 text-sm font-semibold theme-text-heading">
-              {content.why.closing}
-            </p>
-          </div>
-          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {content.why.items.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
+        <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-12">
+          <SectionHeading title={content.problem.title} body={content.problem.lead} />
+          <ul className="grid gap-3 sm:grid-cols-3 lg:gap-4">
+            {content.problem.points.map((point) => (
+              <li key={point} className="theme-card flex items-start gap-2.5 p-4">
+                <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-orange-500" aria-hidden="true" />
+                <span className="theme-text-body text-sm leading-relaxed">{point}</span>
               </li>
             ))}
           </ul>
         </div>
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3">
-          {content.why.cards.map((item) => (
-            <li key={item.title} className="theme-card flex items-start gap-3 p-5">
-              <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-              <div className="min-w-0">
-                <p className="theme-text-heading font-semibold">{item.title}</p>
-                <p className="theme-text-muted mt-1 text-sm leading-relaxed">{item.body}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
       </Section>
 
-      <Section tone="white" id="see" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.see.title} body={content.see.body} />
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3">
-          {content.see.items.map((item) => (
-            <li key={item.title} className="theme-card flex flex-col gap-2 p-5">
-              <Eye className="h-5 w-5 text-blue-600" aria-hidden="true" />
-              <p className="theme-text-heading font-semibold">{item.title}</p>
-              <p className="theme-text-muted text-sm leading-relaxed">{item.body}</p>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <PortalDashboard id="see" tone="white" content={content.dashboard} />
 
       <Section tone="tint" id="transparency" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          <SectionHeading title={content.transparency.title} />
-          <div className="space-y-3">
-            {content.transparency.paragraphs.map((para) => (
-              <p key={para} className="theme-text-body leading-relaxed">
-                {para}
-              </p>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      <Section tone="white" id="how" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.how.title} body={content.how.body} />
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-5">
-          {content.how.steps.map((step, index) => (
-            <li key={step.title} className="theme-card flex flex-col gap-3 p-5">
-              <span className="theme-step-dot h-9 w-9 text-sm" aria-hidden="true">
-                {index + 1}
-              </span>
-              <div className="min-w-0">
-                <p className="theme-text-heading font-semibold">{step.title}</p>
-                <p className="theme-text-muted mt-1 text-sm leading-relaxed">{step.body}</p>
-              </div>
+        <SectionHeading title={content.value.title} body={content.value.body} />
+        <ul className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-3 lg:mt-10">
+          {content.value.points.map((point) => (
+            <li key={point.title} className="border-r-2 border-blue-600 pr-4">
+              <p className="theme-text-heading font-semibold">{point.title}</p>
+              <p className="theme-text-muted mt-1.5 text-sm leading-relaxed">{point.body}</p>
             </li>
           ))}
-        </ol>
-      </Section>
-
-      <Section tone="muted" id="reports" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.reports.title} />
-            <p className="theme-text-body mt-4 leading-relaxed">{content.reports.lead}</p>
-            <p className="theme-card mt-6 p-4 text-sm font-semibold theme-text-heading">
-              {content.reports.closing}
-            </p>
-          </div>
-          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {content.reports.items.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </ul>
       </Section>
 
       <ReportsKpiSection
-        id="reports-kpi"
-        title="דוגמה לתצוגת דוחות ומדדים"
-        body=""
+        id="reports"
+        title={content.reports.title}
+        body={content.reports.body}
         reportTitle={content.reports.reportTitle}
         reportItems={content.reports.reportItems}
         kpiTitle={content.reports.kpiTitle}
         kpiItems={content.reports.kpiItems}
         disclaimer={content.reports.disclaimer}
-        tone="white"
-        className="pb-10 sm:pb-14 lg:pb-16"
+        tone="muted"
       />
 
-      <Section tone="tint" id="dossier" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          <SectionHeading title={content.dossier.title} />
-          <div className="space-y-3">
-            {content.dossier.paragraphs.map((para) => (
-              <p key={para} className="theme-text-body leading-relaxed">
-                {para}
-              </p>
-            ))}
+      <Section tone="white" id="connection" className="py-10 sm:py-14 lg:py-16">
+        <div className="grid gap-6 lg:grid-cols-[1fr_0.7fr] lg:items-center lg:gap-12">
+          <div>
+            <SectionHeading title={content.connection.title} />
+            <p className="theme-text-body mt-4 leading-relaxed">{content.connection.body}</p>
           </div>
+          <ul className="grid gap-2.5">
+            {content.connection.links.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="theme-pill group w-full justify-between">
+                  <span className="flex items-center gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-blue-600" aria-hidden="true" />
+                    {link.title}
+                  </span>
+                  <span className="transition-transform duration-200 group-hover:-translate-x-1" aria-hidden="true">
+                    ←
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </Section>
-
-      <RelatedServicesRow
-        id="related"
-        title={content.related.title}
-        body={content.related.body}
-        items={content.related.items}
-        tone="white"
-        quiet
-        className="pb-12 pt-4 sm:pb-16"
-      />
 
       <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} compact />
 
