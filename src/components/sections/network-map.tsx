@@ -25,7 +25,10 @@ export function NetworkMapSection({ content, className = "", id = "pain", anchor
   return (
     <Section tone="tint" id={id} className={className}>
       <SectionAnchors ids={anchors} />
-      <SectionHeading title="מסלול החיבור, מקצה לקצה, מנוטר" body={content.whatWeDo?.body ?? ""} />
+      <SectionHeading
+        title="מסלול החיבור, מקצה לקצה, מנוטר"
+        body="מהאינטרנט ועד העמדה — כל חוליה בשרשרת מנוהלת ומנוטרת, עם גורם אחד אחראי על כל הדרך."
+      />
 
       <div className="theme-card mt-8 p-5 sm:p-6 lg:mt-10">
         <ol className="grid gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-center lg:gap-2">
@@ -51,6 +54,19 @@ export function NetworkMapSection({ content, className = "", id = "pain", anchor
             </li>
           ))}
         </ol>
+
+        <div
+          className="mt-5 flex items-start gap-3 border-t pt-4"
+          style={{ borderColor: "var(--theme-border)" }}
+        >
+          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300">
+            <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <p className="theme-text-body text-sm leading-relaxed">
+            <span className="theme-text-heading font-semibold">גורם אחד אחראי על כל השרשרת</span> — סלוג׳יק
+            מתאמת מול ספק האינטרנט, הטלפוניה והתקשורת. לא אתם.
+          </p>
+        </div>
       </div>
     </Section>
   );
