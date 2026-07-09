@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2, ShieldCheck, Scale } from "lucide-react";
+import { CheckCircle2, Scale } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
@@ -7,6 +7,7 @@ import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
 import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
+import { SecurityLayers } from "@/components/sections/security-layers";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { cybersecurityNavSections } from "@/data/page-sections";
 import { cybersecurityPage } from "@/data/pages/cybersecurity";
@@ -59,18 +60,15 @@ export default function CybersecurityPage() {
         </div>
       </Section>
 
-      <Section tone="white" id="layers" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.layers.title} body={content.layers.body} />
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4">
-          {content.layers.items.map((item) => (
-            <li key={item.title} className="theme-card flex flex-col gap-2 p-5">
-              <ShieldCheck className="h-5 w-5 text-blue-600" aria-hidden="true" />
-              <p className="theme-text-heading font-semibold">{item.title}</p>
-              <p className="theme-text-muted text-sm leading-relaxed">{item.body}</p>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <SecurityLayers
+        id="layers"
+        tone="white"
+        title={content.layers.title}
+        body={content.layers.body}
+        coreLabel={content.layers.coreLabel}
+        coreSub={content.layers.coreSub}
+        items={content.layers.items}
+      />
 
       <ReportsKpiSection
         id="reports"
@@ -110,9 +108,9 @@ export default function CybersecurityPage() {
 
       <Section tone="muted" id="connected" className="py-10 sm:py-14 lg:py-16">
         <SectionHeading title={content.connected.title} body={content.connected.body} />
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10">
+        <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:mt-10">
           {content.connected.points.map((point) => (
-            <li key={point} className="theme-card flex items-start gap-3 p-4">
+            <li key={point} className="flex items-start gap-3">
               <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
               <span className="theme-text-body text-[15px] leading-relaxed">{point}</span>
             </li>
