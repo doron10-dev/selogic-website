@@ -4,9 +4,10 @@ import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { WhySection, ServicesBentoSection, ProcessSection, FinalCtaSection } from "@/components/home/sections";
 import { TrustBar } from "@/components/sections/trust-bar";
+import { TrustProof } from "@/components/sections/trust-proof";
 import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { JsonLd } from "@/components/json-ld";
-import { faq, reportsKpi } from "@/data/home";
+import { faq, reportsKpi, trustProof } from "@/data/home";
 import { buildFaqJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -39,6 +40,13 @@ export default function HomePage() {
       />
       <PortalSection />
       <ProcessSection />
+      <TrustProof
+        eyebrow={trustProof.eyebrow}
+        title={trustProof.title}
+        body={trustProof.body}
+        items={trustProof.items}
+        tone="muted"
+      />
       <FaqSection />
       <FinalCtaSection />
     </>

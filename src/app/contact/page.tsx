@@ -261,6 +261,25 @@ export default function ContactPage() {
                 </a>
               </div>
             </div>
+
+            <div className="theme-card-interactive">
+              <h3 className="theme-text-heading text-lg font-semibold">מה קורה אחרי שפונים</h3>
+              <ol className="mt-4 space-y-3">
+                {[
+                  "שיחת היכרות קצרה להבנת העסק והצרכים",
+                  "מיפוי מצב ה-IT הקיים ורמת התיעוד",
+                  "זיהוי סיכונים ו-quick wins מיידיים",
+                  "בלי מכירה אגרסיבית — אתם מחליטים אם ומתי להמשיך",
+                ].map((stepText, i) => (
+                  <li key={stepText} className="flex items-start gap-3">
+                    <span className="theme-step-dot h-7 w-7 shrink-0 text-xs" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <span className="theme-text-muted text-sm leading-relaxed">{stepText}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
 
           <div id="diagnosis" className="theme-contact-form-panel">
