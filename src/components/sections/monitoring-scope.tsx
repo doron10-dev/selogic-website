@@ -39,10 +39,7 @@ export function MonitoringScopeSection({
               <StatusDot kind="closed" />
             </span>
             <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <p className="theme-text-heading font-semibold">{item.label}</p>
-                <span className="theme-text-muted text-[11px] font-medium uppercase tracking-wide">מנוטר</span>
-              </div>
+              <p className="theme-text-heading font-semibold">{item.label}</p>
               <p className="theme-text-muted mt-0.5 text-sm leading-relaxed">{item.sub}</p>
             </div>
           </li>

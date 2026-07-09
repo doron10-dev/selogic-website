@@ -71,8 +71,9 @@ export default function RmmPage() {
         title={content.value.title}
         body={content.value.body}
         items={content.value.items}
+        variant="split"
         tone="muted"
-        className="py-10 sm:py-14 lg:py-16"
+        className="py-14 sm:py-16 lg:py-20"
       />
 
       <ReportsKpiSection
