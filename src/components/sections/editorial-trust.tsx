@@ -24,8 +24,8 @@ export function EditorialTrustSection({ content, className = "", id = "pain", an
       <SectionAnchors ids={anchors} />
       <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
         <div>
-          <SectionHeading eyebrow="איך אנחנו חושבים" title={content.whatWeDo.title} body={content.whatWeDo.body} />
-          <p className="theme-text-muted mt-5 max-w-prose text-[17px] leading-relaxed">{content.clientGains.body}</p>
+          <SectionHeading eyebrow="איך אנחנו חושבים" title={content.whatWeDo?.title ?? ""} body={content.whatWeDo?.body ?? ""} />
+          <p className="theme-text-muted mt-5 max-w-prose text-[17px] leading-relaxed">{content.clientGains?.body}</p>
         </div>
 
         <ul className="space-y-3">

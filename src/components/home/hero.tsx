@@ -11,12 +11,6 @@ const HERO_BG = "/hero/hero-bg.jpg";
 /** Local poster/still — shown while the video loads and used as the mobile/reduced-motion fallback. */
 const HERO_POSTER = "/hero/hero-bg.jpg";
 
-const TRUST_STRIP = [
-  { label: "ניהול שירות", value: "קריאות, סטטוסים ותיעוד" },
-  { label: "ניטור ובקרה", value: "התראות, דוחות והמלצות" },
-  { label: "תיק לקוח", value: "מידע מסודר ומתועד" },
-];
-
 const VALUE_POINTS = [
   { icon: Headphones, label: "תמיכה ותיעוד קריאות שירות" },
   { icon: BarChart3, label: "סטטוס ושקיפות בפורטל הלקוח" },
@@ -96,15 +90,6 @@ function HeroExpandedPanel() {
           {hero.secondaryCta.label}
         </Link>
       </div>
-
-      <dl className="mx-auto mt-10 grid max-w-lg grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/10">
-        {TRUST_STRIP.map((stat) => (
-          <div key={stat.label} className="bg-white/[0.04] px-3 py-4 text-center backdrop-blur-sm">
-            <dt className="text-[11px] leading-snug text-indigo-300/80">{stat.label}</dt>
-            <dd className="mt-1 font-mono text-lg font-bold text-white sm:text-xl">{stat.value}</dd>
-          </div>
-        ))}
-      </dl>
     </div>
   );
 }

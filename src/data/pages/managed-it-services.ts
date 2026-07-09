@@ -1,5 +1,4 @@
 import { siteUrls } from "@/data/contact";
-import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
 export const managedItServicesPage: ServicePageContent = {
@@ -10,18 +9,6 @@ export const managedItServicesPage: ServicePageContent = {
       "Selogic מנהלת את סביבת המחשוב של העסק: משתמשים, הרשאות, מחשבים, רשתות, ספקים, תמיכה, תיעוד ובקרה. כל פנייה הופכת לקריאת שירות עם בעל טיפול, סטטוס, SLA והיסטוריה בפורטל.",
     primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
     secondaryCta: { label: "ראו כל השירותים", href: "/solutions" },
-  },
-  pain: {
-    title: "כשאין כתובת אחת אחראית, אין שליטה",
-    body: "כשאין גורם אחד שמרכז אחריות, לא ברור מי מטפל, מה הסטטוס ומה תועד.",
-    items: [
-      { title: "אין אחראי ברור", body: "ספקים מפוזרים, ואף אחד לא מנהל את התמונה." },
-      { title: "פניות בלי מעקב", body: "מייל וטלפון, בלי קריאה, בלי היסטוריה." },
-      { title: "אין ניטור מסודר", body: "תקלות מתגלות רק כשמישהו כבר נפגע." },
-      { title: "הרשאות מבולגנות", body: "עובד חדש, עוזב, שינוי תפקיד, בלי סדר." },
-      { title: "מנהל בלי תמונת מצב", body: "לא רואה מה פתוח, מה בטיפול ומה נסגר." },
-      { title: "תקלות חוזרות", body: "אין תיעוד, כל פעם מתחילים מאפס." },
-    ],
   },
   whatWeDo: {
     title: "מה Selogic מנהלת",
@@ -35,46 +22,9 @@ export const managedItServicesPage: ServicePageContent = {
       { title: "תיעוד ודיווח למנהל", body: "סביבה, החלטות, SLA וסטטוס, בפורטל ובדוחות.", href: siteUrls.clientPortal },
     ],
   },
-  clientGains: {
-    title: "מה זה נותן לעסק",
-    body: "כתובת אחת אחראית, עם שקיפות, מדידה והמשכיות.",
-    items: [
-      { title: "בעלים אחד", body: "גורם ברור לכל נושא מחשוב, מי מטפל ומה ההמשך." },
-      { title: "שקיפות בפורטל", body: "מנהל רואה מה פתוח, מה הסטטוס ומה תועד.", href: siteUrls.clientPortal },
-      { title: "שירות מדיד", body: "SLA, סטטוס, תיעוד, לפי יעדים שהוגדרו יחד." },
-      { title: "תהליך ברור", body: "כל פנייה → קריאה → בעל טיפול → תיעוד → סגירה." },
-      { title: "המשכיות", body: "היסטוריה לכל תקלה, לא מתחילים מאפס." },
-      { title: "בקרה שוטפת", body: "ניטור, תיעוד ודיווח, לא רק תגובה לתקלות." },
-    ],
-  },
-  howItWorks: {
-    title: "איך השירות עובד",
-    body: "מהיכרות ועד ניהול שוטף, עם בקרה.",
-    steps: [
-      { n: 1, title: "היכרות", body: "מבינים את העסק, המשתמשים והכאבים." },
-      { n: 2, title: "מיפוי", body: "מחשבים, רשת, ספקים, הרשאות, סיכונים." },
-      { n: 3, title: "הקמת שירות", body: "פורטל, SLA, ערוצי פנייה, תיעוד." },
-      { n: 4, title: "שירות שוטף", body: "תמיכה, ניטור, תחזוקה, תיאום." },
-      { n: 5, title: "בקרה ושיפור", body: "נושאים חוזרים, דיווח למנהל, שיפורים." },
-    ],
-  },
   sla: {
     title: "SLA, תיעוד ושקיפות",
     body: "שירות שנמדד לפי SLA, סטטוס, תיעוד והיסטוריה, לפי יעדים שהוגדרו יחד, גלוי בפורטל.",
-    items: defaultSlaItems,
-  },
-  related: {
-    title: "שירותים קשורים",
-    body: "שירותי IT מנוהלים הם הבסיס, שאר השירותים נבנים עליו.",
-    items: [
-      { title: "תמיכה טכנית", body: "פתיחת קריאות עם סטטוס ותיעוד.", href: siteUrls.technicalSupport },
-      { title: "פורטל לקוחות", body: "מנהל רואה הכל, משתמש רואה שלו.", href: siteUrls.clientPortal },
-      { title: "מערכות ובקרה", body: "בקרה תפעולית על קריאות, ניטור ודוחות.", href: "/information-systems-and-control" },
-      { title: "תיק אתר / תיק לקוח", body: "המידע על סביבת המחשוב מתועד ומסודר.", href: siteUrls.siteDossier },
-      { title: "כל השירותים", body: "אבטחה, גיבוי, ענן, רשתות.", href: "/solutions" },
-      { title: "תמיכה מרחוק", body: "חיבור מסודר, רק לאחר תיאום.", href: siteUrls.remoteSupport },
-      { title: "קביעת שיחת אבחון", body: "תמונת מצב ראשונית לסביבת המחשוב.", href: siteUrls.contactDiagnosis },
-    ],
   },
   faq: {
     title: "שאלות נפוצות",
@@ -83,14 +33,6 @@ export const managedItServicesPage: ServicePageContent = {
       {
         q: "מה ההבדל בין שירותי IT מנוהלים לבין טכנאי נקודתי?",
         a: "שירות מנוהל = אחריות שוטפת על כל סביבת המחשוב, עם ניטור, תיעוד, SLA ותהליך. טכנאי נקודתי = תיקון בודד, בלי בעלות על המערך.",
-      },
-      {
-        q: "איך פותחים קריאה?",
-        a: "מייל, טלפון או טופס. כל פנייה = קריאה עם סטטוס, בעל טיפול ותיעוד.",
-      },
-      {
-        q: "מה רואים בפורטל?",
-        a: "מנהל, כל הקריאות. משתמש, שלו בלבד. שניהם, סטטוס, SLA, היסטוריה.",
       },
       {
         q: "האם מתאים לעסק קטן?",

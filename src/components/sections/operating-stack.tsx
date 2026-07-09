@@ -21,8 +21,8 @@ const LAYERS = [
  * Reuses whatWeDo items, grouped into operating layers.
  */
 export function OperatingStackSection({ content, className = "", id = "pain", anchors = [] }: SignatureProps) {
-  const items = content.whatWeDo.items;
-  const perLayer = Math.ceil(items.length / 3);
+  const items = content.whatWeDo?.items ?? [];
+  const perLayer = Math.max(1, Math.ceil(items.length / 3));
   const layers = LAYERS.map((layer, i) => ({
     ...layer,
     items: items.slice(i * perLayer, i * perLayer + perLayer),
@@ -34,7 +34,7 @@ export function OperatingStackSection({ content, className = "", id = "pain", an
       <SectionHeading
         eyebrow="שכבת התפעול של Selogic"
         title="שירות IT מנוהל, שכבה על שכבה"
-        body={content.whatWeDo.body}
+        body={content.whatWeDo?.body ?? ""}
       />
 
       <div className="mt-8 space-y-3 lg:mt-10">
@@ -75,10 +75,10 @@ export function OperatingStackSection({ content, className = "", id = "pain", an
       >
         <span className="inline-flex items-center gap-2">
           <StatusDot kind="closed" />
-          <span className="theme-text-heading text-sm font-semibold">{content.sla.title}</span>
+          <span className="theme-text-heading text-sm font-semibold">{content.sla?.title}</span>
         </span>
         <span className="theme-text-muted text-sm leading-relaxed">
-          {content.sla.body}
+          {content.sla?.body}
         </span>
       </div>
     </Section>

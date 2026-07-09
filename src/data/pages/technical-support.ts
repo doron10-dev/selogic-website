@@ -21,11 +21,6 @@ export type TechnicalSupportPageContent = {
     body: string;
     items: CardItem[];
   };
-  pain: {
-    title: string;
-    body: string;
-    items: CardItem[];
-  };
   process: {
     id: string;
     title: string;
@@ -115,18 +110,6 @@ export const technicalSupportPage: TechnicalSupportPageContent = {
         title: "ללקוח קיים שצריך לפתוח קריאה",
         body: "אפשר לפתוח קריאה בטופס, בטלפון או במייל. כל פנייה נכנסת לתהליך שירות מסודר.",
       },
-    ],
-  },
-  pain: {
-    title: "מה קורה כשאין תהליך תמיכה מסודר",
-    body: "תקלות קטנות הופכות לרעש כשאין קריאה, סטטוס ותיעוד.",
-    items: [
-      { title: "עובד תקוע בלי סטטוס", body: "אין ודאות מתי חוזרים לעבוד." },
-      { title: "פניות שמתפזרות", body: "טלפון ומייל בלי מעקב מסודר." },
-      { title: "לא ברור מי מטפל", body: "אין בעל טיפול לקריאה." },
-      { title: "אין היסטוריית טיפול", body: "לא רואים מה כבר נעשה." },
-      { title: "מנהל לא רואה מה פתוח", body: "אין תמונת מצב על הקריאות." },
-      { title: "תקלה חוזרת מתחילה מאפס", body: "בלי תיעוד, אין המשכיות." },
     ],
   },
   process: {

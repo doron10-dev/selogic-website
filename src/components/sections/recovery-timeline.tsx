@@ -24,7 +24,7 @@ export function RecoveryTimelineSection({ content, className = "", id = "pain", 
   return (
     <Section tone="tint" id={id} className={className}>
       <SectionAnchors ids={anchors} />
-      <SectionHeading title="מסלול ההתאוששות: מאירוע ועד חזרה לעבודה" body={content.clientGains.body} />
+      <SectionHeading title="מסלול ההתאוששות: מאירוע ועד חזרה לעבודה" body={content.clientGains?.body ?? ""} />
 
       <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4 lg:gap-4">
         {RECOVERY.map((step, index) => (

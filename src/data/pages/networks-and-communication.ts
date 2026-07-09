@@ -1,5 +1,4 @@
 import { siteUrls } from "@/data/contact";
-import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
 export const networksPage: ServicePageContent = {
@@ -11,18 +10,6 @@ export const networksPage: ServicePageContent = {
     primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
     secondaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
   },
-  pain: {
-    title: "כשהרשת לא יציבה",
-    body: "אינטרנט איטי, Wi-Fi שנופל, ספקים שמאשימים זה את זה, והמנהל לא יודע מה הסטטוס.",
-    items: [
-      { title: "האינטרנט נופל", body: "ניתוקים ואיטיות בזמן עבודה." },
-      { title: "Wi-Fi לא יציב", body: "עמדות בלי כיסוי, עובדים מתלוננים." },
-      { title: "ספקים מאשימים זה את זה", body: "זה האינטרנט, זה הרשת הפנימית, ואף אחד לא אחראי." },
-      { title: "לא ברור איפה התקלה", body: "אצל הספק? ברשת? בעמדה?, בלי אבחון מסודר." },
-      { title: "אין תיעוד של ציוד וחיבורים", body: "מי יודע איפה הנתב? בלי מפת רשת." },
-      { title: "מנהל לא יודע מה הסטטוס", body: "תקלה פתוחה, בלי עדכון, בלי בעל טיפול." },
-    ],
-  },
   whatWeDo: {
     title: "מה Selogic עושה",
     body: "תשתית תקשורת עם תהליך שירות אחד, קריאות, תיעוד ותיאום ספקים.",
@@ -33,46 +20,6 @@ export const networksPage: ServicePageContent = {
       { title: "טלפוניה", body: "תמיכה ותיאום מול ספק." },
       { title: "תיעוד", body: "מפת רשת, ציוד, חיבורים והגדרות." },
       { title: "תיאום ספקים", body: "Selogic מתאמת מול הספקים, לא אתם." },
-    ],
-  },
-  clientGains: {
-    title: "מה הלקוח מרוויח",
-    body: "חיבור יציב, עם גורם אחד אחראי, קריאות מסודרות ועדכוני סטטוס.",
-    items: [
-      { title: "גורם אחד אחראי", body: "Selogic מתאמת, לא אתם." },
-      { title: "תקלה = קריאה עם בעל טיפול", body: "ברור מי מטפל, מה הסטטוס ומה ההמשך." },
-      { title: "תיאום ספקים", body: "Selogic מדברת עם ספק האינטרנט, הטלפוניה ואחרים." },
-      { title: "תיעוד מלא", body: "ציוד, חיבורים והגדרות, במקום אחד." },
-      { title: "עדכוני סטטוס בפורטל", body: "מנהל רואה מה פתוח, מה בטיפול ומה נסגר.", href: "/client-portal" },
-      { title: "חלק מהמחשוב המנוהל", body: "רשת כחלק מכתובת אחת אחראית.", href: "/managed-it-services" },
-    ],
-  },
-  howItWorks: {
-    title: "איך זה עובד",
-    body: "ממפים, מטפלים, מנטרים, עם קריאות מתועדות ותיאום ספקים.",
-    steps: [
-      { n: 1, title: "פנייה", body: "מייל, טלפון או טופס, כל תקלה = קריאה." },
-      { n: 2, title: "אבחון", body: "זיהוי מקור התקלה, ספק, רשת או עמדה." },
-      { n: 3, title: "טיפול ותיעוד", body: "תיקון, תיאום מול ספקים, הכל מתועד." },
-      { n: 4, title: "עדכון סטטוס", body: "מנהל רואה בפורטל מה קורה." },
-      { n: 5, title: "שיפור", body: "ניטור, תיעוד ומניעת תקלות חוזרות." },
-    ],
-  },
-  sla: {
-    title: "תיעוד, SLA ושקיפות",
-    body: "כל תקלת רשת = קריאה עם סטטוס, בעל טיפול ותיעוד. מדדי שירות גלויים בפורטל, לפי יעדים שהוגדרו יחד.",
-    items: defaultSlaItems,
-  },
-  related: {
-    title: "פתרונות קשורים",
-    body: "תשתית תקשורת יציבה תומכת בכל שאר שירותי המחשוב.",
-    items: [
-      { title: "אבטחת מידע", body: "חומת אש והרשאות.", href: "/solutions/cybersecurity" },
-      { title: "Microsoft 365", body: "תלות בחיבור יציב.", href: "/solutions/microsoft-365-and-cloud" },
-      { title: "שירותי IT מנוהלים", body: "כתובת אחת אחראית.", href: "/managed-it-services" },
-      { title: "תמיכה מרחוק", body: "חיבור מרחוק מסודר.", href: "/remote-support" },
-      { title: "פורטל לקוחות", body: "סטטוס ותיעוד לקריאות.", href: "/client-portal" },
-      { title: "כל הפתרונות", body: "מבט-על.", href: "/solutions" },
     ],
   },
   faq: {

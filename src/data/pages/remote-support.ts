@@ -1,5 +1,4 @@
 import { siteUrls } from "@/data/contact";
-import { defaultSlaItems } from "@/data/shared";
 import type { ServicePageContent } from "@/types/service-page";
 
 export const remoteSupportSafetyRules = [
@@ -23,42 +22,6 @@ export const remoteSupportPage: ServicePageContent = {
     primaryCta: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
     secondaryCta: { label: "צרו קשר", href: siteUrls.contact },
   },
-  pain: {
-    title: "כשתמיכה מרחוק לא מסודרת",
-    body: "חיבור ללא תיאום, כלי לא מוכר, או מסירת גישה ללא ודאות, כל אלה מסכנים את העסק.",
-    items: [
-      { title: "חיבור ללא תיאום", body: "מישהו מתחבר בלי שדיברתם איתו קודם." },
-      { title: "כלי לא מוכר", body: "הורדת תוכנה מבלי לדעת מי עומד מאחוריה." },
-      { title: "מסירת קוד חיבור", body: "קוד התחברות לגורם לא מזוהה." },
-      { title: "אין תיעוד", body: "תיקנו משהו, בלי קריאה ובלי היסטוריה." },
-      { title: "אין בעל טיפול", body: "לא ברור מי מטפל ומה הסטטוס." },
-      { title: "תקלה חוזרת", body: "אין רישום, כל פעם מתחילים מאפס." },
-    ],
-  },
-  whatWeDo: {
-    title: "מה Selogic עושה",
-    body: "תמיכה מרחוק כחלק מתהליך שירות, עם תיאום, תיעוד ומעקב בפורטל.",
-    items: [
-      { title: "תיאום מראש", body: "שיחה עם נציג לפני כל חיבור, לא מתחברים לבד." },
-      { title: "כלי מאושר", body: "פתיחת כלי תמיכה רק לפי הנחיית נציג." },
-      { title: "זיהוי ברור", body: "יודעים מי מתחבר, ולמה." },
-      { title: "תיעוד הפעולה", body: "כל חיבור = קריאה עם היסטוריה, מה בוצע על המחשב." },
-      { title: "טיפול בתקלה", body: "פתרון מסודר, לא רק ניתוק וסיום." },
-      { title: "סטטוס הקריאה", body: "מנהל ומשתמש רואים בפורטל מה הסטטוס ומה ההמשך.", href: siteUrls.clientPortal },
-    ],
-  },
-  clientGains: {
-    title: "מה הלקוח מרוויח",
-    body: "תמיכה מרחוק מהירה, עם תהליך ברור, חיבור מתואם ותיעוד.",
-    items: [
-      { title: "תהליך ברור", body: "פנייה → תיאום → חיבור → טיפול → סגירה מתועדת." },
-      { title: "חיבור מתואם", body: "לא מתחברים ללא שיחה עם נציג Selogic." },
-      { title: "בעל טיפול", body: "לכל קריאה, מי אחראי ומה הסטטוס." },
-      { title: "תיעוד הפעולה", body: "ידיעה מה בוצע על המחשב, לא רק אמרנו שתיקנו." },
-      { title: "סטטוס הקריאה", body: "עדכונים בפורטל, מה פתוח, מה בטיפול, מה נסגר.", href: siteUrls.clientPortal },
-      { title: "המשכיות", body: "היסטוריה לתקלות חוזרות, לא מתחילים מאפס." },
-    ],
-  },
   howItWorks: {
     title: "איך תמיכה מרחוק עובדת",
     body: "תהליך ברור, מהפנייה, דרך תיאום וחיבור, ועד סגירה מתועדת.",
@@ -68,23 +31,6 @@ export const remoteSupportPage: ServicePageContent = {
       { n: 3, title: "חיבור", body: "פתיחת כלי תמיכה לפי הנחיה, רק אחרי אישור." },
       { n: 4, title: "טיפול ותיעוד", body: "פתרון התקלה, הפעולה מתועדת בקריאה." },
       { n: 5, title: "סגירה", body: "עדכון סטטוס בפורטל והיסטוריה." },
-    ],
-  },
-  sla: {
-    title: "תיעוד, SLA ושקיפות",
-    body: "כל חיבור מרחוק מתועד כקריאה, עם סטטוס, בעל טיפול ו-SLA גלויים בפורטל, לפי יעדים שהוגדרו יחד.",
-    items: defaultSlaItems,
-  },
-  related: {
-    title: "שירותים קשורים",
-    body: "תמיכה מרחוק היא חלק מתהליך שירות, לא חיבור חד-פעמי.",
-    items: [
-      { title: "תמיכה טכנית", body: "פתיחת קריאה עם סטטוס ותיעוד.", href: siteUrls.technicalSupport },
-      { title: "שירותי IT מנוהלים", body: "כתובת אחת אחראית לסביבת המחשוב.", href: "/managed-it-services" },
-      { title: "רשתות ותקשורת", body: "תשתית לחיבור יציב.", href: "/solutions/networks-and-communication" },
-      { title: "פורטל לקוחות", body: "סטטוס ותיעוד לקריאות.", href: siteUrls.clientPortal },
-      { title: "צרו קשר", body: "תיאום חיבור.", href: siteUrls.contact },
-      { title: "כל השירותים", body: "מבט-על.", href: "/solutions" },
     ],
   },
   faq: {

@@ -5,14 +5,10 @@ import { PageSectionNav } from "@/components/page-section-nav";
 import { JsonLd } from "@/components/json-ld";
 import type { MiniMockupVariant } from "@/components/mini-mockup";
 import { BenefitsChecklist, type BenefitsVariant } from "@/components/sections/benefits-checklist";
-import { BeforeAfterSection } from "@/components/sections/before-after";
 import { OperatingStackSection } from "@/components/sections/operating-stack";
 import { EditorialTrustSection } from "@/components/sections/editorial-trust";
-import { PortalVisibilitySection } from "@/components/sections/portal-visibility";
-import { ControlMapSection } from "@/components/sections/control-map";
 import { RemoteSplitSection } from "@/components/sections/remote-split";
 import { RecoveryTimelineSection } from "@/components/sections/recovery-timeline";
-import { AccessMapSection } from "@/components/sections/access-map";
 import { NetworkMapSection } from "@/components/sections/network-map";
 import { PainSection, type PainLayout } from "@/components/sections/pain-section";
 import { CardGrid } from "@/components/feature-card";
@@ -33,13 +29,9 @@ type Signature =
   | "standard"
   | "operatingStack"
   | "editorialTrust"
-  | "portalVisibility"
-  | "controlMap"
   | "remoteSplit"
   | "recoveryTimeline"
-  | "accessMap"
-  | "networkMap"
-  | "beforeAfter";
+  | "networkMap";
 
 type Block = "pain" | "whatWeDo" | "benefits" | "signature";
 
@@ -62,12 +54,11 @@ type Rhythm = {
 };
 
 /**
- * Each major page is essentially its own signature composition, with no repeated
- * generic process/SLA/related tail:
- * managed → operating stack (incl. SLA/visibility) · about → editorial trust ·
- * client-portal → portal dashboard (incl. SLA) · information-systems → control map ·
- * remote → session/doc split · backup → recovery path · cyber → before/after +
- * varied services · m365 → access map + varied services · networks → topology + varied services.
+ * Each ServicePage is its own signature composition, with no repeated generic
+ * process/SLA/related tail. Only the five ServicePage routes are handled here;
+ * cross-navigation between services is handled by the site footer.
+ * managed → operating stack (incl. SLA) · about → editorial trust ·
+ * remote → session/doc split · backup → recovery path · networks → topology + services.
  */
 function pageRhythm(pagePath: string): Rhythm {
   const p = pagePath;
@@ -81,20 +72,12 @@ function pageRhythm(pagePath: string): Rhythm {
     return { ...base, heroLayout: "editorial", cardsLayout: "split", signature: "operatingStack", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
   if (p === "/about")
     return { ...base, heroLayout: "editorial", cardsLayout: "split", signature: "editorialTrust", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
-  if (p.includes("client-portal"))
-    return { ...base, heroLayout: "compact", cardsLayout: "ops", signature: "portalVisibility", signatureAnchors: ["what-we-do", "benefits", "sla"], blocks: ["signature"] };
-  if (p.includes("information-systems"))
-    return { ...base, heroLayout: "compact", cardsLayout: "ops", signature: "controlMap", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
   if (p.includes("remote-support"))
     return { ...base, heroLayout: "compact", cardsLayout: "ops", signature: "remoteSplit", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
   if (p.includes("backup-and-recovery"))
-    return { ...base, cardsLayout: "rail", signature: "recoveryTimeline", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
-  if (p.includes("microsoft-365"))
-    return { ...base, cardsLayout: "split", signature: "accessMap", signatureAnchors: ["benefits"], blocks: ["signature", "whatWeDo"] };
+    return { ...base, cardsLayout: "rail", signature: "recoveryTimeline", signatureAnchors: ["benefits"], blocks: ["signature", "whatWeDo"] };
   if (p.includes("networks-and-communication"))
     return { ...base, cardsLayout: "ops", signature: "networkMap", signatureAnchors: ["benefits"], blocks: ["signature", "whatWeDo"] };
-  if (p.includes("cybersecurity"))
-    return { ...base, cardsLayout: "rail", signature: "beforeAfter", signatureAnchors: [], blocks: ["signature", "whatWeDo"] };
 
   return { ...base, heroLayout: "default", cardsLayout: "grid", signature: "standard", signatureAnchors: [], blocks: ["pain", "whatWeDo", "benefits"] };
 }
@@ -182,20 +165,12 @@ export function ServicePage({
         return <OperatingStackSection content={content} anchors={anchors} className={sectionPad} />;
       case "editorialTrust":
         return <EditorialTrustSection content={content} anchors={anchors} className={sectionPad} />;
-      case "portalVisibility":
-        return <PortalVisibilitySection content={content} anchors={anchors} className={sectionPad} />;
-      case "controlMap":
-        return <ControlMapSection content={content} anchors={anchors} className={sectionPad} />;
       case "remoteSplit":
         return <RemoteSplitSection content={content} anchors={anchors} className={sectionPad} />;
       case "recoveryTimeline":
         return <RecoveryTimelineSection content={content} anchors={anchors} className={sectionPad} />;
-      case "accessMap":
-        return <AccessMapSection content={content} anchors={anchors} className={sectionPad} />;
       case "networkMap":
         return <NetworkMapSection content={content} anchors={anchors} className={sectionPad} />;
-      case "beforeAfter":
-        return <BeforeAfterSection before={content.pain} after={content.clientGains} className={sectionPad} />;
       default:
         return null;
     }
@@ -206,7 +181,7 @@ export function ServicePage({
       case "signature":
         return signatureNode;
       case "pain":
-        return (
+        return content.pain ? (
           <PainSection
             title={content.pain.title}
             body={content.pain.body}
@@ -215,29 +190,29 @@ export function ServicePage({
             layout={resolvedPainLayout}
             className={sectionPad}
           />
-        );
+        ) : null;
       case "whatWeDo":
-        return (
+        return content.whatWeDo ? (
           <WhatWeDoSection
             title={content.whatWeDo.title}
             body={content.whatWeDo.body}
-            items={content.whatWeDo.items}
+            items={content.whatWeDo.items ?? []}
             layout={rhythm.cardsLayout}
             density={gridDensity}
             className={sectionPad}
           />
-        );
+        ) : null;
       case "benefits":
-        return (
+        return content.clientGains ? (
           <BenefitsChecklist
-            title={content.clientGains.title}
+            title={content.clientGains.title ?? ""}
             body={content.clientGains.body}
-            items={content.clientGains.items}
+            items={content.clientGains.items ?? []}
             tone="muted"
             variant={rhythm.benefitsVariant}
             className={sectionPad}
           />
-        );
+        ) : null;
       default:
         return null;
     }

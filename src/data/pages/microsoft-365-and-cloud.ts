@@ -64,7 +64,7 @@ export const microsoft365Page: Microsoft365Content = {
     eyebrow: "Microsoft 365 וענן",
     title: "Microsoft 365 וענן שמנוהלים בצורה מסודרת, מאובטחת ומתועדת",
     intro:
-      "Microsoft 365 הוא חלק מרכזי מסביבת העבודה של העסק: דואר, קבצים, Teams, SharePoint, OneDrive, משתמשים והרשאות. כאשר הסביבה לא מנוהלת נכון, נוצרים פערי אבטחה, הרשאות לא מסודרות, מידע מפוזר, תיבות שלא מגובות, וקושי להבין מי מחזיק גישה למה. בסלוג׳יק אנחנו מנהלים את סביבת Microsoft 365 והענן כחלק מתהליך IT מנוהל: משתמשים, הרשאות, אבטחה, גיבויים, תיעוד ובקרה.",
+      "Microsoft 365 הוא לב סביבת העבודה: דואר, קבצים, Teams, SharePoint, OneDrive, משתמשים והרשאות. אנחנו מסדרים משתמשים, הרשאות, קבוצות, קבצים, Teams וגיבויים, כדי שהארגון יעבוד נקי ובטוח.",
     primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
     secondaryCta: { label: "ראו אבטחת מידע וגיבוי", href: "/solutions/cybersecurity" },
   },
@@ -179,8 +179,8 @@ export const microsoft365Page: Microsoft365Content = {
     ],
   },
   related: {
-    title: "איך Microsoft 365 מתחבר לשאר השירותים",
-    body: "סביבת הענן מנוהלת כחלק ממערך IT רחב יותר של אבטחה, תיעוד ובקרה.",
+    title: "החיבורים של סביבת הענן",
+    body: "Microsoft 365 הוא חלק ממערך IT רחב יותר, לא אי נפרד.",
     items: [
       { title: "אבטחת מידע וגיבוי", href: "/solutions/cybersecurity" },
       { title: "תיק אתר / תיק לקוח", href: siteUrls.siteDossier },

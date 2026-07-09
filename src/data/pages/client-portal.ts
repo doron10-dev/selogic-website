@@ -171,7 +171,7 @@ export const clientPortalPage: ClientPortalContent = {
     ],
     closing:
       "כאשר מחברים את הפורטל לדוחות ולמדדי KPI, הלקוח מקבל תמונת מצב ניהולית ולא רק רשימת קריאות.",
-    reportTitle: "מבנה דוח תקופתי",
+    reportTitle: "מה מסכם דוח הפורטל",
     reportItems: [
       "סקירת קריאות שירות",
       "קריאות פתוחות מול שהסתיימו",
@@ -200,8 +200,8 @@ export const clientPortalPage: ClientPortalContent = {
     ],
   },
   related: {
-    title: "איך הפורטל מתחבר לשאר השירותים",
-    body: "פורטל הלקוח הוא החלון לשירות שמאחוריו.",
+    title: "מה עומד מאחורי הפורטל",
+    body: "הפורטל הוא החלון — אלה השירותים שרואים דרכו.",
     items: [
       { title: "שירותי IT מנוהלים", href: "/managed-it-services" },
       { title: "ניטור ובקרה RMM", href: siteUrls.rmm },

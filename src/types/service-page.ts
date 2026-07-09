@@ -53,32 +53,36 @@ export type ServicePageContent = {
     primaryCta?: HeroCtaLink;
     secondaryCta?: HeroCtaLink;
   };
-  pain: {
+  /**
+   * Lower-page content blocks are optional: each ServicePage renders only its
+   * signature composition, so a page provides just the blocks its signature uses.
+   */
+  pain?: {
     title: string;
     body: string;
     items: CardItem[];
   };
-  whatWeDo: {
+  whatWeDo?: {
     title: string;
     body: string;
-    items: CardItem[];
+    items?: CardItem[];
   };
-  clientGains: {
-    title: string;
+  clientGains?: {
+    title?: string;
     body: string;
-    items: CardItem[];
+    items?: CardItem[];
   };
-  howItWorks: {
+  howItWorks?: {
     title: string;
     body: string;
     steps: WorkflowStep[];
   };
-  sla: {
+  sla?: {
     title: string;
     body: string;
-    items: SlaItem[];
+    items?: SlaItem[];
   };
-  related: {
+  related?: {
     title: string;
     body: string;
     items: CardItem[];

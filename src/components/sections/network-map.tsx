@@ -25,7 +25,7 @@ export function NetworkMapSection({ content, className = "", id = "pain", anchor
   return (
     <Section tone="tint" id={id} className={className}>
       <SectionAnchors ids={anchors} />
-      <SectionHeading title="מסלול החיבור, מקצה לקצה, מנוטר" body={content.whatWeDo.body} />
+      <SectionHeading title="מסלול החיבור, מקצה לקצה, מנוטר" body={content.whatWeDo?.body ?? ""} />
 
       <div className="theme-card mt-8 p-5 sm:p-6 lg:mt-10">
         <ol className="grid gap-3 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-center lg:gap-2">

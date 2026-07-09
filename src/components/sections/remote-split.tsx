@@ -26,7 +26,7 @@ export function RemoteSplitSection({ content, className = "", id = "pain", ancho
   return (
     <Section tone="tint" id={id} className={className}>
       <SectionAnchors ids={anchors} />
-      <SectionHeading title={content.howItWorks.title} body={content.howItWorks.body} />
+      <SectionHeading title={content.howItWorks?.title ?? ""} body={content.howItWorks?.body ?? ""} />
 
       <div className="mt-8 grid gap-4 lg:mt-10 lg:grid-cols-2 lg:gap-6">
         <div className="theme-card overflow-hidden">
@@ -36,7 +36,7 @@ export function RemoteSplitSection({ content, className = "", id = "pain", ancho
             <span className="theme-text-muted font-mono text-[11px] uppercase tracking-[0.16em]">LIVE</span>
           </div>
           <ol className="relative space-y-4 px-5 py-5">
-            {content.howItWorks.steps.map((step) => (
+            {(content.howItWorks?.steps ?? []).map((step) => (
               <li key={step.n} className="flex gap-3">
                 <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-600 text-xs font-semibold text-white">
                   {step.n}
