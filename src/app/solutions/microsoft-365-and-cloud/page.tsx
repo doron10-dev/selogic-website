@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Cloud, Link2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
+import { CloudAccessMap } from "@/components/sections/cloud-access-map";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { microsoft365NavSections } from "@/data/page-sections";
@@ -58,42 +59,15 @@ export default function Microsoft365Page() {
         </div>
       </Section>
 
-      <Section tone="white" id="manage" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.manage.title} body={content.manage.body} />
-        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-4">
-          {content.manage.items.map((item) => (
-            <li key={item.title} className="theme-card flex flex-col gap-2 p-5">
-              <Cloud className="h-5 w-5 text-blue-600" aria-hidden="true" />
-              <p className="theme-text-heading font-semibold">{item.title}</p>
-              <p className="theme-text-muted text-sm leading-relaxed">{item.body}</p>
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <CloudAccessMap
+        id="manage"
+        tone="white"
+        title={content.manage.title}
+        body={content.manage.body}
+        stages={content.manage.stages}
+      />
 
-      <Section tone="tint" id="permissions" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.permissions.title} />
-            <p className="theme-text-body mt-4 text-[17px] font-semibold leading-relaxed">
-              {content.permissions.lead}
-            </p>
-            <p className="theme-card mt-6 p-4 text-sm leading-relaxed theme-text-body">
-              {content.permissions.closing}
-            </p>
-          </div>
-          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {content.permissions.items.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      <Section tone="white" id="backup" className="py-10 sm:py-14 lg:py-16">
+      <Section tone="tint" id="backup" className="py-10 sm:py-14 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
           <SectionHeading title={content.backup.title} />
           <div className="space-y-3">
@@ -115,10 +89,10 @@ export default function Microsoft365Page() {
               {content.connected.closing}
             </p>
           </div>
-          <ul className="grid gap-4">
+          <ul className="grid gap-3">
             {content.connected.points.map((point) => (
-              <li key={point} className="theme-card flex items-start gap-3 p-4">
-                <Link2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+              <li key={point} className="flex items-start gap-3">
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
                 <span className="theme-text-body text-[15px] leading-relaxed">{point}</span>
               </li>
             ))}

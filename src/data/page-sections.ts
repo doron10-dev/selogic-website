@@ -60,9 +60,9 @@ export const clientPortalNavSections: PageSectionLink[] = [
 
 export const microsoft365NavSections: PageSectionLink[] = [
   { id: "why", label: "למה ניהול" },
-  { id: "manage", label: "מה מנהלים" },
-  { id: "permissions", label: "הרשאות" },
+  { id: "manage", label: "מפת ניהול" },
   { id: "backup", label: "גיבוי" },
+  { id: "connected", label: "חלק מ-IT" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },
 ];
