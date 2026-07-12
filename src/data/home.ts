@@ -110,46 +110,37 @@ export const servicesBento = {
   },
 };
 
-export const portal = {
-  eyebrow: "שקיפות דרך פורטל לקוחות",
-  title: "העסק רואה מה פתוח, מה בטיפול ומה תועד",
-  body: "הפורטל מרכז קריאות, סטטוסים והיסטוריה, ונותן למנהל תמונת מצב תפעולית ברורה בלי להעמיס מידע מיותר.",
-  checklist: [
-    "קריאות שירות מתועדות במקום אחד, עם סטטוס והקשר.",
-    "תיעוד תשתיות ותהליכים נשמר באופן שמאפשר המשכיות.",
-    "גישה נוחה ללקוחות קיימים לפתיחת קריאה ומעקב.",
-  ],
-  cta: { label: "ראו פורטל לקוחות", href: siteUrls.clientPortal },
-  mock: {
-    label: "CLIENT PORTAL",
-    title: "תצוגת פורטל",
-    note: "המחשה בלבד",
-    action: { label: "פתחו קריאת שירות", href: siteUrls.technicalSupport },
-    rows: [
-      {
-        badge: "בטיפול",
-        tone: "orange" as const,
-        fillPercent: 62,
-        label: "קריאה פתוחה",
-      },
-      {
-        badge: "מתוכנן",
-        tone: "blue" as const,
-        fillPercent: 30,
-        label: "משימה מתוכננת",
-      },
-      {
-        badge: "נשמר",
-        tone: "green" as const,
-        fillPercent: 100,
-        label: "תיעוד מעודכן",
-      },
-    ],
-    highlight: {
-      eyebrow: "תפעול שוטף",
-      body: "מבט על נושאים פתוחים והיסטוריה.",
+// Homepage signature visual: Selogic's whole operating model as one flow —
+// people → systems → service → control. Deliberately NOT a portal/dashboard
+// mockup (that lives on the Client Portal page); this communicates the company
+// model, not a product screen. No metrics, no live data.
+export const businessControlMap = {
+  eyebrow: "המודל התפעולי של Selogic",
+  title: "מאנשים ועד בקרה — מחלקת IT אחת שמחברת את הכול",
+  body: "לא רק מתקנים תקלות. סלוג׳יק מחברת את ארבע השכבות של ה-IT העסקי לתהליך מנוהל אחד, כך שלמנהל יש תמונה ושליטה — לא רק הבטחות.",
+  nodes: [
+    {
+      key: "people" as const,
+      title: "אנשים",
+      body: "המשתמשים והצוות שמסתמכים על ה-IT בכל יום עבודה.",
     },
-  },
+    {
+      key: "systems" as const,
+      title: "מערכות",
+      body: "מחשבים, שרתים, ענן ורשת — מנוהלים, מעודכנים ומתועדים.",
+    },
+    {
+      key: "service" as const,
+      title: "שירות",
+      body: "כל פנייה הופכת לקריאה עם בעל טיפול, סטטוס ומעקב.",
+    },
+    {
+      key: "control" as const,
+      title: "בקרה",
+      body: "דוחות ושקיפות ניהולית — המנהל רואה מה קורה ומחליט.",
+    },
+  ],
+  closing: "אנשים, מערכות, שירות ובקרה — שכבה אחת מנוהלת שסלוג׳יק סוגרת עבור העסק.",
 };
 
 export const serviceProcess = {

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
-import { PortalSection } from "@/components/home/portal-section";
 import { FaqSection } from "@/components/home/faq-section";
 import { WhySection, ServicesBentoSection, ProcessSection, FinalCtaSection } from "@/components/home/sections";
+import { BusinessControlMap } from "@/components/sections/business-control-map";
 import { TrustBar } from "@/components/sections/trust-bar";
 import { TrustProof } from "@/components/sections/trust-proof";
 import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { JsonLd } from "@/components/json-ld";
-import { faq, reportsKpi, trustProof } from "@/data/home";
+import { businessControlMap, faq, reportsKpi, trustProof } from "@/data/home";
 import { buildFaqJsonLd } from "@/lib/json-ld";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -38,7 +38,14 @@ export default function HomePage() {
         disclaimer={reportsKpi.disclaimer}
         tone="muted"
       />
-      <PortalSection />
+      <BusinessControlMap
+        eyebrow={businessControlMap.eyebrow}
+        title={businessControlMap.title}
+        body={businessControlMap.body}
+        nodes={businessControlMap.nodes}
+        closing={businessControlMap.closing}
+        tone="tint"
+      />
       <ProcessSection />
       <TrustProof
         eyebrow={trustProof.eyebrow}
