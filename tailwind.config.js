@@ -37,11 +37,6 @@ module.exports = {
           soft: "#eef2ff",
           ink: "#4f46e5",
         },
-        cta: {
-          DEFAULT: "#ea580c",
-          hover: "#c2410c",
-          soft: "#fff7ed",
-        },
         status: {
           open: "#2563eb",
           progress: "#b45309",

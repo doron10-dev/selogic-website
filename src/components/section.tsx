@@ -66,7 +66,7 @@ export function SectionHeading({
   return (
     <div className={`max-w-prose ${alignment}`}>
       {eyebrow ? (
-        <p className={`mb-3 text-sm font-medium ${invert ? "text-blue-300" : "text-blue-700"}`}>{eyebrow}</p>
+        <p className={`mb-3 text-sm font-medium ${invert ? "text-blue-300" : "text-blue-700 dark:text-blue-300"}`}>{eyebrow}</p>
       ) : null}
       <h2
         className={`font-display text-2xl font-bold leading-tight sm:text-3xl md:text-4xl ${

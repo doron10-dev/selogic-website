@@ -1,14 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useRef, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+const MOBILE_QUERY = "(max-width: 767px)";
+const DESKTOP_QUERY = "(min-width: 768px)";
 
 function subscribeReducedMotion(onChange: () => void) {
   if (typeof window === "undefined" || !window.matchMedia) return () => {};
   const mql = window.matchMedia(REDUCED_MOTION_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
+function subscribeMobile(onChange: () => void) {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {};
+  const mql = window.matchMedia(MOBILE_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
+function subscribeDesktop(onChange: () => void) {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {};
+  const mql = window.matchMedia(DESKTOP_QUERY);
   mql.addEventListener("change", onChange);
   return () => mql.removeEventListener("change", onChange);
 }
@@ -25,6 +41,31 @@ function usePrefersReducedMotion() {
   return useSyncExternalStore(
     subscribeReducedMotion,
     () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => false,
+  );
+}
+
+/** Hydration-safe `max-width: 767px` — drives phone-specific expansion sizing. */
+function useIsMobile() {
+  return useSyncExternalStore(
+    subscribeMobile,
+    () => window.matchMedia(MOBILE_QUERY).matches,
+    () => false,
+  );
+}
+
+/**
+ * Hydration-safe "confirmed desktop viewport". The server snapshot is `false`,
+ * so the SSR markup renders the static poster and the heavy hero `<video>` is
+ * never present in the initial HTML — the browser's preload scanner therefore
+ * never fetches the ~1MB mp4 on phones (or before hydration anywhere). Only
+ * after the client confirms a desktop viewport does the video upgrade in,
+ * which also keeps the poster as a fast LCP on desktop.
+ */
+function useIsDesktop() {
+  return useSyncExternalStore(
+    subscribeDesktop,
+    () => window.matchMedia(DESKTOP_QUERY).matches,
     () => false,
   );
 }
@@ -67,14 +108,10 @@ export function ScrollExpandMedia({
 }: ScrollExpandMediaProps) {
   const prefersReduced = usePrefersReducedMotion();
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
+  const isMobile = useIsMobile();
+  // Gate the heavy video behind a client-confirmed desktop viewport so it is
+  // absent from SSR HTML (no mp4 fetch on phones). Poster renders until then.
+  const isDesktop = useIsDesktop();
 
   // offset "end end" makes progress reach 1 exactly as the sticky child is
   // released at the bottom of the track — so the pinned hero fills the whole
@@ -151,8 +188,9 @@ export function ScrollExpandMedia({
   return (
     <div className="relative font-sans">
       {/* Tall scroll track drives the expansion via native scroll position.
-          Track height = sticky height (100vh) + animation distance (100vh). */}
-      <div ref={trackRef} className="relative h-[200vh] bg-[#0c0a24]">
+          Track height = sticky height (100vh) + animation distance (60vh) — a
+          tighter scroll before the hero releases into the content below. */}
+      <div ref={trackRef} className="relative h-[160vh] bg-[#0c0a24]">
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* Full-bleed background */}
           <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
@@ -186,7 +224,7 @@ export function ScrollExpandMedia({
                 posterSrc={posterSrc}
                 alt={resolvedLine1}
                 overlayOpacity={overlayOpacity}
-                staticOnly={isMobile}
+                staticOnly={!isDesktop}
               />
 
               <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-2 bg-gradient-to-b from-[#0c0a24]/90 to-transparent px-4 pb-8 pt-3">

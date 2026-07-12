@@ -44,11 +44,8 @@ function HeroExpandedPanel() {
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300/90">
           Selogic Technologies
         </p>
-        <h2 className="font-display mt-3 text-2xl font-bold leading-tight text-white sm:text-3xl">
-          IT מנוהל לעסקים בישראל
-        </h2>
 
-        <ul className="mt-5 flex flex-wrap items-center justify-center gap-2">
+        <ul className="mt-6 flex flex-wrap items-center justify-center gap-2">
           {SERVICE_PILLS.map((pill) => (
             <li
               key={pill}
@@ -77,16 +74,10 @@ function HeroExpandedPanel() {
       </div>
 
       <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:gap-4">
-        <Link
-          href={hero.primaryCta.href}
-          className="inline-flex min-h-11 items-center justify-center rounded-full bg-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-orange-700"
-        >
+        <Link href={hero.primaryCta.href} className="cine-btn-primary">
           {hero.primaryCta.label}
         </Link>
-        <Link
-          href={hero.secondaryCta.href}
-          className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/25 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-white/15"
-        >
+        <Link href={hero.secondaryCta.href} className="cine-btn-ghost">
           {hero.secondaryCta.label}
         </Link>
       </div>

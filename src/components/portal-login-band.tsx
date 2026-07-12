@@ -26,7 +26,7 @@ export function PortalLoginBand() {
                   href={getClientPortalLoginHref()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center rounded-full bg-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-md transition-all hover:bg-orange-700"
+                  className="btn-cta"
                 >
                   כניסה לפורטל
                 </a>

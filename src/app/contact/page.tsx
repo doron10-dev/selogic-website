@@ -334,6 +334,7 @@ export default function ContactPage() {
                         value={form.name}
                         onChange={update("name")}
                         onBlur={markTouched("name")}
+                        autoComplete="name"
                         required
                         invalid={fieldErrors.includes("name") || Boolean(localHints.name)}
                         hint={localHints.name}
@@ -345,6 +346,7 @@ export default function ContactPage() {
                         value={form.company}
                         onChange={update("company")}
                         onBlur={markTouched("company")}
+                        autoComplete="organization"
                         required
                         invalid={fieldErrors.includes("company") || Boolean(localHints.company)}
                         hint={localHints.company}
@@ -359,6 +361,7 @@ export default function ContactPage() {
                         onChange={update("phone")}
                         onBlur={markTouched("phone")}
                         type="tel"
+                        autoComplete="tel"
                         required
                         invalid={fieldErrors.includes("phone") || Boolean(localHints.phone)}
                         hint={localHints.phone}
@@ -371,6 +374,7 @@ export default function ContactPage() {
                         onChange={update("email")}
                         onBlur={markTouched("email")}
                         type="email"
+                        autoComplete="email"
                         required
                         invalid={fieldErrors.includes("email") || Boolean(localHints.email)}
                         hint={localHints.email}
@@ -482,6 +486,7 @@ function Field({
   onChange,
   onBlur,
   type = "text",
+  autoComplete,
   required = false,
   optional = false,
   invalid = false,
@@ -494,6 +499,7 @@ function Field({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
   type?: string;
+  autoComplete?: string;
   required?: boolean;
   optional?: boolean;
   invalid?: boolean;
@@ -512,6 +518,7 @@ function Field({
         id={id}
         name={id}
         type={type}
+        autoComplete={autoComplete}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
