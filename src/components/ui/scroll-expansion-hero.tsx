@@ -1,8 +1,33 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribeReducedMotion(onChange: () => void) {
+  if (typeof window === "undefined" || !window.matchMedia) return () => {};
+  const mql = window.matchMedia(REDUCED_MOTION_QUERY);
+  mql.addEventListener("change", onChange);
+  return () => mql.removeEventListener("change", onChange);
+}
+
+/**
+ * Hydration-safe `prefers-reduced-motion`. The server snapshot is always
+ * `false`, so SSR and the first client render agree on the same markup (no
+ * React #418). After hydration the store settles to the real OS value and the
+ * static, reduced-motion branch takes over. Framer-motion's own
+ * `useReducedMotion` reads `matchMedia` on the first client render, which does
+ * not match the server and caused the hydration mismatch.
+ */
+function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    subscribeReducedMotion,
+    () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
+    () => false,
+  );
+}
 
 export interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
@@ -40,7 +65,7 @@ export function ScrollExpandMedia({
   rtl = false,
   children,
 }: ScrollExpandMediaProps) {
-  const prefersReduced = useReducedMotion();
+  const prefersReduced = usePrefersReducedMotion();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
