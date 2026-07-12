@@ -33,7 +33,6 @@ export default function CybersecurityPage() {
         statusKind="progress"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        mockupVariant="security"
         layout="split"
         breadcrumbs={breadcrumbs}
       />

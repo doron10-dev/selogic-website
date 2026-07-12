@@ -80,21 +80,30 @@ export function PageHero({
 }: PageHeroProps) {
   const hasCustomCta = Boolean(primaryCta || secondaryCta);
   const cfg = LAYOUTS[layout];
+  // No mockup → center the hero as an editorial text block, so it reads as an
+  // intentional composition instead of a lopsided half-empty two-column grid.
+  const textOnly = !mockupVariant;
 
   return (
     <section className="theme-page-hero">
       <div className={`container-page ${cfg.pad}`}>
         <div className={mockupVariant ? cfg.grid : ""}>
-          <div className="min-w-0">
+          <div className={`min-w-0${textOnly ? " mx-auto max-w-3xl text-center" : ""}`}>
             {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
             <span className="eyebrow mb-3">
               <StatusDot kind={statusKind} pulse />
               {eyebrow}
             </span>
-            <h1 className={`font-display theme-text-heading max-w-3xl ${cfg.title}`}>{title}</h1>
-            <p className={`theme-text-body mt-4 leading-relaxed sm:mt-5 ${cfg.intro}`}>{intro}</p>
+            <h1 className={`font-display theme-text-heading ${textOnly ? "mx-auto" : "max-w-3xl"} ${cfg.title}`}>
+              {title}
+            </h1>
+            <p
+              className={`theme-text-body mt-4 leading-relaxed sm:mt-5 ${textOnly ? "mx-auto max-w-2xl" : cfg.intro}`}
+            >
+              {intro}
+            </p>
             {hasCustomCta ? (
-              <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+              <div className={`mt-6 flex flex-wrap gap-3 sm:mt-8${textOnly ? " justify-center" : ""}`}>
                 {primaryCta ? (
                   <Button href={primaryCta.href} variant="primary">
                     {primaryCta.label}
@@ -108,7 +117,7 @@ export function PageHero({
                 {extraActions}
               </div>
             ) : (
-              <div className="mt-6 sm:mt-8">
+              <div className={`mt-6 sm:mt-8${textOnly ? " flex justify-center" : ""}`}>
                 <Button href={siteUrls.technicalSupport} variant="secondary">
                   פתחו קריאת שירות
                 </Button>

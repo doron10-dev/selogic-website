@@ -32,7 +32,6 @@ export default function InformationSystemsPage() {
         statusKind="progress"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        mockupVariant="dispatch"
         layout="split"
         breadcrumbs={breadcrumbs}
       />

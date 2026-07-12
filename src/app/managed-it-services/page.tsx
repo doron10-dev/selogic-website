@@ -10,5 +10,5 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Page() {
-  return <ServicePage content={managedItServicesPage} pagePath="/managed-it-services" variant="flagship" mockupVariant="dispatch" />;
+  return <ServicePage content={managedItServicesPage} pagePath="/managed-it-services" variant="flagship" />;
 }

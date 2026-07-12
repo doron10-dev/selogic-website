@@ -17,7 +17,6 @@ export default function Page() {
       pagePath="/remote-support"
       afterHero={<RemoteSupportExtras />}
       variant="compact"
-      mockupVariant="support"
     />
   );
 }

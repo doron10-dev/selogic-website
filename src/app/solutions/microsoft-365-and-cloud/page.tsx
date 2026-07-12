@@ -32,7 +32,6 @@ export default function Microsoft365Page() {
         statusKind="progress"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        mockupVariant="m365"
         layout="split"
         breadcrumbs={breadcrumbs}
       />

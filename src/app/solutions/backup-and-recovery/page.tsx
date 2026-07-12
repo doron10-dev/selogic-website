@@ -10,5 +10,5 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Page() {
-  return <ServicePage content={backupRecoveryPage} pagePath="/solutions/backup-and-recovery" mockupVariant="monitoring" />;
+  return <ServicePage content={backupRecoveryPage} pagePath="/solutions/backup-and-recovery" />;
 }

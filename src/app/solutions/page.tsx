@@ -43,7 +43,6 @@ export default function Page() {
         intro={solutionsHubHero.intro}
         primaryCta={solutionsHubHero.primaryCta}
         secondaryCta={solutionsHubHero.secondaryCta}
-        mockupVariant="dispatch"
         layout="editorial"
         breadcrumbs={breadcrumbs}
       />
@@ -58,7 +57,7 @@ export default function Page() {
 
         {featured ? (
           <div className="mt-10">
-            <FeaturedServiceCard item={featured} mockupVariant="dispatch" />
+            <FeaturedServiceCard item={featured} />
           </div>
         ) : null}
 

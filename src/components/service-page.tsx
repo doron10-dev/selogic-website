@@ -125,7 +125,7 @@ export function ServicePage({
   pagePath,
   afterHero,
   variant = "default",
-  mockupVariant = "dispatch",
+  mockupVariant,
   heroLayout,
   painLayout,
 }: {

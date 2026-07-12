@@ -32,7 +32,6 @@ export default function SiteDossierPage() {
         statusKind="closed"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        mockupVariant="dispatch"
         layout="split"
         breadcrumbs={breadcrumbs}
       />

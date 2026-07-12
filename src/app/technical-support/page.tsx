@@ -113,7 +113,6 @@ export default function TechnicalSupportPage() {
         statusKind="progress"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
-        mockupVariant="support"
         layout="compact"
         breadcrumbs={breadcrumbs}
         extraActions={

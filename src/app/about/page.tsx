@@ -19,7 +19,6 @@ export default function Page() {
     <ServicePage
       content={aboutPage}
       pagePath="/about"
-      mockupVariant="dispatch"
       afterHero={
         <>
           <AboutExtras />
