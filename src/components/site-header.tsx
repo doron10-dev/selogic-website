@@ -71,18 +71,16 @@ export function SiteHeader() {
               <div className="hidden shrink-0 items-center gap-2 2xl:flex 3xl:gap-3">
                 <Link
                   href={siteUrls.technicalSupport}
-                  className="theme-header-utility-link 3xl:text-sm"
+                  className="theme-btn-secondary inline-flex min-h-10 items-center justify-center whitespace-nowrap px-4 py-2.5 text-[13px] 3xl:px-5 3xl:text-sm"
                 >
-                  <span className="3xl:hidden">קריאת שירות</span>
-                  <span className="hidden 3xl:inline">פתחו קריאת שירות</span>
+                  פתחו קריאת שירות
                 </Link>
                 <Button
                   href={siteUrls.contactDiagnosis}
                   variant="diagnosis"
                   className="min-h-10 whitespace-nowrap px-4 py-2.5 text-[13px] 3xl:px-5 3xl:text-sm"
                 >
-                  <span className="3xl:hidden">שיחת אבחון</span>
-                  <span className="hidden 3xl:inline">{siteLabels.contactCta}</span>
+                  {siteLabels.contactCta}
                 </Button>
               </div>
             </>

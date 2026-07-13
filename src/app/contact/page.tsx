@@ -202,8 +202,7 @@ export default function ContactPage() {
               {siteLabels.contactCta}
             </Button>
             <Button href={siteUrls.technicalSupport} variant="secondary">
-              <span className="sm:hidden">פתחו קריאת שירות</span>
-              <span className="hidden sm:inline">לקוח קיים? פתחו קריאת שירות</span>
+              פתחו קריאת שירות
             </Button>
           </div>
         </div>
