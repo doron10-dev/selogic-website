@@ -111,13 +111,13 @@ export default function TechnicalSupportPage() {
         title={content.hero.title}
         intro={content.hero.intro}
         statusKind="progress"
-        primaryCta={content.hero.primaryCta}
-        secondaryCta={content.hero.secondaryCta}
+        primaryCta={content.hero.diagnosisCta}
+        secondaryCta={content.hero.primaryCta}
         layout="compact"
         breadcrumbs={breadcrumbs}
         extraActions={
-          <Button href={content.hero.diagnosisCta.href} variant="diagnosis" className="hidden sm:inline-flex">
-            {content.hero.diagnosisCta.label}
+          <Button href={content.hero.secondaryCta.href} variant="secondary" className="hidden sm:inline-flex">
+            {content.hero.secondaryCta.label}
           </Button>
         }
       />
