@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -300,78 +300,16 @@ type MediaProps = {
 
 function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity, shouldPlay }: MediaProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [videoReady, setVideoReady] = useState(false);
-  const videoFramePresentedRef = useRef(false);
-  const pendingVideoFrameRef = useRef<{ video: HTMLVideoElement; id: number } | null>(null);
-  const pendingAnimationFrameRef = useRef<number | null>(null);
-
-  const cancelPendingFrameConfirmation = useCallback(() => {
-    const pendingVideoFrame = pendingVideoFrameRef.current;
-    if (pendingVideoFrame) {
-      pendingVideoFrame.video.cancelVideoFrameCallback(pendingVideoFrame.id);
-      pendingVideoFrameRef.current = null;
-    }
-    if (pendingAnimationFrameRef.current !== null) {
-      cancelAnimationFrame(pendingAnimationFrameRef.current);
-      pendingAnimationFrameRef.current = null;
-    }
-  }, []);
-
-  const markFirstFramePresented = useCallback(() => {
-    if (videoFramePresentedRef.current) return;
-    videoFramePresentedRef.current = true;
-    setVideoReady(true);
-  }, []);
-
-  const confirmFirstFramePresented = useCallback(() => {
-    const video = videoRef.current;
-    if (
-      !shouldPlay ||
-      !video ||
-      video.paused ||
-      video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA ||
-      videoFramePresentedRef.current ||
-      pendingVideoFrameRef.current ||
-      pendingAnimationFrameRef.current !== null
-    ) {
-      return;
-    }
-
-    if (typeof video.requestVideoFrameCallback === "function") {
-      const id = video.requestVideoFrameCallback(() => {
-        pendingVideoFrameRef.current = null;
-        markFirstFramePresented();
-      });
-      pendingVideoFrameRef.current = { video, id };
-      return;
-    }
-
-    pendingAnimationFrameRef.current = requestAnimationFrame(() => {
-      pendingAnimationFrameRef.current = null;
-      markFirstFramePresented();
-    });
-  }, [markFirstFramePresented, shouldPlay]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || mediaType !== "video") return;
-    cancelPendingFrameConfirmation();
     if (shouldPlay) {
-      void video
-        .play()
-        .then(confirmFirstFramePresented)
-        .catch(() => {});
+      void video.play().catch(() => {});
     } else {
       video.pause();
     }
-    return cancelPendingFrameConfirmation;
-  }, [
-    cancelPendingFrameConfirmation,
-    confirmFirstFramePresented,
-    mediaSrc,
-    mediaType,
-    shouldPlay,
-  ]);
+  }, [mediaSrc, mediaType, shouldPlay]);
 
   const overlay = (
     <motion.div
@@ -386,15 +324,13 @@ function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity, shouldPlay }: Med
         <video
           ref={videoRef}
           src={mediaSrc}
+          poster="/hero/hero-video-poster.webp"
           autoPlay={shouldPlay}
           muted
           loop
           playsInline
           preload={shouldPlay ? "auto" : "none"}
-          onPlaying={confirmFirstFramePresented}
-          className={`absolute inset-0 z-10 h-full w-full object-cover object-center ${
-            videoReady ? "opacity-100" : "opacity-0"
-          }`}
+          className="absolute inset-0 z-10 h-full w-full object-cover object-center"
           controls={false}
           disablePictureInPicture
           disableRemotePlayback
