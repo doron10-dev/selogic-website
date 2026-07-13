@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -301,21 +301,81 @@ type MediaProps = {
 function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity, shouldPlay }: MediaProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const videoFramePresentedRef = useRef(false);
+  const pendingVideoFrameRef = useRef<{ video: HTMLVideoElement; id: number } | null>(null);
+  const pendingAnimationFrameRef = useRef<number | null>(null);
+
+  const cancelPendingFrameConfirmation = useCallback(() => {
+    const pendingVideoFrame = pendingVideoFrameRef.current;
+    if (pendingVideoFrame) {
+      pendingVideoFrame.video.cancelVideoFrameCallback(pendingVideoFrame.id);
+      pendingVideoFrameRef.current = null;
+    }
+    if (pendingAnimationFrameRef.current !== null) {
+      cancelAnimationFrame(pendingAnimationFrameRef.current);
+      pendingAnimationFrameRef.current = null;
+    }
+  }, []);
+
+  const markFirstFramePresented = useCallback(() => {
+    if (videoFramePresentedRef.current) return;
+    videoFramePresentedRef.current = true;
+    setVideoReady(true);
+  }, []);
+
+  const confirmFirstFramePresented = useCallback(() => {
+    const video = videoRef.current;
+    if (
+      !shouldPlay ||
+      !video ||
+      video.paused ||
+      video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA ||
+      videoFramePresentedRef.current ||
+      pendingVideoFrameRef.current ||
+      pendingAnimationFrameRef.current !== null
+    ) {
+      return;
+    }
+
+    if (typeof video.requestVideoFrameCallback === "function") {
+      const id = video.requestVideoFrameCallback(() => {
+        pendingVideoFrameRef.current = null;
+        markFirstFramePresented();
+      });
+      pendingVideoFrameRef.current = { video, id };
+      return;
+    }
+
+    pendingAnimationFrameRef.current = requestAnimationFrame(() => {
+      pendingAnimationFrameRef.current = null;
+      markFirstFramePresented();
+    });
+  }, [markFirstFramePresented, shouldPlay]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video || mediaType !== "video") return;
-    setVideoReady(video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
+    cancelPendingFrameConfirmation();
     if (shouldPlay) {
-      void video.play().catch(() => {});
+      void video
+        .play()
+        .then(confirmFirstFramePresented)
+        .catch(() => {});
     } else {
       video.pause();
     }
-  }, [mediaSrc, mediaType, shouldPlay]);
+    return cancelPendingFrameConfirmation;
+  }, [
+    cancelPendingFrameConfirmation,
+    confirmFirstFramePresented,
+    mediaSrc,
+    mediaType,
+    shouldPlay,
+  ]);
 
   const overlay = (
     <motion.div
-      className="absolute inset-0 bg-gradient-to-b from-[#0c0a24]/60 via-transparent to-[#0c0a24]/35"
+      className="absolute inset-0 z-20 bg-gradient-to-b from-[#0c0a24]/60 via-transparent to-[#0c0a24]/35"
       style={overlayOpacity ? { opacity: overlayOpacity } : undefined}
     />
   );
@@ -331,10 +391,8 @@ function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity, shouldPlay }: Med
           loop
           playsInline
           preload={shouldPlay ? "auto" : "none"}
-          onLoadStart={() => setVideoReady(false)}
-          onLoadedData={() => setVideoReady(true)}
-          onCanPlay={() => setVideoReady(true)}
-          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-200 ${
+          onPlaying={confirmFirstFramePresented}
+          className={`absolute inset-0 z-10 h-full w-full object-cover object-center ${
             videoReady ? "opacity-100" : "opacity-0"
           }`}
           controls={false}
