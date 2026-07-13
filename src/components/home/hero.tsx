@@ -5,6 +5,8 @@ import { BarChart3, Headphones, Shield } from "lucide-react";
 import { ScrollExpandMedia } from "@/components/ui/scroll-expansion-hero";
 import { hero } from "@/data/home";
 
+const HERO_BACKGROUND = "/hero/hero-bg.jpg";
+
 const VALUE_POINTS = [
   { icon: Headphones, label: "תמיכה ותיעוד קריאות שירות" },
   { icon: BarChart3, label: "סטטוס ושקיפות בפורטל הלקוח" },
@@ -18,6 +20,7 @@ export function Hero() {
     <ScrollExpandMedia
       mediaType="video"
       mediaSrc="/hero/selogic-hero.mp4"
+      backgroundSrc={HERO_BACKGROUND}
       title="שליטה שוטפת ב-IT"
       titleLine2="בלי להחזיק מחלקה פנימית"
       date={hero.eyebrow}

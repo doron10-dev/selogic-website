@@ -22,18 +22,17 @@ function subscribeMobile(onChange: () => void) {
 }
 
 /**
- * Hydration-safe `prefers-reduced-motion`. The server snapshot is always
- * `false`, so SSR and the first client render agree on the same markup (no
- * React #418). After hydration the store settles to the real OS value and the
- * static, reduced-motion branch takes over. Framer-motion's own
- * `useReducedMotion` reads `matchMedia` on the first client render, which does
- * not match the server and caused the hydration mismatch.
+ * Hydration-safe `prefers-reduced-motion`. `null` is the shared SSR/hydration
+ * snapshot, so the first client render matches the server without allowing
+ * video playback yet. After hydration the store resolves to the real OS value:
+ * normal motion starts the video; reduced motion switches to the static image
+ * branch. This avoids both React #418 and a pre-hydration motion flash.
  */
 function usePrefersReducedMotion() {
-  return useSyncExternalStore(
+  return useSyncExternalStore<boolean | null>(
     subscribeReducedMotion,
     () => window.matchMedia(REDUCED_MOTION_QUERY).matches,
-    () => false,
+    () => null,
   );
 }
 
@@ -49,6 +48,7 @@ function useIsMobile() {
 export interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
   mediaSrc: string;
+  backgroundSrc: string;
   title?: string;
   titleLine2?: string;
   date?: string;
@@ -70,6 +70,7 @@ export interface ScrollExpandMediaProps {
 export function ScrollExpandMedia({
   mediaType = "video",
   mediaSrc,
+  backgroundSrc,
   title,
   titleLine2,
   date,
@@ -129,39 +130,28 @@ export function ScrollExpandMedia({
 
   const titleBlend = textBlend ? "mix-blend-difference" : "mix-blend-normal";
 
-  // Reduced-motion fallback: content stays visible on a stable brand surface,
-  // with no animated media, scroll track, or sticky positioning.
-  if (prefersReduced) {
-    return (
-      <div className="relative overflow-x-hidden bg-[#0c0a24] font-sans">
-        <section className="relative z-10 flex flex-col items-center gap-6 px-2 py-16 sm:px-4">
-          <HeroHeadline
-            date={date}
-            line1={resolvedLine1}
-            line2={resolvedLine2}
-            titleBlend={titleBlend}
-          />
-          <div className="relative w-full px-2 pt-2 sm:px-4 md:px-8">{children}</div>
-        </section>
-      </div>
-    );
-  }
-
   return (
     <div className="relative font-sans">
       {/* Tall scroll track drives the expansion via native scroll position.
           Track height = sticky height (100vh) + animation distance (60vh) — a
           tighter scroll before the hero releases into the content below. */}
-      <div ref={trackRef} className="relative h-[160vh] bg-[#0c0a24]">
-        <div className="sticky top-0 h-[100dvh] overflow-hidden">
-          {/* Neutral brand surface stays visible until the video is ready. */}
-          <motion.div
-            className="pointer-events-none absolute inset-0 z-0 bg-[#0c0a24]"
-            style={{ opacity: bgOverlayOpacity }}
-            aria-hidden="true"
-          />
+      <div ref={trackRef} className="relative h-[160vh] bg-[#0c0a24] motion-reduce:h-auto">
+        <div className="sticky top-0 h-[100dvh] overflow-hidden motion-reduce:relative motion-reduce:h-auto">
+          {/* Stable SSR background remains beneath the video during loading or failure. */}
+          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+            <Image
+              src={backgroundSrc}
+              alt=""
+              fill
+              priority
+              fetchPriority="high"
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+            <motion.div className="absolute inset-0 bg-[#0c0a24]" style={{ opacity: bgOverlayOpacity }} />
+          </div>
 
-          <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-5 px-2 sm:gap-6 sm:px-4">
+          <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-5 px-2 motion-reduce:min-h-[70dvh] motion-reduce:py-16 sm:gap-6 sm:px-4">
             <HeroHeadline
               date={date}
               line1={resolvedLine1}
@@ -172,7 +162,7 @@ export function ScrollExpandMedia({
             />
 
             <motion.div
-              className="relative z-10 shrink-0 overflow-hidden rounded-2xl"
+              className="relative z-10 shrink-0 overflow-hidden rounded-2xl motion-reduce:hidden"
               style={{
                 width: mediaWidth,
                 height: mediaHeight,
@@ -186,6 +176,7 @@ export function ScrollExpandMedia({
                 mediaSrc={mediaSrc}
                 alt={resolvedLine1}
                 overlayOpacity={overlayOpacity}
+                shouldPlay={prefersReduced === false}
               />
 
               <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-2 bg-gradient-to-b from-[#0c0a24]/90 to-transparent px-4 pb-8 pt-3">
@@ -201,7 +192,7 @@ export function ScrollExpandMedia({
 
             {scrollToExpand ? (
               <motion.p
-                className="relative z-30 shrink-0 text-center font-sans text-sm font-medium text-indigo-200/90 sm:text-base"
+                className="relative z-30 shrink-0 text-center font-sans text-sm font-medium text-indigo-200/90 motion-reduce:hidden sm:text-base"
                 style={{ opacity: promptOpacity }}
               >
                 {scrollToExpand}
@@ -213,7 +204,7 @@ export function ScrollExpandMedia({
 
       {/* Expanded content flows in below the hero track. */}
       <motion.section
-        className="relative z-10 flex w-full flex-col px-2 pt-2 pb-10 sm:px-4 sm:pt-4 md:px-8 md:pb-14"
+        className="relative z-10 flex w-full flex-col px-2 pt-2 pb-10 motion-reduce:!transform-none motion-reduce:!opacity-100 sm:px-4 sm:pt-4 md:px-8 md:pb-14"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
@@ -274,9 +265,10 @@ type MediaProps = {
   mediaSrc: string;
   alt?: string;
   overlayOpacity?: ReturnType<typeof useTransform<number, number>>;
+  shouldPlay: boolean;
 };
 
-function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity }: MediaProps) {
+function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity, shouldPlay }: MediaProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -284,7 +276,12 @@ function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity }: MediaProps) {
     const video = videoRef.current;
     if (!video || mediaType !== "video") return;
     setVideoReady(video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
-  }, [mediaSrc, mediaType]);
+    if (shouldPlay) {
+      void video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [mediaSrc, mediaType, shouldPlay]);
 
   const overlay = (
     <motion.div
@@ -295,15 +292,15 @@ function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity }: MediaProps) {
 
   if (mediaType === "video") {
     return (
-      <div className="pointer-events-none relative h-full w-full bg-[#0c0a24]">
+      <div className="pointer-events-none relative h-full w-full">
         <video
           ref={videoRef}
           src={mediaSrc}
-          autoPlay
+          autoPlay={shouldPlay}
           muted
           loop
           playsInline
-          preload="auto"
+          preload={shouldPlay ? "auto" : "none"}
           onLoadStart={() => setVideoReady(false)}
           onLoadedData={() => setVideoReady(true)}
           onCanPlay={() => setVideoReady(true)}
