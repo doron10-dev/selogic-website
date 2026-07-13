@@ -263,13 +263,13 @@ export default function ContactPage() {
             </div>
 
             <div className="theme-card-interactive">
-              <h3 className="theme-text-heading text-lg font-semibold">מה קורה אחרי שפונים</h3>
+              <h3 className="theme-text-heading text-lg font-semibold">מה קורה אחרי שפונים אלינו</h3>
               <ol className="mt-4 space-y-3">
                 {[
-                  "שיחת היכרות קצרה להבנת העסק והצרכים",
-                  "מיפוי מצב ה-IT הקיים ורמת התיעוד",
-                  "זיהוי סיכונים ו-quick wins מיידיים",
-                  "בלי מכירה אגרסיבית — אתם מחליטים אם ומתי להמשיך",
+                  "שיחת היכרות קצרה כדי להבין את העסק ואת הצרכים שלכם",
+                  "נבחן יחד את מצב המחשוב הקיים ואת רמת התיעוד",
+                  "נזהה סיכונים ונראה מה אפשר לשפר כבר בשלב הראשון",
+                  "בלי לחץ ובלי מכירה אגרסיבית אתם תחליטו אם ומתי נכון להמשיך",
                 ].map((stepText, i) => (
                   <li key={stepText} className="flex items-start gap-3">
                     <span className="theme-step-dot h-7 w-7 shrink-0 text-xs" aria-hidden="true">
