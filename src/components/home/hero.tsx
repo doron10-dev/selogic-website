@@ -34,8 +34,8 @@ export function Hero() {
 
 function HeroExpandedPanel() {
   return (
-    <div className="mx-auto max-w-3xl text-center">
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-8 backdrop-blur-sm sm:px-8 sm:py-10">
+    <div className="mx-auto max-w-4xl text-center">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-9 backdrop-blur-sm sm:px-10 sm:py-11">
         <p className="font-mono text-xs font-semibold uppercase tracking-[0.2em] text-indigo-300/90">
           Selogic Technologies
         </p>
