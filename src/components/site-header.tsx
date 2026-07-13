@@ -126,10 +126,7 @@ export function SiteHeader() {
               );
             })}
 
-            <div className="theme-divider mt-2 pt-3">
-              <p className="theme-text-muted px-1 pb-1 text-[11px] font-semibold uppercase tracking-[0.14em]">
-                עוד באתר
-              </p>
+            <div className="theme-divider mt-2 flex flex-col gap-1 pt-2">
               {secondaryNavItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
                 return (

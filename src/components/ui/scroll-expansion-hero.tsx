@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useSyncExternalStore, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 const MOBILE_QUERY = "(max-width: 767px)";
-const DESKTOP_QUERY = "(min-width: 768px)";
 
 function subscribeReducedMotion(onChange: () => void) {
   if (typeof window === "undefined" || !window.matchMedia) return () => {};
@@ -18,13 +17,6 @@ function subscribeReducedMotion(onChange: () => void) {
 function subscribeMobile(onChange: () => void) {
   if (typeof window === "undefined" || !window.matchMedia) return () => {};
   const mql = window.matchMedia(MOBILE_QUERY);
-  mql.addEventListener("change", onChange);
-  return () => mql.removeEventListener("change", onChange);
-}
-
-function subscribeDesktop(onChange: () => void) {
-  if (typeof window === "undefined" || !window.matchMedia) return () => {};
-  const mql = window.matchMedia(DESKTOP_QUERY);
   mql.addEventListener("change", onChange);
   return () => mql.removeEventListener("change", onChange);
 }
@@ -54,27 +46,9 @@ function useIsMobile() {
   );
 }
 
-/**
- * Hydration-safe "confirmed desktop viewport". The server snapshot is `false`,
- * so the SSR markup renders the static poster and the heavy hero `<video>` is
- * never present in the initial HTML — the browser's preload scanner therefore
- * never fetches the ~1MB mp4 on phones (or before hydration anywhere). Only
- * after the client confirms a desktop viewport does the video upgrade in,
- * which also keeps the poster as a fast LCP on desktop.
- */
-function useIsDesktop() {
-  return useSyncExternalStore(
-    subscribeDesktop,
-    () => window.matchMedia(DESKTOP_QUERY).matches,
-    () => false,
-  );
-}
-
 export interface ScrollExpandMediaProps {
   mediaType?: "video" | "image";
   mediaSrc: string;
-  posterSrc?: string;
-  bgImageSrc: string;
   title?: string;
   titleLine2?: string;
   date?: string;
@@ -96,8 +70,6 @@ export interface ScrollExpandMediaProps {
 export function ScrollExpandMedia({
   mediaType = "video",
   mediaSrc,
-  posterSrc,
-  bgImageSrc,
   title,
   titleLine2,
   date,
@@ -109,9 +81,6 @@ export function ScrollExpandMedia({
   const prefersReduced = usePrefersReducedMotion();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
-  // Gate the heavy video behind a client-confirmed desktop viewport so it is
-  // absent from SSR HTML (no mp4 fetch on phones). Poster renders until then.
-  const isDesktop = useIsDesktop();
 
   // offset "end end" makes progress reach 1 exactly as the sticky child is
   // released at the bottom of the track — so the pinned hero fills the whole
@@ -160,15 +129,11 @@ export function ScrollExpandMedia({
 
   const titleBlend = textBlend ? "mix-blend-difference" : "mix-blend-normal";
 
-  // Reduced-motion / no-JS-friendly static fallback: media shown expanded,
-  // content visible, no scroll track, no sticky positioning.
+  // Reduced-motion fallback: content stays visible on a stable brand surface,
+  // with no animated media, scroll track, or sticky positioning.
   if (prefersReduced) {
     return (
-      <div className="relative overflow-x-hidden font-sans">
-        <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-          <Image src={bgImageSrc} alt="" fill priority sizes="100vw" className="object-cover object-center" />
-          <div className="absolute inset-0 bg-[#0c0a24]/60" />
-        </div>
+      <div className="relative overflow-x-hidden bg-[#0c0a24] font-sans">
         <section className="relative z-10 flex flex-col items-center gap-6 px-2 py-16 sm:px-4">
           <HeroHeadline
             date={date}
@@ -176,9 +141,6 @@ export function ScrollExpandMedia({
             line2={resolvedLine2}
             titleBlend={titleBlend}
           />
-          <div className="relative w-full max-w-4xl overflow-hidden rounded-2xl" style={{ maxHeight: "70vh" }}>
-            <HeroMedia mediaType={mediaType} mediaSrc={mediaSrc} posterSrc={posterSrc} alt={resolvedLine1} staticOnly />
-          </div>
           <div className="relative w-full px-2 pt-2 sm:px-4 md:px-8">{children}</div>
         </section>
       </div>
@@ -192,11 +154,12 @@ export function ScrollExpandMedia({
           tighter scroll before the hero releases into the content below. */}
       <div ref={trackRef} className="relative h-[160vh] bg-[#0c0a24]">
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
-          {/* Full-bleed background */}
-          <div className="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-            <Image src={bgImageSrc} alt="" fill priority sizes="100vw" className="object-cover object-center" />
-            <motion.div className="absolute inset-0 bg-[#0c0a24]" style={{ opacity: bgOverlayOpacity }} />
-          </div>
+          {/* Neutral brand surface stays visible until the video is ready. */}
+          <motion.div
+            className="pointer-events-none absolute inset-0 z-0 bg-[#0c0a24]"
+            style={{ opacity: bgOverlayOpacity }}
+            aria-hidden="true"
+          />
 
           <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-5 px-2 sm:gap-6 sm:px-4">
             <HeroHeadline
@@ -221,10 +184,8 @@ export function ScrollExpandMedia({
               <HeroMedia
                 mediaType={mediaType}
                 mediaSrc={mediaSrc}
-                posterSrc={posterSrc}
                 alt={resolvedLine1}
                 overlayOpacity={overlayOpacity}
-                staticOnly={!isDesktop}
               />
 
               <div className="pointer-events-none absolute inset-x-0 top-0 z-20 flex items-center justify-between gap-2 bg-gradient-to-b from-[#0c0a24]/90 to-transparent px-4 pb-8 pt-3">
@@ -311,14 +272,20 @@ function HeroHeadline({ date, line1, line2, titleBlend, leftShift, rightShift }:
 type MediaProps = {
   mediaType: "video" | "image";
   mediaSrc: string;
-  posterSrc?: string;
   alt?: string;
   overlayOpacity?: ReturnType<typeof useTransform<number, number>>;
-  /** Render a static poster image instead of the video (mobile / reduced-motion) to save the heavy video download. */
-  staticOnly?: boolean;
 };
 
-function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity, staticOnly }: MediaProps) {
+function HeroMedia({ mediaType, mediaSrc, alt, overlayOpacity }: MediaProps) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [videoReady, setVideoReady] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || mediaType !== "video") return;
+    setVideoReady(video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA);
+  }, [mediaSrc, mediaType]);
+
   const overlay = (
     <motion.div
       className="absolute inset-0 bg-gradient-to-b from-[#0c0a24]/60 via-transparent to-[#0c0a24]/35"
@@ -326,18 +293,23 @@ function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity, static
     />
   );
 
-  if (mediaType === "video" && !staticOnly) {
+  if (mediaType === "video") {
     return (
-      <div className="pointer-events-none relative h-full w-full">
+      <div className="pointer-events-none relative h-full w-full bg-[#0c0a24]">
         <video
+          ref={videoRef}
           src={mediaSrc}
-          poster={posterSrc}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
-          className="absolute inset-0 h-full w-full object-cover object-center"
+          preload="auto"
+          onLoadStart={() => setVideoReady(false)}
+          onLoadedData={() => setVideoReady(true)}
+          onCanPlay={() => setVideoReady(true)}
+          className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-200 ${
+            videoReady ? "opacity-100" : "opacity-0"
+          }`}
           controls={false}
           disablePictureInPicture
           disableRemotePlayback
@@ -347,13 +319,10 @@ function HeroMedia({ mediaType, mediaSrc, posterSrc, alt, overlayOpacity, static
     );
   }
 
-  // Static path: use the poster for a video, or the image source directly.
-  const imageSrc = mediaType === "video" ? posterSrc ?? mediaSrc : mediaSrc;
-
   return (
     <div className="relative h-full w-full">
       <Image
-        src={imageSrc}
+        src={mediaSrc}
         alt={alt || "Media content"}
         fill
         sizes="(max-width: 768px) 95vw, 1280px"
