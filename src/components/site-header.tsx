@@ -64,7 +64,7 @@ export function SiteHeader() {
             <>
               <Link
                 href={siteUrls.contactDiagnosis}
-                className="inline-flex shrink-0 rounded-full bg-blue-600 px-3 py-2 text-xs font-semibold text-white shadow-sm transition-all hover:bg-blue-500 2xl:hidden"
+                className="cine-btn-primary inline-flex min-h-10 shrink-0 rounded-full px-3 py-2 text-xs font-semibold 2xl:hidden"
               >
                 אבחון
               </Link>
@@ -78,7 +78,7 @@ export function SiteHeader() {
                 </Link>
                 <Button
                   href={siteUrls.contactDiagnosis}
-                  variant="primary"
+                  variant="diagnosis"
                   className="min-h-10 whitespace-nowrap px-4 py-2.5 text-[13px] 3xl:px-5 3xl:text-sm"
                 >
                   <span className="3xl:hidden">שיחת אבחון</span>
@@ -155,7 +155,7 @@ export function SiteHeader() {
                 <Link
                   href={siteUrls.contactDiagnosis}
                   onClick={() => setOpen(false)}
-                  className="flex w-full items-center justify-center rounded-full bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-500"
+                  className="cine-btn-primary flex w-full items-center justify-center rounded-full px-5 py-3 text-sm font-semibold"
                 >
                   {siteLabels.contactCta}
                 </Link>

@@ -105,7 +105,10 @@ export function PageHero({
             {hasCustomCta ? (
               <div className={`mt-6 flex flex-wrap gap-3 sm:mt-8${textOnly ? " justify-center" : ""}`}>
                 {primaryCta ? (
-                  <Button href={primaryCta.href} variant="primary">
+                  <Button
+                    href={primaryCta.href}
+                    variant={primaryCta.href === siteUrls.contactDiagnosis ? "diagnosis" : "primary"}
+                  >
                     {primaryCta.label}
                   </Button>
                 ) : null}

@@ -38,7 +38,7 @@ export function MobileStickyCta() {
     <div className="theme-sticky-bar fixed inset-x-0 bottom-0 z-40 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] 2xl:hidden">
       <Link
         href={siteUrls.contactDiagnosis}
-        className="flex min-h-11 w-full items-center justify-center rounded-full bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-blue-500"
+        className="cine-btn-primary flex min-h-11 w-full items-center justify-center rounded-full px-5 text-sm font-semibold"
       >
         {siteLabels.contactCta}
       </Link>

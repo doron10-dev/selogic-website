@@ -4,6 +4,7 @@ import { Button } from "@/components/button";
 import { ServiceIconChip } from "@/lib/service-icons";
 import { ProcessTimelineSteps } from "@/components/sections/process-timeline";
 import { Section } from "@/components/section";
+import { siteUrls } from "@/data/contact";
 import { whySelogic, servicesBento, serviceProcess, finalCta } from "@/data/home";
 
 function WhyIcon({ kind }: { kind: "chart" | "ticket" | "doc" }) {
@@ -121,7 +122,11 @@ export function ServicesBentoSection() {
         style={{ borderColor: "var(--theme-border)" }}
       >
         <h3 className="font-display theme-text-heading text-center text-lg font-semibold">{ctaCard.title}</h3>
-        <Button href={ctaCard.cta.href} variant="primary" className="shrink-0">
+        <Button
+          href={ctaCard.cta.href}
+          variant={ctaCard.cta.href === siteUrls.contactDiagnosis ? "diagnosis" : "primary"}
+          className="shrink-0"
+        >
           {ctaCard.cta.label}
         </Button>
       </div>
@@ -186,7 +191,11 @@ export function FinalCtaSection() {
             <p className="theme-text-muted mt-3 text-[17px] leading-relaxed">{track.body}</p>
             <Button
               href={track.href}
-              variant={track.icon === "plus" ? "primary" : "secondary"}
+              variant={
+                track.href === siteUrls.contactDiagnosis
+                  ? "diagnosis"
+                  : "secondary"
+              }
               className="mt-6"
             >
               {track.label}

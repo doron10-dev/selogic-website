@@ -4,13 +4,15 @@ import { ReactNode } from "react";
 type ButtonProps = {
   href: string;
   children: ReactNode;
-  variant?: "primary" | "secondary" | "dark" | "ghost";
+  variant?: "primary" | "diagnosis" | "secondary" | "dark" | "ghost";
   className?: string;
 };
 
 const variants = {
   primary:
     "bg-blue-600 text-white shadow-md hover:bg-blue-500 active:shadow-sm",
+  diagnosis:
+    "cine-btn-primary",
   secondary:
     "theme-btn-secondary active:shadow-sm",
   dark:

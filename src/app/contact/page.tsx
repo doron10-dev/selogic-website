@@ -198,7 +198,7 @@ export default function ContactPage() {
             שיחת אבחון, מיפוי מצב קיים והבנת פערים, לפני התאמת תהליך שירות. מייל, טלפון, או טופס למטה.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button href="#diagnosis" variant="primary">
+            <Button href="#diagnosis" variant="diagnosis">
               {siteLabels.contactCta}
             </Button>
             <Button href={siteUrls.technicalSupport} variant="secondary">
