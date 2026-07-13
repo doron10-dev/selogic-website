@@ -116,7 +116,7 @@ export default function TechnicalSupportPage() {
         layout="compact"
         breadcrumbs={breadcrumbs}
         extraActions={
-          <Button href={content.hero.diagnosisCta.href} variant="secondary" className="hidden sm:inline-flex">
+          <Button href={content.hero.diagnosisCta.href} variant="diagnosis" className="hidden sm:inline-flex">
             {content.hero.diagnosisCta.label}
           </Button>
         }

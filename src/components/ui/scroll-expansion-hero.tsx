@@ -82,6 +82,7 @@ export function ScrollExpandMedia({
   const prefersReduced = usePrefersReducedMotion();
   const trackRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useIsMobile();
+  const reducedMotionActive = prefersReduced === true;
 
   // offset "end end" makes progress reach 1 exactly as the sticky child is
   // released at the bottom of the track — so the pinned hero fills the whole
@@ -148,7 +149,14 @@ export function ScrollExpandMedia({
               sizes="100vw"
               className="object-cover object-center"
             />
-            <motion.div className="absolute inset-0 bg-[#0c0a24]" style={{ opacity: bgOverlayOpacity }} />
+            <motion.div
+              className="absolute inset-0 bg-[#0c0a24] motion-reduce:!opacity-[0.45] motion-reduce:!transform-none motion-reduce:!animate-none motion-reduce:!transition-none"
+              style={
+                reducedMotionActive
+                  ? { opacity: 0.45, transform: "none" }
+                  : { opacity: bgOverlayOpacity }
+              }
+            />
           </div>
 
           <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-5 px-2 motion-reduce:min-h-[70dvh] motion-reduce:py-16 sm:gap-6 sm:px-4">
@@ -159,23 +167,35 @@ export function ScrollExpandMedia({
               titleBlend={titleBlend}
               leftShift={textLeftShift}
               rightShift={textRightShift}
+              reducedMotion={reducedMotionActive}
             />
 
             <motion.div
-              className="relative z-10 shrink-0 overflow-hidden rounded-2xl motion-reduce:hidden"
-              style={{
-                width: mediaWidth,
-                height: mediaHeight,
-                maxWidth: "95vw",
-                maxHeight: "62vh",
-                boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.45)",
-              }}
+              className="relative z-10 shrink-0 overflow-hidden rounded-2xl motion-reduce:hidden motion-reduce:!transform-none motion-reduce:!animate-none motion-reduce:!transition-none"
+              style={
+                reducedMotionActive
+                  ? {
+                      width: 300,
+                      height: 400,
+                      maxWidth: "95vw",
+                      maxHeight: "62vh",
+                      boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.45)",
+                      transform: "none",
+                    }
+                  : {
+                      width: mediaWidth,
+                      height: mediaHeight,
+                      maxWidth: "95vw",
+                      maxHeight: "62vh",
+                      boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.45)",
+                    }
+              }
             >
               <HeroMedia
                 mediaType={mediaType}
                 mediaSrc={mediaSrc}
                 alt={resolvedLine1}
-                overlayOpacity={overlayOpacity}
+                overlayOpacity={reducedMotionActive ? undefined : overlayOpacity}
                 shouldPlay={prefersReduced === false}
               />
 
@@ -192,8 +212,8 @@ export function ScrollExpandMedia({
 
             {scrollToExpand ? (
               <motion.p
-                className="relative z-30 shrink-0 text-center font-sans text-sm font-medium text-indigo-200/90 motion-reduce:hidden sm:text-base"
-                style={{ opacity: promptOpacity }}
+                className="relative z-30 shrink-0 text-center font-sans text-sm font-medium text-indigo-200/90 motion-reduce:hidden motion-reduce:!transform-none motion-reduce:!animate-none motion-reduce:!transition-none sm:text-base"
+                style={reducedMotionActive ? { opacity: 1, transform: "none" } : { opacity: promptOpacity }}
               >
                 {scrollToExpand}
               </motion.p>
@@ -204,11 +224,12 @@ export function ScrollExpandMedia({
 
       {/* Expanded content flows in below the hero track. */}
       <motion.section
-        className="relative z-10 flex w-full flex-col px-2 pt-2 pb-10 motion-reduce:!transform-none motion-reduce:!opacity-100 sm:px-4 sm:pt-4 md:px-8 md:pb-14"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        className="relative z-10 flex w-full flex-col px-2 pt-2 pb-10 motion-reduce:!transform-none motion-reduce:!opacity-100 motion-reduce:!animate-none motion-reduce:!transition-none sm:px-4 sm:pt-4 md:px-8 md:pb-14"
+        initial={reducedMotionActive ? false : { opacity: 0, y: 24 }}
+        whileInView={reducedMotionActive ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6 }}
+        transition={reducedMotionActive ? { duration: 0 } : { duration: 0.6 }}
+        style={reducedMotionActive ? { opacity: 1, transform: "none" } : undefined}
       >
         <div className="pointer-events-none absolute inset-0 -z-10 bg-[#0c0a24]" aria-hidden="true" />
         {children}
@@ -224,9 +245,18 @@ type HeadlineProps = {
   titleBlend: string;
   leftShift?: ReturnType<typeof useTransform<number, number>>;
   rightShift?: ReturnType<typeof useTransform<number, number>>;
+  reducedMotion?: boolean;
 };
 
-function HeroHeadline({ date, line1, line2, titleBlend, leftShift, rightShift }: HeadlineProps) {
+function HeroHeadline({
+  date,
+  line1,
+  line2,
+  titleBlend,
+  leftShift,
+  rightShift,
+  reducedMotion = false,
+}: HeadlineProps) {
   if (!date && !line1) return null;
 
   return (
@@ -240,8 +270,8 @@ function HeroHeadline({ date, line1, line2, titleBlend, leftShift, rightShift }:
 
       {line1 ? (
         <motion.h1
-          className="font-display text-[1.75rem] font-extrabold leading-[1.15] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)] sm:text-4xl md:text-5xl lg:text-[3.25rem]"
-          style={leftShift ? { x: leftShift } : undefined}
+          className="font-display text-[1.75rem] font-extrabold leading-[1.15] tracking-tight text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.5)] motion-reduce:!transform-none motion-reduce:!animate-none motion-reduce:!transition-none sm:text-4xl md:text-5xl lg:text-[3.25rem]"
+          style={reducedMotion ? { transform: "none", opacity: 1 } : leftShift ? { x: leftShift } : undefined}
         >
           {line1}
           {line2 ? "," : ""}
@@ -250,8 +280,8 @@ function HeroHeadline({ date, line1, line2, titleBlend, leftShift, rightShift }:
 
       {line2 ? (
         <motion.p
-          className="font-display mt-2 text-[1.5rem] font-bold leading-snug text-indigo-100/95 drop-shadow-[0_2px_20px_rgba(0,0,0,0.45)] sm:mt-3 sm:text-3xl md:text-4xl"
-          style={rightShift ? { x: rightShift } : undefined}
+          className="font-display mt-2 text-[1.5rem] font-bold leading-snug text-indigo-100/95 drop-shadow-[0_2px_20px_rgba(0,0,0,0.45)] motion-reduce:!transform-none motion-reduce:!animate-none motion-reduce:!transition-none sm:mt-3 sm:text-3xl md:text-4xl"
+          style={reducedMotion ? { transform: "none", opacity: 1 } : rightShift ? { x: rightShift } : undefined}
         >
           {line2}
         </motion.p>

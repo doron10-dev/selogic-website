@@ -175,14 +175,14 @@ export const technicalSupportPage: TechnicalSupportPageContent = {
     title: "צריכים לפתוח קריאה או לבדוק את תהליך התמיכה?",
     body: "לקוחות קיימים יכולים לפתוח קריאה. עסקים שבודקים ספק IT יכולים להתחיל בשיחת אבחון.",
     primary: {
-      label: "פתחו קריאת שירות",
-      href: "#support-form",
-      sub: "המסלול המהיר ללקוחות קיימים.",
-    },
-    secondary: {
       label: "קבעו שיחת אבחון",
       href: siteUrls.contactDiagnosis,
       sub: "מתאים לעסק שבודק שירות IT מסודר.",
+    },
+    secondary: {
+      label: "פתחו קריאת שירות",
+      href: "#support-form",
+      sub: "המסלול המהיר ללקוחות קיימים.",
     },
   },
 };

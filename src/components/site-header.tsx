@@ -64,9 +64,9 @@ export function SiteHeader() {
             <>
               <Link
                 href={siteUrls.contactDiagnosis}
-                className="cine-btn-primary inline-flex min-h-10 shrink-0 rounded-full px-3 py-2 text-xs font-semibold 2xl:hidden"
+                className="cine-btn-primary inline-flex min-h-10 shrink-0 rounded-full px-2.5 py-2 text-[11px] font-semibold sm:px-3 sm:text-xs 2xl:hidden"
               >
-                אבחון
+                {siteLabels.contactCta}
               </Link>
               <div className="hidden shrink-0 items-center gap-2 2xl:flex 3xl:gap-3">
                 <Link
