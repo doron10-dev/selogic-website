@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ServicePage } from "@/components/service-page";
+import { ManagedOwnershipNode } from "@/components/sections/hero-visuals/managed-ownership-node";
 import { managedItServicesPage } from "@/data/pages/managed-it-services";
 import { buildPageMetadata } from "@/lib/metadata";
 
@@ -10,5 +11,12 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function Page() {
-  return <ServicePage content={managedItServicesPage} pagePath="/managed-it-services" variant="flagship" />;
+  return (
+    <ServicePage
+      content={managedItServicesPage}
+      pagePath="/managed-it-services"
+      variant="flagship"
+      heroVisual={<ManagedOwnershipNode />}
+    />
+  );
 }

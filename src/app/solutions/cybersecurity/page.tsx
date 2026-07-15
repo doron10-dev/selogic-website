@@ -8,6 +8,7 @@ import { Section, SectionHeading } from "@/components/section";
 import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { SecurityLayers } from "@/components/sections/security-layers";
+import { SecurityPostureSignal } from "@/components/sections/hero-visuals/security-posture-signal";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { cybersecurityNavSections } from "@/data/page-sections";
 import { cybersecurityPage } from "@/data/pages/cybersecurity";
@@ -33,6 +34,7 @@ export default function CybersecurityPage() {
         statusKind="progress"
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
+        visual={<SecurityPostureSignal />}
         layout="split"
         breadcrumbs={breadcrumbs}
       />

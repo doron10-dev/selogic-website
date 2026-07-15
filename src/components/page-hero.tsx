@@ -61,6 +61,12 @@ type PageHeroProps = {
   primaryCta?: HeroCtaLink;
   secondaryCta?: HeroCtaLink;
   mockupVariant?: MiniMockupVariant;
+  /**
+   * Page-specific signature visual, owned by the page (not selected by route
+   * name here). Rendered in the side column using the current layout. When
+   * absent, the hero renders exactly as before (centered editorial text block).
+   */
+  visual?: ReactNode;
   layout?: HeroLayout;
   extraActions?: ReactNode;
   breadcrumbs?: BreadcrumbItem[];
@@ -74,20 +80,22 @@ export function PageHero({
   primaryCta,
   secondaryCta,
   mockupVariant,
+  visual,
   layout = "default",
   extraActions,
   breadcrumbs,
 }: PageHeroProps) {
   const hasCustomCta = Boolean(primaryCta || secondaryCta);
   const cfg = LAYOUTS[layout];
-  // No mockup → center the hero as an editorial text block, so it reads as an
-  // intentional composition instead of a lopsided half-empty two-column grid.
-  const textOnly = !mockupVariant;
+  const hasSideColumn = Boolean(mockupVariant || visual);
+  // No side visual → center the hero as an editorial text block, so it reads as
+  // an intentional composition instead of a lopsided half-empty two-column grid.
+  const textOnly = !hasSideColumn;
 
   return (
     <section className="theme-page-hero">
       <div className={`container-page ${cfg.pad}`}>
-        <div className={mockupVariant ? cfg.grid : ""}>
+        <div className={hasSideColumn ? cfg.grid : ""}>
           <div className={`min-w-0${textOnly ? " mx-auto max-w-3xl text-center" : ""}`}>
             {breadcrumbs?.length ? <Breadcrumbs items={breadcrumbs} /> : null}
             <span className="eyebrow mb-3">
@@ -138,6 +146,10 @@ export function PageHero({
                 <MiniMockup variant={mockupVariant} />
               )}
             </div>
+          ) : visual ? (
+            // Page-owned signature visual: let it carry its own framing so it
+            // reads distinctly per page instead of a shared mockup panel.
+            <div className={cfg.mockWrap}>{visual}</div>
           ) : null}
         </div>
       </div>

@@ -126,6 +126,7 @@ export function ServicePage({
   afterHero,
   variant = "default",
   mockupVariant,
+  heroVisual,
   heroLayout,
   painLayout,
 }: {
@@ -134,6 +135,8 @@ export function ServicePage({
   afterHero?: ReactNode;
   variant?: "default" | "flagship" | "compact";
   mockupVariant?: MiniMockupVariant;
+  /** Optional page-specific hero signature visual, forwarded to PageHero. */
+  heroVisual?: ReactNode;
   heroLayout?: HeroLayout;
   painLayout?: PainLayout;
 }) {
@@ -230,6 +233,7 @@ export function ServicePage({
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
         mockupVariant={mockupVariant}
+        visual={heroVisual}
         layout={resolvedHeroLayout}
         breadcrumbs={breadcrumbs}
       />

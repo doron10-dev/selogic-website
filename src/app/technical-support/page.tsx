@@ -8,6 +8,7 @@ import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { BenefitsChecklist } from "@/components/sections/benefits-checklist";
 import { ServiceJourneySection } from "@/components/sections/service-journey";
+import { SupportTicketSnapshot } from "@/components/sections/hero-visuals/support-ticket-snapshot";
 import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { Section, SectionHeading } from "@/components/section";
 import {
@@ -113,6 +114,7 @@ export default function TechnicalSupportPage() {
         statusKind="progress"
         primaryCta={content.hero.diagnosisCta}
         secondaryCta={content.hero.primaryCta}
+        visual={<SupportTicketSnapshot />}
         layout="compact"
         breadcrumbs={breadcrumbs}
         extraActions={
