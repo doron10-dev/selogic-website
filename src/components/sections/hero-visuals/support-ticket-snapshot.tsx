@@ -1,4 +1,4 @@
-import { FileText, Inbox, UserCheck, Wrench } from "lucide-react";
+import { FileText, Inbox, User, Wrench } from "lucide-react";
 import { StatusDot } from "@/components/status-dot";
 
 type Field = {
@@ -6,21 +6,21 @@ type Field = {
   label: string;
   value: string;
   kind: "open" | "progress" | "waiting" | "closed";
+  active?: boolean;
 };
 
 const FIELDS: Field[] = [
   { icon: Inbox, label: "התקבלה", value: "הפנייה נרשמה בערוץ מסודר", kind: "closed" },
-  { icon: UserCheck, label: "בעל טיפול", value: "מוגדר גורם אחראי", kind: "closed" },
-  { icon: Wrench, label: "סטטוס נוכחי", value: "בטיפול, עם עדכון ללקוח", kind: "progress" },
+  { icon: User, label: "בעל טיפול", value: "מוגדר גורם אחראי", kind: "closed" },
+  { icon: Wrench, label: "סטטוס נוכחי", value: "בטיפול, עם עדכון ללקוח", kind: "progress", active: true },
   { icon: FileText, label: "תיעוד", value: "היסטוריית טיפול זמינה בפורטל", kind: "open" },
 ];
 
 /**
  * Technical Support hero signature: a single service-ticket record snapshot —
  * what a customer can understand while a request is being handled. It is NOT
- * the numbered horizontal lifecycle of ServiceJourneySection (different
- * metaphor: one live record with fields, not a step chain). No fabricated
- * ticket numbers, SLA percentages, response times or names. Decorative only.
+ * the numbered horizontal lifecycle of ServiceJourneySection.
+ * No fabricated ticket numbers, SLA percentages, response times or names.
  */
 export function SupportTicketSnapshot() {
   return (
@@ -40,9 +40,15 @@ export function SupportTicketSnapshot() {
       </div>
 
       <ul className="space-y-2.5">
-        {FIELDS.map(({ icon: Icon, label, value, kind }) => (
+        {FIELDS.map(({ icon: Icon, label, value, kind, active }) => (
           <li key={label} className="theme-inner-card flex items-start gap-3 px-3.5 py-2.5">
-            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300">
+            <span
+              className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
+                active
+                  ? "bg-blue-50 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400"
+                  : "bg-slate-100 text-slate-500 dark:bg-slate-800/50 dark:text-slate-400"
+              }`}
+            >
               <Icon className="h-4 w-4" />
             </span>
             <div className="min-w-0 flex-1">

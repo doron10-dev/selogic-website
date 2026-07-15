@@ -11,59 +11,51 @@ const SIGNALS: Signal[] = [
 ];
 
 /**
- * Cybersecurity hero signature: a protected business core with several control
- * signals converging into it — security as one coordinated method, not a single
- * product. Deliberately NOT the numbered vertical defense-in-depth list of
- * SecurityLayers (different composition: convergent signals around a core, no
- * numbering, no per-item paragraphs, short signal words). No live status,
- * scores, percentages or incident counts. Decorative only.
+ * Cybersecurity hero signature: several coordinated defenses protecting the business core.
+ * Uses a layered "funnel" or "filter" topology rather than a flat card grid.
+ * No decorative check marks, generic shields, or fake "secure" status.
  */
 export function SecurityPostureSignal() {
   return (
-    <div
-      className="theme-card mx-auto w-full max-w-md p-5 sm:p-6"
-      aria-hidden="true"
-    >
-      <ul className="grid grid-cols-3 gap-2.5">
-        {SIGNALS.slice(0, 3).map(({ label, icon: Icon }) => (
-          <SignalChip key={label} label={label} icon={Icon} />
+    <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-0 py-4" aria-hidden="true">
+      {/* Incoming Signals */}
+      <div className="flex w-full justify-between px-2 sm:px-6">
+        {SIGNALS.map((s) => (
+          <div key={s.label} className="flex flex-col items-center gap-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-800 bg-slate-900 text-slate-400">
+              <s.icon className="h-4 w-4" />
+            </span>
+            <span className="text-[10px] font-medium text-slate-500">{s.label}</span>
+            <div className="h-5 w-px bg-slate-800" />
+          </div>
         ))}
-      </ul>
-
-      <div className="flex justify-center py-2" aria-hidden="true">
-        <span className="block h-4 w-px bg-blue-500/40" />
       </div>
 
-      <div className="flex items-center gap-3 rounded-2xl border border-blue-500/40 bg-blue-600 px-4 py-3.5 text-white">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15">
-          <Lock className="h-5 w-5" />
+      {/* Filter Layer 1 */}
+      <div className="h-2 w-full rounded-full border border-slate-800 bg-slate-900/50" />
+      <div className="flex w-full justify-evenly px-8">
+        <div className="h-5 w-px bg-slate-800" />
+        <div className="h-5 w-px bg-slate-800" />
+        <div className="h-5 w-px bg-slate-800" />
+      </div>
+
+      {/* Filter Layer 2 */}
+      <div className="h-2 w-4/5 rounded-full border border-slate-700 bg-slate-800/50" />
+      <div className="flex w-3/5 justify-evenly">
+        <div className="h-5 w-px bg-slate-700" />
+        <div className="h-5 w-px bg-slate-700" />
+      </div>
+
+      {/* Core */}
+      <div className="z-10 mt-1 flex items-center gap-3 rounded-2xl border border-blue-500/30 bg-blue-600/10 px-6 py-4 backdrop-blur-sm">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20">
+          <Lock className="h-4 w-4 text-blue-400" />
         </span>
-        <div className="min-w-0">
-          <p className="text-[15px] font-semibold leading-tight">הליבה העסקית</p>
-          <p className="mt-0.5 text-xs text-blue-100">מידע ומערכות שכל השכבות מגנות עליהן</p>
+        <div>
+          <p className="text-sm font-semibold text-blue-100">הליבה העסקית</p>
+          <p className="text-[11px] text-blue-300/70">מערכות ומידע מוגנים</p>
         </div>
       </div>
-
-      <div className="flex justify-center py-2" aria-hidden="true">
-        <span className="block h-4 w-px bg-blue-500/40" />
-      </div>
-
-      <ul className="grid grid-cols-2 gap-2.5">
-        {SIGNALS.slice(3).map(({ label, icon: Icon }) => (
-          <SignalChip key={label} label={label} icon={Icon} />
-        ))}
-      </ul>
     </div>
-  );
-}
-
-function SignalChip({ label, icon: Icon }: Signal) {
-  return (
-    <li className="theme-inner-card flex flex-col items-center gap-1.5 px-2 py-3 text-center">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950/50 dark:text-blue-300">
-        <Icon className="h-[18px] w-[18px]" />
-      </span>
-      <span className="theme-text-heading text-[13px] font-medium">{label}</span>
-    </li>
   );
 }
