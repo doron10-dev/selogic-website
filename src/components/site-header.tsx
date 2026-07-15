@@ -71,7 +71,7 @@ export function SiteHeader() {
               <div className="hidden shrink-0 items-center gap-2 2xl:flex 3xl:gap-3">
                 <Link
                   href={siteUrls.technicalSupport}
-                  className="theme-btn-secondary inline-flex min-h-10 items-center justify-center whitespace-nowrap px-4 py-2.5 text-[13px] 3xl:px-5 3xl:text-sm"
+                  className="theme-btn-secondary inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-full px-4 py-2.5 text-[13px] 3xl:px-5 3xl:text-sm"
                 >
                   פתחו קריאת שירות
                 </Link>
