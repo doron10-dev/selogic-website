@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, X } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
@@ -50,7 +50,7 @@ export default function Microsoft365Page() {
           <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
             {content.why.items.map((item) => (
               <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+                <X className="mt-0.5 h-5 w-5 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true" />
                 <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
               </li>
             ))}

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ArrowLeftRight, CheckCircle2 } from "lucide-react";
+import { ArrowLeftRight, CircleDot } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
@@ -52,7 +52,7 @@ export default function InformationSystemsPage() {
             <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {content.processFirst.items.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+                  <CircleDot className="mt-0.5 h-5 w-5 shrink-0 text-slate-500 dark:text-slate-400" aria-hidden="true" />
                   <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
                 </li>
               ))}
@@ -83,7 +83,7 @@ export default function InformationSystemsPage() {
             <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {content.managerValue.items.map((item) => (
                 <li key={item} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+                  <CircleDot className="mt-0.5 h-5 w-5 shrink-0 text-slate-500 dark:text-slate-400" aria-hidden="true" />
                   <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
                 </li>
               ))}

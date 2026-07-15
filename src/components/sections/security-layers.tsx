@@ -1,4 +1,4 @@
-import { Lock, ShieldCheck } from "lucide-react";
+import { Lock } from "lucide-react";
 import { Section, SectionHeading, type SectionTone } from "@/components/section";
 
 export type SecurityLayerItem = { title: string; body: string };
@@ -49,10 +49,7 @@ export function SecurityLayers({
               {index + 1}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 shrink-0 text-blue-600" aria-hidden="true" />
-                <p className="theme-text-heading font-semibold">{item.title}</p>
-              </div>
+              <p className="theme-text-heading font-semibold">{item.title}</p>
               <p className="theme-text-muted mt-1 text-sm leading-relaxed">{item.body}</p>
             </div>
           </li>
