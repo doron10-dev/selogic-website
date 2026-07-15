@@ -1,0 +1,81 @@
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes rise-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes emphasis {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes draw-y {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@keyframes draw-x {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+}
+
+@keyframes filter-in {
+  from {
+    opacity: 0;
+    transform: scaleX(0.72);
+  }
+}
+
+@keyframes core-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .riseFromTop {
+    animation: rise-from-top 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .emphasis {
+    animation: emphasis 240ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .drawY {
+    transform-origin: top;
+    animation: draw-y 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .drawX {
+    transform-origin: center;
+    animation: draw-x 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .filterIn {
+    transform-origin: center;
+    animation: filter-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .coreIn {
+    animation: core-in 300ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}

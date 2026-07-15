@@ -1,5 +1,6 @@
 import { FileText, Inbox, User, Wrench } from "lucide-react";
 import { StatusDot } from "@/components/status-dot";
+import motionStyles from "./hero-visual-motion.module.css";
 
 type Field = {
   icon: typeof Inbox;
@@ -25,7 +26,7 @@ const FIELDS: Field[] = [
 export function SupportTicketSnapshot() {
   return (
     <div
-      className="theme-card mx-auto w-full max-w-md p-5 sm:p-6"
+      className={`theme-card mx-auto w-full max-w-md p-5 sm:p-6 ${motionStyles.rise}`}
       aria-hidden="true"
     >
       <div
@@ -33,15 +34,22 @@ export function SupportTicketSnapshot() {
         style={{ borderColor: "var(--theme-border)" }}
       >
         <span className="theme-text-heading text-sm font-semibold">קריאת שירות</span>
-        <span className="badge-pill theme-status-badge--blue border">
+        <span
+          className={`badge-pill theme-status-badge--blue border ${motionStyles.emphasis}`}
+          style={{ animationDelay: "620ms" }}
+        >
           <StatusDot kind="progress" />
           בטיפול
         </span>
       </div>
 
       <ul className="space-y-2.5">
-        {FIELDS.map(({ icon: Icon, label, value, kind, active }) => (
-          <li key={label} className="theme-inner-card flex items-start gap-3 px-3.5 py-2.5">
+        {FIELDS.map(({ icon: Icon, label, value, kind, active }, index) => (
+          <li
+            key={label}
+            className={`theme-inner-card flex items-start gap-3 px-3.5 py-2.5 ${motionStyles.rise}`}
+            style={{ animationDelay: `${180 + index * 110}ms` }}
+          >
             <span
               className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${
                 active
