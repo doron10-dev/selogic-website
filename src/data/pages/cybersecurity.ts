@@ -1,5 +1,5 @@
 import { siteUrls } from "@/data/contact";
-import type { CardItem, CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
+import type { CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
 
 export type CybersecurityContent = {
   hero: {
@@ -9,43 +9,19 @@ export type CybersecurityContent = {
     primaryCta: HeroCtaLink;
     secondaryCta: HeroCtaLink;
   };
-  method: {
-    title: string;
-    lead: string;
-    items: string[];
-    closing: string;
-  };
   layers: {
     title: string;
     body: string;
     coreLabel: string;
     coreSub: string;
     items: { title: string; body: string }[];
-  };
-  reports: {
-    title: string;
-    body: string;
-    reportTitle: string;
-    reportCaption: string;
-    reportItems: string[];
-    kpiTitle: string;
-    kpiItems: string[];
-    disclaimer: string;
+    /** One concise concluding line: ties the layered method to monitoring/documentation. */
+    closing: string;
   };
   tikkun13: {
     title: string;
     paragraphs: string[];
     legalNote: string;
-  };
-  connected: {
-    title: string;
-    body: string;
-    points: string[];
-  };
-  related: {
-    title: string;
-    body: string;
-    items: CardItem[];
   };
   faq: {
     title: string;
@@ -68,20 +44,6 @@ export const cybersecurityPage: CybersecurityContent = {
       "אבטחת מידע היא לא מוצר בודד. אנחנו מזהים חשיפות, סוגרים פערים ומייצרים שגרת בקרה, על בסיס מיפוי סיכונים, הרשאות, גיבויים, ניטור ושכבות הגנה שמנוהלים יחד.",
     primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
     secondaryCta: { label: "ראו ניטור ובקרה RMM", href: siteUrls.rmm },
-  },
-  method: {
-    title: "אבטחת מידע מתחילה בניהול מסודר",
-    lead: "עסק לא מוגן רק בגלל שהותקן מוצר אבטחה אחד. כדי להגן על המידע צריך קודם להבין את הסביבה.",
-    items: [
-      "מי המשתמשים",
-      "אילו הרשאות פעילות",
-      "איפה נשמר המידע",
-      "האם הגיבוי עובד",
-      "אילו פערים פתוחים",
-      "מה דורש החלטה ניהולית",
-    ],
-    closing:
-      "סלוג׳יק מסתכלת על אבטחת מידע כתהליך מתמשך של מיפוי, הגנה, ניטור, תיעוד ושיפור.",
   },
   layers: {
     title: "שכבות הגנה סביב המידע העסקי",
@@ -110,30 +72,8 @@ export const cybersecurityPage: CybersecurityContent = {
         body: "גיבוי תיבות דואר, Teams, OneDrive ו-SharePoint לפי הצורך, מדיניות שחזור ובדיקות גיבוי.",
       },
     ],
-  },
-  reports: {
-    title: "דוח אבטחה, סיכונים והמלצות",
-    body: "אבטחת מידע דורשת בקרה מתמשכת. לכן חשוב להציג ללקוח לא רק מה הותקן, אלא מה מצב הסביבה לאורך זמן.",
-    reportTitle: "מבנה דוח אבטחה",
-    reportCaption: "הדוח עוזר למנהל להבין איפה קיימים סיכונים, מה טופל, ומה דורש החלטה או פעולה.",
-    reportItems: [
-      "אירועי אבטחת מידע",
-      "מצב גיבויים",
-      "מצב הרשאות",
-      "פערים פתוחים",
-      "עדכונים חסרים",
-      "המלצות לשיפור",
-    ],
-    kpiTitle: "מדדים אפשריים",
-    kpiItems: [
-      "גיבויים",
-      "עדכונים",
-      "הרשאות",
-      "EDR / XDR",
-      "אירועי אבטחה",
-      "סיכונים פתוחים",
-    ],
-    disclaimer: "להמחשה בלבד. הנתונים מוצגים לאחר חיבור לסביבת הלקוח.",
+    closing:
+      "כשסביבת המחשוב מנוטרת ומתועדת, קל יותר לזהות פערים ולעקוב אחרי טיפול בסיכונים, וכך שכבות ההגנה מתנהלות יחד כתהליך אחד.",
   },
   tikkun13: {
     title: "סיוע טכנולוגי ותפעולי להיערכות לתיקון 13",
@@ -143,27 +83,6 @@ export const cybersecurityPage: CybersecurityContent = {
     ],
     legalNote:
       "השירות אינו מהווה ייעוץ משפטי או התחייבות לעמידה משפטית. את ההיבט המשפטי יש להסדיר מול גורם מוסמך.",
-  },
-  connected: {
-    title: "אבטחה חזקה יותר מתחילה בניטור ותיעוד",
-    body: "כאשר סביבת המחשוב מנוטרת ומתועדת, קל יותר לזהות פערים, להבין מה קיים, לראות מה לא תקין, ולעקוב אחרי טיפול בסיכונים.",
-    points: [
-      "ניטור RMM מסייע לזהות חריגות.",
-      "תיק האתר מרכז מידע על משתמשים, ציוד, ספקים, הרשאות, גיבויים וסיכונים.",
-      "הדוחות מציגים להנהלה תמונת מצב.",
-      "וכך אבטחת המידע הופכת לתהליך מנוהל ולא לרשימת מוצרים.",
-    ],
-  },
-  related: {
-    title: "על מה נשענת אבטחת המידע",
-    body: "הגנה יציבה נשענת על ניטור וסביבת מחשוב מנוהלת.",
-    items: [
-      { title: "ניטור ובקרה RMM", href: siteUrls.rmm },
-      { title: "תיק אתר / תיק לקוח", href: siteUrls.siteDossier },
-      { title: "Microsoft 365 וענן", href: "/solutions/microsoft-365-and-cloud" },
-      { title: "שירותי IT מנוהלים", href: "/managed-it-services" },
-      { title: "מערכות מידע ובקרה", href: "/information-systems-and-control" },
-    ].map((item) => ({ ...item, body: "" })),
   },
   faq: {
     title: "שאלות נפוצות על אבטחת מידע וגיבוי",

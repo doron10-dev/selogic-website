@@ -4,9 +4,7 @@ import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
-import { BenefitsChecklist } from "@/components/sections/benefits-checklist";
 import { MonitoringScopeSection } from "@/components/sections/monitoring-scope";
-import { ReportsKpiSection } from "@/components/sections/reports-kpi";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { rmmNavSections } from "@/data/page-sections";
 import { rmmPage } from "@/data/pages/rmm";
@@ -62,29 +60,10 @@ export default function RmmPage() {
         body={content.scope.body}
         note={content.scope.note}
         items={content.scope.items}
-        tone="white"
-        className="py-10 sm:py-14 lg:py-16"
-      />
-
-      <BenefitsChecklist
-        id="value"
-        title={content.value.title}
-        body={content.value.body}
-        items={content.value.items}
-        variant="split"
-        tone="muted"
-        className="py-14 sm:py-16 lg:py-20"
-      />
-
-      <ReportsKpiSection
-        id="reports"
-        title={content.reports.title}
-        body={content.reports.body}
-        reportTitle={content.reports.reportTitle}
-        reportItems={content.reports.reportItems}
-        kpiTitle={content.reports.kpiTitle}
-        kpiItems={content.reports.kpiItems}
-        disclaimer={content.reports.disclaimer}
+        valueTitle={content.scope.valueTitle}
+        valueSummary={content.scope.valueSummary}
+        reportTitle={content.scope.reportTitle}
+        reportOutputs={content.scope.reportOutputs}
         tone="white"
         className="py-10 sm:py-14 lg:py-16"
       />

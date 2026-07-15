@@ -1,5 +1,5 @@
 import { siteUrls } from "@/data/contact";
-import type { CardItem, CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
+import type { CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
 
 export type MonitorItem = {
   label: string;
@@ -25,20 +25,12 @@ export type RmmContent = {
     body: string;
     note: string;
     items: MonitorItem[];
-  };
-  value: {
-    title: string;
-    body: string;
-    items: CardItem[];
-  };
-  reports: {
-    title: string;
-    body: string;
+    /** Merged management value (one concise paragraph, replaces the old BenefitsChecklist). */
+    valueTitle: string;
+    valueSummary: string;
+    /** Compact report outputs — up to 4 plain tags (replaces the old standalone ReportsKpiSection). */
     reportTitle: string;
-    reportItems: string[];
-    kpiTitle: string;
-    kpiItems: string[];
-    disclaimer: string;
+    reportOutputs: string[];
   };
   faq: {
     title: string;
@@ -84,38 +76,16 @@ export const rmmPage: RmmContent = {
       { label: "אירועים וחריגות", sub: "מה פתוח וממתין לטיפול" },
       { label: "רכיבים קריטיים", sub: "תהליכים שחייבים לרוץ" },
     ],
-  },
-  value: {
-    title: "מה הניטור נותן לכם",
-    body: "לא רשימת תכונות, אלא ארבע תוצאות שמנהל מרגיש ביום־יום.",
-    items: [
-      { title: "פחות הפתעות", body: "פחות תקלות שעוצרות עבודה בלי התראה מוקדמת." },
-      { title: "טיפול מוקדם", body: "חריגות עולות לטיפול, לרוב מרחוק, לפני שהן מגיעות למשתמשים." },
-      { title: "תמונת מצב אמינה", body: "רואים מה מנוטר, מה נמצא ומה טופל, עם תיעוד." },
-      { title: "בסיס ל-KPI ודוחות", body: "המידע שנצבר הופך לדוח תקופתי ולמדדים לאורך זמן." },
-    ],
-  },
-  reports: {
-    title: "מהניטור השוטף למדדים שאפשר לנהל לפיהם",
-    body: "מה שנמצא ברקע לא נשאר שם. הוא הופך לתמונת מצב שמראה מגמות, חריגות ורכיבים שדורשים תשומת לב.",
-    reportTitle: "מה נכנס לדוח הניטור",
-    reportItems: [
-      "זמינות תחנות ושרתים",
-      "מצב גיבויים ועדכונים",
+    valueTitle: "מה זה נותן לניהול",
+    valueSummary:
+      "פחות הפתעות שעוצרות עבודה, טיפול מוקדם ולרוב מרחוק בחריגות, ותמונת מצב אמינה ומתועדת של מה שמנוטר, מה נמצא ומה טופל.",
+    reportTitle: "מה מופיע בתמונת המצב",
+    reportOutputs: [
       "התראות שנפתחו",
       "רכיבים בסיכון",
+      "מה טופל",
       "מגמות לאורך זמן",
     ],
-    kpiTitle: "מדדים שאפשר לעקוב אחריהם",
-    kpiItems: [
-      "זמינות",
-      "עומסים",
-      "גיבויים שהושלמו",
-      "עדכונים שהותקנו",
-      "תחנות מנוטרות",
-      "חריגות פתוחות",
-    ],
-    disclaimer: "להמחשה בלבד. הנתונים מוצגים לאחר חיבור לסביבת הלקוח.",
   },
   faq: {
     title: "שאלות נפוצות על ניטור ובקרה",

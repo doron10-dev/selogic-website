@@ -24,16 +24,12 @@ export const solutionsHubNavSections: PageSectionLink[] = [
 export const rmmNavSections: PageSectionLink[] = [
   { id: "how", label: "איך זה עובד" },
   { id: "scope", label: "מה מנטרים" },
-  { id: "value", label: "הערך ללקוח" },
-  { id: "reports", label: "דוחות ו-KPI" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },
 ];
 
 export const cybersecurityNavSections: PageSectionLink[] = [
-  { id: "method", label: "אבטחה כשיטה" },
   { id: "layers", label: "שכבות הגנה" },
-  { id: "reports", label: "דוחות ו-KPI" },
   { id: "tikkun-13", label: "תיקון 13" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },

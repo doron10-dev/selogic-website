@@ -12,6 +12,8 @@ type SecurityLayersProps = {
   coreLabel: string;
   coreSub?: string;
   items: SecurityLayerItem[];
+  /** Optional single concluding line rendered under the stack (no card, no list). */
+  closing?: string;
   className?: string;
 };
 
@@ -28,6 +30,7 @@ export function SecurityLayers({
   coreLabel,
   coreSub,
   items,
+  closing,
   className = "py-10 sm:py-14 lg:py-16",
 }: SecurityLayersProps) {
   return (
@@ -70,6 +73,11 @@ export function SecurityLayers({
           </div>
         </li>
       </ol>
+      {closing ? (
+        <p className="theme-text-muted mx-auto mt-6 max-w-3xl text-center text-sm leading-relaxed">
+          {closing}
+        </p>
+      ) : null}
     </Section>
   );
 }

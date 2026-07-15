@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { CheckCircle2, Scale } from "lucide-react";
+import { Scale } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
-import { ReportsKpiSection } from "@/components/sections/reports-kpi";
-import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { SecurityLayers } from "@/components/sections/security-layers";
 import { SecurityPostureSignal } from "@/components/sections/hero-visuals/security-posture-signal";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
@@ -41,26 +39,6 @@ export default function CybersecurityPage() {
 
       <PageSectionNav sections={cybersecurityNavSections} />
 
-      <Section tone="muted" id="method" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.method.title} />
-            <p className="theme-text-body mt-4 leading-relaxed">{content.method.lead}</p>
-            <p className="theme-card mt-6 p-4 text-sm font-semibold theme-text-heading">
-              {content.method.closing}
-            </p>
-          </div>
-          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {content.method.items.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
       <SecurityLayers
         id="layers"
         tone="white"
@@ -69,23 +47,10 @@ export default function CybersecurityPage() {
         coreLabel={content.layers.coreLabel}
         coreSub={content.layers.coreSub}
         items={content.layers.items}
+        closing={content.layers.closing}
       />
 
-      <ReportsKpiSection
-        id="reports"
-        title={content.reports.title}
-        body={content.reports.body}
-        reportTitle={content.reports.reportTitle}
-        reportItems={content.reports.reportItems}
-        reportCaption={content.reports.reportCaption}
-        kpiTitle={content.reports.kpiTitle}
-        kpiItems={content.reports.kpiItems}
-        disclaimer={content.reports.disclaimer}
-        tone="tint"
-        className="py-10 sm:py-14 lg:py-16"
-      />
-
-      <Section tone="white" id="tikkun-13" className="py-10 sm:py-14 lg:py-16">
+      <Section tone="muted" id="tikkun-13" className="py-10 sm:py-14 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
           <SectionHeading title={content.tikkun13.title} />
           <div>
@@ -106,28 +71,6 @@ export default function CybersecurityPage() {
           </div>
         </div>
       </Section>
-
-      <Section tone="muted" id="connected" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.connected.title} body={content.connected.body} />
-        <ul className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:mt-10">
-          {content.connected.points.map((point) => (
-            <li key={point} className="flex items-start gap-3">
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-              <span className="theme-text-body text-[15px] leading-relaxed">{point}</span>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <RelatedServicesRow
-        id="related"
-        title={content.related.title}
-        body={content.related.body}
-        items={content.related.items}
-        tone="white"
-        quiet
-        className="pb-12 pt-4 sm:pb-16"
-      />
 
       <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} compact />
 
