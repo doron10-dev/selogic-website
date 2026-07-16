@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { CheckCircle2, X } from "lucide-react";
 import { PageFaq } from "@/components/page-faq";
 import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
 import { CloudAccessMap } from "@/components/sections/cloud-access-map";
-import { RelatedServicesRow } from "@/components/sections/related-services-row";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { microsoft365NavSections } from "@/data/page-sections";
 import { microsoft365Page } from "@/data/pages/microsoft-365-and-cloud";
@@ -38,71 +36,20 @@ export default function Microsoft365Page() {
 
       <PageSectionNav sections={microsoft365NavSections} />
 
-      <Section tone="muted" id="why" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.why.title} />
-            <p className="theme-text-body mt-4 leading-relaxed">{content.why.body}</p>
-            <p className="theme-card mt-6 p-4 text-sm font-semibold theme-text-heading">
-              {content.why.closing}
-            </p>
-          </div>
-          <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-            {content.why.items.map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <X className="mt-0.5 h-5 w-5 shrink-0 text-red-600 dark:text-red-400" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{item}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
       <CloudAccessMap
         id="manage"
-        tone="white"
+        tone="muted"
         title={content.manage.title}
         body={content.manage.body}
         stages={content.manage.stages}
+        challenges={content.challenges}
+        footnote={content.manage.footnote}
       />
 
-      <Section tone="tint" id="backup" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          <SectionHeading title={content.backup.title} />
-          <div className="space-y-3">
-            {content.backup.paragraphs.map((para) => (
-              <p key={para} className="theme-text-body leading-relaxed">
-                {para}
-              </p>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      <Section tone="muted" id="connected" className="py-10 sm:py-14 lg:py-16">
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-12">
-          <div>
-            <SectionHeading title={content.connected.title} />
-            <p className="theme-text-body mt-4 leading-relaxed">{content.connected.body}</p>
-            <p className="theme-card mt-6 p-4 text-sm font-semibold theme-text-heading">
-              {content.connected.closing}
-            </p>
-          </div>
-          <ul className="grid gap-3">
-            {content.connected.points.map((point) => (
-              <li key={point} className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-                <span className="theme-text-body text-[15px] leading-relaxed">{point}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      <Section tone="white" id="work-process" className="py-10 sm:py-14 lg:py-16">
-        <SectionHeading title={content.workProcess.title} body={content.workProcess.body} />
-        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10 lg:grid-cols-5">
-          {content.workProcess.steps.map((step, index) => (
+      <Section tone="white" id="process" className="py-10 sm:py-14 lg:py-16">
+        <SectionHeading title={content.process.title} body={content.process.body} />
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:mt-10">
+          {content.process.steps.map((step, index) => (
             <li key={step.title} className="theme-card flex flex-col gap-3 p-5">
               <span className="theme-step-dot h-9 w-9 text-sm" aria-hidden="true">
                 {index + 1}
@@ -115,16 +62,6 @@ export default function Microsoft365Page() {
           ))}
         </ol>
       </Section>
-
-      <RelatedServicesRow
-        id="related"
-        title={content.related.title}
-        body={content.related.body}
-        items={content.related.items}
-        tone="white"
-        quiet
-        className="pb-12 pt-4 sm:pb-16"
-      />
 
       <PageFaq title={content.faq.title} body={content.faq.body} items={content.faq.items} compact />
 

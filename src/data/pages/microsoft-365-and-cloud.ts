@@ -1,6 +1,6 @@
 import { siteUrls } from "@/data/contact";
 import type { CloudGovernanceStage } from "@/components/sections/cloud-access-map";
-import type { CardItem, CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
+import type { CtaLink, FaqItem, HeroCtaLink } from "@/types/service-page";
 
 export type Microsoft365Content = {
   hero: {
@@ -10,36 +10,22 @@ export type Microsoft365Content = {
     primaryCta: HeroCtaLink;
     secondaryCta: HeroCtaLink;
   };
-  why: {
+  manage: {
+    title: string;
+    body: string;
+    stages: CloudGovernanceStage[];
+    footnote: string;
+  };
+  challenges: {
     title: string;
     body: string;
     items: string[];
     closing: string;
   };
-  manage: {
-    title: string;
-    body: string;
-    stages: CloudGovernanceStage[];
-  };
-  backup: {
-    title: string;
-    paragraphs: string[];
-  };
-  connected: {
-    title: string;
-    body: string;
-    points: string[];
-    closing: string;
-  };
-  workProcess: {
+  process: {
     title: string;
     body: string;
     steps: { title: string; body: string }[];
-  };
-  related: {
-    title: string;
-    body: string;
-    items: CardItem[];
   };
   faq: {
     title: string;
@@ -63,7 +49,7 @@ export const microsoft365Page: Microsoft365Content = {
     primaryCta: { label: "קבעו שיחת אבחון", href: siteUrls.contactDiagnosis },
     secondaryCta: { label: "ראו אבטחת מידע וגיבוי", href: "/solutions/cybersecurity" },
   },
-  why: {
+  challenges: {
     title: "Microsoft 365 צריך ניהול, לא רק התקנה",
     body: "הרבה עסקים משתמשים ב־Microsoft 365 בכל יום, אבל לא תמיד מנהלים אותו בצורה מסודרת.",
     items: [
@@ -102,63 +88,30 @@ export const microsoft365Page: Microsoft365Content = {
         chips: ["גיבוי ייעודי", "תיעוד בתיק הלקוח", "דוחות והמלצות"],
       },
     ],
+    footnote:
+      "Microsoft 365 מספקת תשתית ענן חזקה, אבל לעיתים נדרש פתרון גיבוי ייעודי לתיבות דואר, קבצים, SharePoint, OneDrive ו־Teams. סלוג׳יק בודקת את הצורך, ממפה את המידע, ומסייעת לבנות מדיניות גיבוי שמתאימה לסביבת העבודה של הלקוח.",
   },
-  backup: {
-    title: "גם סביבת ענן צריכה מדיניות גיבוי",
-    paragraphs: [
-      "Microsoft 365 מספקת תשתית ענן חזקה, אבל זה לא אומר שכל עסק מכוסה מבחינת גיבוי, שחזור והמשכיות.",
-      "לעיתים נדרש פתרון גיבוי ייעודי לתיבות דואר, קבצים, SharePoint, OneDrive ו־Teams, בהתאם לאופי העסק, סוג המידע, דרישות השחזור ורמת הסיכון.",
-      "סלוג׳יק בודקת את הצורך, ממפה את המידע, ומסייעת לבנות מדיניות גיבוי שמתאימה לסביבת העבודה של הלקוח.",
-    ],
-  },
-  connected: {
-    title: "Microsoft 365 כחלק ממערכת IT מנוהלת",
-    body: "ניהול Microsoft 365 לא עומד לבד.",
-    points: [
-      "הוא מתחבר לתיק הלקוח, שבו מתועדים משתמשים, קבוצות, הרשאות, תיבות, גיבויים והמלצות.",
-      "הוא מתחבר לאבטחת מידע, דרך ניהול הרשאות, אימות, הקשחה ובקרה.",
-      "הוא מתחבר לדוחות, שמציגים להנהלה מה מנוהל, מה פתוח, ומה דורש שיפור.",
-    ],
-    closing:
-      "כך סביבת הענן הופכת לחלק מתהליך IT מסודר, ולא לאוסף הגדרות שמצטברות לאורך זמן.",
-  },
-  workProcess: {
+  process: {
     title: "איך מסדרים סביבת Microsoft 365",
-    body: "חמישה שלבים, ממיפוי המשתמשים ועד תיעוד ובקרה בתיק הלקוח.",
+    body: "ארבעה שלבים, ממיפוי המשתמשים ועד תיעוד ובקרה בתיק הלקוח — כך סביבת הענן הופכת לחלק מתהליך IT מסודר, ולא לאוסף הגדרות שמצטברות לאורך זמן.",
     steps: [
       {
         title: "מיפוי משתמשים והרשאות",
         body: "בודקים מי פעיל, אילו קבוצות קיימות, מי מחזיק גישה ומה דורש ניקוי.",
       },
       {
-        title: "בדיקת תיבות וקבצים",
+        title: "בדיקת תיבות, קבצים ועומסי עבודה",
         body: "ממפים תיבות דואר, תיבות משותפות, SharePoint, OneDrive ו־Teams.",
       },
       {
-        title: "אבטחה והקשחה",
-        body: "בודקים אימות, מדיניות גישה, הרשאות יתר והגדרות שדורשות שיפור.",
-      },
-      {
-        title: "גיבוי והמשכיות",
-        body: "בודקים צורך בגיבוי ייעודי, מדיניות שחזור ותיעוד.",
+        title: "אבטחה, גיבוי והמשכיות",
+        body: "בודקים אימות, מדיניות גישה, הרשאות יתר, צורך בגיבוי ייעודי ומדיניות שחזור.",
       },
       {
         title: "תיעוד ובקרה",
         body: "מרכזים את המידע בתיק הלקוח ומגדירים דוחות והמלצות להמשך.",
       },
     ],
-  },
-  related: {
-    title: "החיבורים של סביבת הענן",
-    body: "Microsoft 365 הוא חלק ממערך IT רחב יותר, לא אי נפרד.",
-    items: [
-      { title: "אבטחת מידע וגיבוי", href: "/solutions/cybersecurity" },
-      { title: "תיק אתר / תיק לקוח", href: siteUrls.siteDossier },
-      { title: "שירותי IT מנוהלים", href: "/managed-it-services" },
-      { title: "ניטור ובקרה RMM", href: siteUrls.rmm },
-      { title: "מערכות מידע ובקרה", href: "/information-systems-and-control" },
-      { title: "פורטל לקוחות", href: siteUrls.clientPortal },
-    ].map((item) => ({ ...item, body: "" })),
   },
   faq: {
     title: "שאלות נפוצות על Microsoft 365 וענן",

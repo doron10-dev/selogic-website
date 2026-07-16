@@ -36,10 +36,8 @@ export const cybersecurityNavSections: PageSectionLink[] = [
 ];
 
 export const informationSystemsNavSections: PageSectionLink[] = [
-  { id: "process", label: "מהתהליך" },
-  { id: "build", label: "מה בונים" },
-  { id: "work-process", label: "תהליך העבודה" },
-  { id: "examples", label: "דוגמאות" },
+  { id: "flow", label: "התהליך" },
+  { id: "examples", label: "לפני ואחרי" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },
 ];
@@ -55,10 +53,8 @@ export const clientPortalNavSections: PageSectionLink[] = [
 ];
 
 export const microsoft365NavSections: PageSectionLink[] = [
-  { id: "why", label: "למה ניהול" },
   { id: "manage", label: "מפת ניהול" },
-  { id: "backup", label: "גיבוי" },
-  { id: "connected", label: "חלק מ-IT" },
+  { id: "process", label: "תהליך העבודה" },
   { id: "faq", label: "שאלות נפוצות" },
   { id: "contact", label: "יצירת קשר" },
 ];
