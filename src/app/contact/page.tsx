@@ -186,18 +186,18 @@ export default function ContactPage() {
   return (
     <>
       <section className="theme-page-hero">
-        <div className="container-page py-10 sm:py-16 lg:py-20">
+        <div className="container-page flex flex-col items-center py-10 text-center sm:py-16 lg:py-20">
           <span className="eyebrow mb-3">
             <StatusDot kind="open" pulse />
             צור קשר
           </span>
-          <h1 className="font-display theme-text-heading max-w-3xl text-[1.625rem] font-extrabold leading-[1.2] sm:text-4xl sm:leading-tight md:text-5xl">
+          <h1 className="font-display theme-text-heading max-w-[900px] text-[1.625rem] font-extrabold leading-[1.2] sm:text-4xl sm:leading-tight md:text-5xl">
             רוצים להבין איפה ה-IT של העסק עומד?
           </h1>
-          <p className="theme-text-body mt-4 max-w-prose text-[17px] leading-relaxed sm:mt-5 sm:text-lg">
+          <p className="theme-text-body mt-4 max-w-[740px] text-[17px] leading-relaxed sm:mt-5 sm:text-lg">
             שיחת אבחון, מיפוי מצב קיים והבנת פערים, לפני התאמת תהליך שירות. מייל, טלפון, או טופס למטה.
           </p>
-          <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
+          <div className="mt-6 flex flex-wrap justify-center gap-3 sm:mt-8">
             <Button href="#diagnosis" variant="diagnosis">
               {siteLabels.contactCta}
             </Button>
