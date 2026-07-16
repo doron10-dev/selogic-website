@@ -7,90 +7,170 @@ const INPUTS = [
   { label: "משימה", icon: ClipboardList },
 ] as const;
 
-const CHANNEL = ["מערכת מידע", "מידע מסודר", "אוטומציה"] as const;
+const CORE_STAGES = ["איסוף", "סדר", "אוטומציה"] as const;
 
-const OBSERVATIONS = ["מה פתוח", "מה תקוע", "מה דורש החלטה"] as const;
+const OUTPUTS = ["מה פתוח", "מה תקוע", "מה דורש החלטה"] as const;
 
 /**
- * Information Systems hero signature: Operational Signal Stream → Management Control Lens
- * Scattered business activity enters one organised information stream and
- * becomes a clear management picture.
+ * Information Systems hero signature: Ordered Sankey Flow
+ * Several operational events enter one organised information core and become
+ * three clear management answers.
  */
 export function OperationalControlLoop() {
   return (
-    <div
-      className={`mx-auto flex w-full max-w-[540px] flex-col items-center gap-6 lg:h-[300px] lg:flex-row lg:justify-between lg:gap-0 ${motionStyles.rise}`}
-      aria-hidden="true"
-    >
-      {/* RIGHT: Operational Signals (Lightweight, scattered) */}
-      <div className="relative z-10 flex shrink-0 flex-row justify-center gap-4 lg:w-[120px] lg:flex-col lg:items-end lg:gap-6">
-        {INPUTS.map(({ label, icon: Icon }, index) => (
-          <div
-            key={label}
-            className={`flex items-center gap-2 ${motionStyles.rise}`}
-            style={{
-              animationDelay: `${100 + index * 100}ms`,
-              // Slight vertical scatter on desktop
-              transform: `translateY(${index === 0 ? "8px" : index === 2 ? "-8px" : "0px"})`,
-            }}
-          >
-            <Icon className="h-4 w-4 text-slate-500" />
-            <span className="text-[11px] font-medium text-slate-300 sm:text-xs">{label}</span>
-            {/* Connector to stream (desktop only) */}
-            <div className="hidden h-[1px] w-4 bg-slate-700 lg:block" />
-          </div>
-        ))}
-      </div>
-
-      {/* CENTER: Continuous Information Stream */}
-      <div className="relative flex flex-1 flex-col items-center justify-center lg:h-full lg:flex-row">
-        {/* The main flowing path */}
-        <div
-          className={`absolute left-0 right-0 top-1/2 hidden h-[1px] -translate-y-1/2 bg-gradient-to-l from-slate-700 via-blue-500/40 to-blue-400/80 lg:block ${motionStyles.drawX}`}
-          style={{ animationDelay: "400ms", transformOrigin: "right" }}
-        />
-        {/* Mobile vertical path */}
-        <div
-          className={`absolute bottom-0 top-0 left-1/2 block w-[1px] -translate-x-1/2 bg-gradient-to-t from-blue-400/80 via-blue-500/40 to-slate-700 lg:hidden ${motionStyles.drawY}`}
-          style={{ animationDelay: "400ms", transformOrigin: "top" }}
-        />
-
-        <div className="relative z-10 flex w-full flex-col items-center gap-8 py-4 lg:flex-row lg:justify-around lg:gap-0 lg:py-0">
-          {CHANNEL.map((stage, index) => (
+    <div aria-hidden="true">
+      {/* DESKTOP LAYOUT */}
+      <div className="mx-auto hidden w-full max-w-[540px] items-center lg:flex lg:h-[300px]">
+        {/* RIGHT: Operational Inputs */}
+        <div className="relative z-10 flex w-[120px] shrink-0 flex-col justify-center gap-8">
+          {INPUTS.map(({ label, icon: Icon }, index) => (
             <div
-              key={stage}
-              className={`flex flex-col items-center gap-2 lg:bg-slate-950/80 lg:px-2 ${motionStyles.rise}`}
-              style={{ animationDelay: `${600 + index * 150}ms` }}
+              key={label}
+              className={`flex h-10 items-center justify-end gap-2 ${motionStyles.rise}`}
+              style={{ animationDelay: `${100 + index * 100}ms` }}
             >
-              <span className="text-[10px] font-medium text-slate-300 sm:text-[11px]">{stage}</span>
-              <span className="h-1.5 w-1.5 rounded-full bg-blue-400/80 shadow-[0_0_8px_rgba(96,165,250,0.6)]" />
+              <Icon className="h-4 w-4 text-slate-500" />
+              <span className="text-[11px] font-medium text-slate-300 sm:text-xs">{label}</span>
             </div>
           ))}
         </div>
-      </div>
 
-      {/* LEFT: Management Control Lens (Dominant focal element) */}
-      <div
-        className={`relative z-20 flex aspect-square w-full max-w-[220px] shrink-0 flex-col items-center justify-center rounded-full border border-blue-400/30 bg-slate-900/80 shadow-[0_0_30px_rgba(59,130,246,0.1)] backdrop-blur-sm lg:w-[220px] ${motionStyles.coreIn}`}
-        style={{ animationDelay: "1100ms" }}
-      >
-        <div className="mb-5 text-center">
-          <p className="text-sm font-semibold text-slate-100">בקרה ניהולית</p>
-          <p className="text-[10px] text-slate-400">תמונת מצב לקבלת החלטות</p>
+        {/* GAP 1: Inputs to Core */}
+        <svg className="h-full flex-1" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <g className={motionStyles.drawX} style={{ animationDelay: "300ms", transformOrigin: "right" }}>
+            <path d="M 100 26 C 50 26, 50 50, 0 50" fill="none" className="stroke-slate-600/50" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+            <path d="M 100 50 L 0 50" fill="none" className="stroke-slate-600/50" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+            <path d="M 100 74 C 50 74, 50 50, 0 50" fill="none" className="stroke-slate-600/50" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+          </g>
+        </svg>
+
+        {/* CENTRE: Information Core */}
+        <div
+          className={`relative z-10 flex w-[130px] shrink-0 flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-6 shadow-lg ${motionStyles.coreIn}`}
+          style={{ animationDelay: "600ms" }}
+        >
+          <p className="mb-4 text-xs font-semibold text-blue-100">מערכת מידע</p>
+          <div className="flex flex-col gap-3">
+            {CORE_STAGES.map((stage, index) => (
+              <div
+                key={stage}
+                className={`flex items-center gap-2 ${motionStyles.rise}`}
+                style={{ animationDelay: `${800 + index * 100}ms` }}
+              >
+                <span className="h-1 w-1 rounded-full bg-blue-400/60" />
+                <span className="text-[11px] text-slate-300">{stage}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <ul className="flex w-full flex-col gap-3 px-8">
-          {OBSERVATIONS.map((label, index) => (
-            <li
+        {/* GAP 2: Core to Outputs */}
+        <svg className="h-full flex-1" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <g className={motionStyles.drawX} style={{ animationDelay: "900ms", transformOrigin: "right" }}>
+            <path d="M 100 50 C 50 50, 50 26, 0 26" fill="none" className="stroke-blue-500/40" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+            <path d="M 100 50 L 0 50" fill="none" className="stroke-blue-500/40" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+            <path d="M 100 50 C 50 50, 50 74, 0 74" fill="none" className="stroke-blue-500/40" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+          </g>
+        </svg>
+
+        {/* LEFT: Management Outputs */}
+        <div className="relative z-10 flex w-[140px] shrink-0 flex-col justify-center">
+          <div
+            className={`absolute -top-10 left-0 right-0 text-right ${motionStyles.rise}`}
+            style={{ animationDelay: "1100ms" }}
+          >
+            <p className="text-sm font-semibold text-slate-100">תמונת מצב ניהולית</p>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            {OUTPUTS.map((label, index) => (
+              <div
+                key={label}
+                className={`flex h-10 items-center justify-start gap-2 ${motionStyles.rise}`}
+                style={{ animationDelay: `${1300 + index * 100}ms` }}
+              >
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500" />
+                <span className="text-[11px] font-medium text-slate-200 sm:text-xs">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* MOBILE LAYOUT */}
+      <div className="relative mx-auto flex w-full max-w-[300px] flex-col items-center py-6 lg:hidden">
+        {/* TOP: Operational Inputs */}
+        <div className="relative z-10 flex w-full justify-evenly">
+          {INPUTS.map(({ label, icon: Icon }, index) => (
+            <div
               key={label}
-              className={`flex items-center justify-between border-t border-slate-800/60 pt-3 first:border-0 first:pt-0 ${motionStyles.rise}`}
-              style={{ animationDelay: `${1300 + index * 100}ms` }}
+              className={`flex flex-col items-center gap-1.5 ${motionStyles.rise}`}
+              style={{ animationDelay: `${100 + index * 100}ms` }}
             >
-              <span className="text-[11px] text-slate-300 sm:text-xs">{label}</span>
-              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500" />
-            </li>
+              <Icon className="h-4 w-4 text-slate-500" />
+              <span className="text-[10px] font-medium text-slate-300">{label}</span>
+            </div>
           ))}
-        </ul>
+        </div>
+
+        {/* GAP 1: Inputs to Core */}
+        <svg className="h-[60px] w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <g className={motionStyles.drawY} style={{ animationDelay: "300ms", transformOrigin: "top" }}>
+            <path d="M 16 0 C 16 50, 50 50, 50 100" fill="none" className="stroke-slate-600/50" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+            <path d="M 50 0 L 50 100" fill="none" className="stroke-slate-600/50" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+            <path d="M 84 0 C 84 50, 50 50, 50 100" fill="none" className="stroke-slate-600/50" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+          </g>
+        </svg>
+
+        {/* CENTRE: Information Core */}
+        <div
+          className={`relative z-10 flex w-[160px] flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-5 shadow-lg ${motionStyles.coreIn}`}
+          style={{ animationDelay: "600ms" }}
+        >
+          <p className="mb-3 text-xs font-semibold text-blue-100">מערכת מידע</p>
+          <div className="flex w-full justify-center gap-4">
+            {CORE_STAGES.map((stage, index) => (
+              <div
+                key={stage}
+                className={`flex flex-col items-center gap-1.5 ${motionStyles.rise}`}
+                style={{ animationDelay: `${800 + index * 100}ms` }}
+              >
+                <span className="h-1 w-1 rounded-full bg-blue-400/60" />
+                <span className="text-[10px] text-slate-300">{stage}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* GAP 2: Core to Outputs */}
+        <svg className="h-[40px] w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <g className={motionStyles.drawY} style={{ animationDelay: "900ms", transformOrigin: "top" }}>
+            <path d="M 50 0 L 50 100" fill="none" className="stroke-blue-500/40" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+          </g>
+        </svg>
+
+        {/* BOTTOM: Management Outputs */}
+        <div className="relative z-10 flex w-full flex-col items-center">
+          <div
+            className={`mb-4 text-center ${motionStyles.rise}`}
+            style={{ animationDelay: "1100ms" }}
+          >
+            <p className="text-sm font-semibold text-slate-100">תמונת מצב ניהולית</p>
+          </div>
+
+          <div className="flex w-full flex-col gap-3">
+            {OUTPUTS.map((label, index) => (
+              <div
+                key={label}
+                className={`flex items-center justify-center gap-2 ${motionStyles.rise}`}
+                style={{ animationDelay: `${1300 + index * 100}ms` }}
+              >
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-slate-500" />
+                <span className="text-[11px] text-slate-300">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
