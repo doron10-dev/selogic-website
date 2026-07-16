@@ -5,6 +5,7 @@ import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { Section, SectionHeading } from "@/components/section";
 import { CloudAccessMap } from "@/components/sections/cloud-access-map";
+import { MicrosoftAccessGovernance } from "@/components/sections/hero-visuals/microsoft-access-governance";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { microsoft365NavSections } from "@/data/page-sections";
 import { microsoft365Page } from "@/data/pages/microsoft-365-and-cloud";
@@ -31,6 +32,7 @@ export default function Microsoft365Page() {
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
         layout="split"
+        visual={<MicrosoftAccessGovernance />}
         breadcrumbs={breadcrumbs}
       />
 

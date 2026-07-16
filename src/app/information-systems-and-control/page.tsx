@@ -4,6 +4,7 @@ import { PageFinalCta } from "@/components/page-final-cta";
 import { PageHero } from "@/components/page-hero";
 import { PageSectionNav } from "@/components/page-section-nav";
 import { ProcessFlow } from "@/components/sections/process-flow";
+import { OperationalControlLoop } from "@/components/sections/hero-visuals/operational-control-loop";
 import { TransformationExamples } from "@/components/sections/transformation-examples";
 import { getBreadcrumbTrail } from "@/data/breadcrumbs";
 import { informationSystemsNavSections } from "@/data/page-sections";
@@ -31,6 +32,7 @@ export default function InformationSystemsPage() {
         primaryCta={content.hero.primaryCta}
         secondaryCta={content.hero.secondaryCta}
         layout="split"
+        visual={<OperationalControlLoop />}
         breadcrumbs={breadcrumbs}
       />
 
