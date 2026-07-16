@@ -76,10 +76,10 @@ export function OperationalControlLoop() {
         {/* LEFT: Management Outputs */}
         <div className="relative z-10 flex w-[140px] shrink-0 flex-col justify-center">
           <div
-            className={`absolute -top-10 left-0 right-0 text-right ${motionStyles.rise}`}
+            className={`absolute left-0 right-0 top-1/2 -translate-y-[80px] text-right ${motionStyles.rise}`}
             style={{ animationDelay: "1100ms" }}
           >
-            <p className="text-sm font-semibold text-slate-100">תמונת מצב ניהולית</p>
+            <p className="text-[13px] font-semibold tracking-wide text-slate-200">תמונה ניהולית ברורה</p>
           </div>
 
           <div className="flex flex-col gap-8">
@@ -155,7 +155,7 @@ export function OperationalControlLoop() {
             className={`mb-4 text-center ${motionStyles.rise}`}
             style={{ animationDelay: "1100ms" }}
           >
-            <p className="text-sm font-semibold text-slate-100">תמונת מצב ניהולית</p>
+            <p className="text-[13px] font-semibold tracking-wide text-slate-200">תמונה ניהולית ברורה</p>
           </div>
 
           <div className="flex w-full flex-col gap-3">
