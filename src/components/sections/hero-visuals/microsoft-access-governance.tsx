@@ -95,7 +95,9 @@ function Row({ row, rowIndex, highlightCol }: { row: string; rowIndex: number; h
             style={{ animationDelay: `${active ? 780 + rowIndex * 110 : 620 + rowIndex * 60 + colIndex * 30}ms` }}
           >
             <span
-              className={`h-1.5 w-1.5 rounded-full ${active ? "bg-blue-600 dark:bg-blue-300" : "bg-slate-400 dark:bg-slate-600"}`}
+              className={`h-1.5 w-1.5 shrink-0 rounded-full ${
+                active ? "bg-blue-700 dark:bg-indigo-300" : "bg-slate-600 dark:bg-zinc-500"
+              }`}
               aria-hidden="true"
             />
           </div>
