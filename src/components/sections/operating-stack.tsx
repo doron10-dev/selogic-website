@@ -1,6 +1,9 @@
-import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 import { Section, SectionHeading, SectionAnchors } from "@/components/section";
-import { StatusDot } from "@/components/status-dot";
+import {
+  managedItOperatingLayers,
+  managedItVisibilitySection,
+} from "@/data/pages/managed-it-services";
 import type { ServicePageContent } from "@/types/service-page";
 
 type SignatureProps = {
@@ -10,76 +13,83 @@ type SignatureProps = {
   anchors?: string[];
 };
 
-const LAYERS = [
-  { label: "שכבת משתמשים ותמיכה", caption: "היום־יום של העובד" },
-  { label: "שכבת מערכות וניטור", caption: "התשתית שמאחורי הקלעים" },
-  { label: "שכבת בקרה ושקיפות", caption: "מה שהמנהל רואה" },
-];
-
 /**
- * Managed IT signature: Selogic as a 3-layer operating stack, not a card grid.
- * Reuses whatWeDo items, grouped into operating layers.
+ * Managed IT signature: Selogic as a 3-layer operating stack plus a compact
+ * management-visibility band — not a card catalogue, not a second full section.
  */
-export function OperatingStackSection({ content, className = "", id = "pain", anchors = [] }: SignatureProps) {
-  const items = content.whatWeDo?.items ?? [];
-  const perLayer = Math.max(1, Math.ceil(items.length / 3));
-  const layers = LAYERS.map((layer, i) => ({
-    ...layer,
-    items: items.slice(i * perLayer, i * perLayer + perLayer),
-  }));
+export function OperatingStackSection({
+  content,
+  className = "",
+  id = "ownership",
+  anchors = [],
+}: SignatureProps) {
+  const visibility = managedItVisibilitySection;
 
   return (
     <Section tone="white" id={id} className={className}>
       <SectionAnchors ids={anchors} />
       <SectionHeading
         eyebrow="שכבת התפעול של Selogic"
-        title="שירות IT מנוהל, שכבה על שכבה"
+        title="שירות IT מנוהל — שכבה על שכבה"
         body={content.whatWeDo?.body ?? ""}
       />
 
-      <div className="mt-8 space-y-3 lg:mt-10">
-        {layers.map((layer, index) => (
-          <div key={layer.label}>
-            <div className="theme-card grid gap-4 p-5 sm:p-6 lg:grid-cols-[0.9fr_1.6fr] lg:items-center">
-              <div className="flex items-baseline gap-3">
-                <span className="font-mono text-sm font-bold text-blue-600">{`0${index + 1}`}</span>
-                <div className="min-w-0">
-                  <p className="theme-text-heading text-lg font-semibold">{layer.label}</p>
-                  <p className="theme-text-muted mt-0.5 text-sm">{layer.caption}</p>
-                </div>
-              </div>
-              <ul className="grid gap-2 sm:grid-cols-2">
-                {layer.items.map((item) => (
-                  <li key={item.title} className="theme-inner-card px-4 py-3">
-                    <p className="theme-text-heading text-sm font-semibold">{item.title}</p>
-                    <p className="theme-text-muted mt-0.5 text-xs leading-relaxed">{item.body}</p>
-                  </li>
-                ))}
-              </ul>
+      <div className="mt-6 grid gap-3 sm:mt-7 lg:grid-cols-3 lg:gap-4">
+        {managedItOperatingLayers.map((layer, index) => (
+          <div key={layer.heading} className="theme-card flex h-full flex-col px-4 py-3.5 sm:px-5 sm:py-4">
+            <div className="flex items-baseline gap-2.5">
+              <span className="font-mono text-xs font-bold text-blue-600 sm:text-sm">{`0${index + 1}`}</span>
+              <h3 className="theme-text-heading text-sm font-semibold leading-snug sm:text-base">
+                {layer.heading}
+              </h3>
             </div>
-            {index < layers.length - 1 ? (
-              <div className="flex justify-center py-1" aria-hidden="true">
-                <ChevronDown className="h-5 w-5 text-blue-500/60" />
-              </div>
-            ) : null}
+            <p className="theme-text-muted mt-1.5 text-sm leading-snug">{layer.summary}</p>
+            <ul className="mt-2.5 flex flex-wrap gap-x-3 gap-y-1">
+              {layer.labels.map((label) => (
+                <li key={label} className="inline-flex items-center gap-1.5 text-xs">
+                  <span
+                    className="h-1 w-1 shrink-0 rounded-full bg-slate-400 dark:bg-slate-500"
+                    aria-hidden="true"
+                  />
+                  <span className="theme-text-body">{label}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
       </div>
 
       <div
-        className="mt-4 flex flex-col gap-2 rounded-2xl border px-5 py-4 sm:flex-row sm:items-center sm:gap-4"
+        id="visibility"
+        className="scroll-mt-32 mt-6 rounded-2xl border px-4 py-3.5 sm:mt-7 sm:px-5 sm:py-4"
         style={{
           borderColor: "var(--theme-border)",
           backgroundColor: "color-mix(in srgb, var(--theme-surface-tint) 45%, transparent)",
         }}
       >
-        <span className="inline-flex items-center gap-2">
-          <StatusDot kind="closed" />
-          <span className="theme-text-heading text-sm font-semibold">{content.sla?.title}</span>
-        </span>
-        <span className="theme-text-muted text-sm leading-relaxed">
-          {content.sla?.body}
-        </span>
+        <h2 className="font-display theme-text-heading text-lg font-bold leading-snug sm:text-xl">
+          {visibility.title}
+        </h2>
+        <p className="theme-text-muted mt-1.5 max-w-3xl text-sm leading-relaxed">{visibility.body}</p>
+        <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-3">
+          {visibility.points.map((point) => (
+            <li key={point} className="flex items-start gap-2 text-sm leading-snug">
+              <span
+                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"
+                aria-hidden="true"
+              />
+              <span className="theme-text-body">{point}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="theme-text-muted mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+          <Link href={visibility.portalLink.href} className="theme-anchor-link">
+            {visibility.portalLink.label}
+          </Link>
+          <Link href={visibility.supportLink.href} className="theme-anchor-link">
+            {visibility.supportLink.label}
+          </Link>
+        </p>
       </div>
     </Section>
   );

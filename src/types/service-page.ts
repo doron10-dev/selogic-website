@@ -1,3 +1,5 @@
+import type { PageSectionLink } from "@/data/page-sections";
+
 export type CardItem = {
   title: string;
   body: string;
@@ -92,6 +94,11 @@ export type ServicePageContent = {
     body: string;
     items: FaqItem[];
   };
+  /**
+   * Optional page-specific section nav. When present and non-empty, replaces the
+   * default filtered `servicePageNavSections` list. When absent, behaviour is unchanged.
+   */
+  sectionNav?: PageSectionLink[];
   finalCta?: {
     title: string;
     body: string;

@@ -69,7 +69,7 @@ function pageRhythm(pagePath: string): Rhythm {
   };
 
   if (p === "/managed-it-services")
-    return { ...base, heroLayout: "editorial", cardsLayout: "split", signature: "operatingStack", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
+    return { ...base, heroLayout: "editorial", cardsLayout: "split", signature: "operatingStack", signatureAnchors: ["what-we-do", "pain"], blocks: ["signature"] };
   if (p === "/about")
     return { ...base, heroLayout: "editorial", cardsLayout: "split", signature: "editorialTrust", signatureAnchors: ["what-we-do", "benefits"], blocks: ["signature"] };
   if (p.includes("remote-support"))
@@ -160,7 +160,13 @@ export function ServicePage({
     const anchorId = blockAnchorId[block];
     if (anchorId) existingIds.add(anchorId);
   });
-  const navSections = servicePageNavSections.filter((section) => existingIds.has(section.id));
+  const defaultNavSections = servicePageNavSections.filter((section) =>
+    existingIds.has(section.id),
+  );
+  const navSections =
+    content.sectionNav && content.sectionNav.length > 0
+      ? content.sectionNav
+      : defaultNavSections;
 
   const signatureNode = (() => {
     switch (rhythm.signature) {
