@@ -20,9 +20,9 @@ export function OperationalControlLoop() {
   return (
     <div aria-hidden="true">
       {/* DESKTOP LAYOUT */}
-      <div className="mx-auto hidden w-full max-w-[540px] items-center lg:flex lg:h-[300px]">
+      <div className="mx-auto hidden w-full max-w-[540px] items-center px-8 lg:flex lg:h-[300px]">
         {/* RIGHT: Operational Inputs */}
-        <div className="relative z-10 flex w-[120px] shrink-0 flex-col justify-center gap-8">
+        <div className="relative z-10 flex w-[100px] shrink-0 flex-col justify-center gap-8">
           {INPUTS.map(({ label, icon: Icon }, index) => (
             <div
               key={label}
@@ -45,12 +45,12 @@ export function OperationalControlLoop() {
         </svg>
 
         {/* CENTRE: Information Core */}
-        <div className="flex shrink-0 flex-col items-center gap-3">
+        <div className="flex shrink-0 flex-col items-center gap-4 pt-4">
           <p
-            className={`text-[13px] font-semibold tracking-wide text-slate-200 ${motionStyles.rise}`}
+            className={`text-xs font-medium tracking-wide text-slate-300 ${motionStyles.rise}`}
             style={{ animationDelay: "500ms" }}
           >
-            תמונה ניהולית ברורה
+            מפעילות לתמונת מצב
           </p>
           <div
             className={`relative z-10 flex w-[130px] flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-6 shadow-lg ${motionStyles.coreIn}`}
@@ -82,7 +82,7 @@ export function OperationalControlLoop() {
         </svg>
 
         {/* LEFT: Management Outputs */}
-        <div className="relative z-10 flex w-[140px] shrink-0 flex-col justify-center">
+        <div className="relative z-10 flex w-[120px] shrink-0 flex-col justify-center">
           <div className="flex flex-col gap-8">
             {OUTPUTS.map((label, index) => (
               <div
@@ -99,7 +99,7 @@ export function OperationalControlLoop() {
       </div>
 
       {/* MOBILE LAYOUT */}
-      <div className="relative mx-auto flex w-full max-w-[300px] flex-col items-center py-6 lg:hidden">
+      <div className="relative mx-auto flex w-full max-w-[300px] flex-col items-center px-4 py-6 lg:hidden">
         {/* TOP: Operational Inputs */}
         <div className="relative z-10 flex w-full justify-evenly">
           {INPUTS.map(({ label, icon: Icon }, index) => (
@@ -124,12 +124,12 @@ export function OperationalControlLoop() {
         </svg>
 
         {/* CENTRE: Information Core */}
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-4 pt-2">
           <p
-            className={`text-[13px] font-semibold tracking-wide text-slate-200 ${motionStyles.rise}`}
+            className={`text-[11px] font-medium tracking-wide text-slate-300 ${motionStyles.rise}`}
             style={{ animationDelay: "500ms" }}
           >
-            תמונה ניהולית ברורה
+            מפעילות לתמונת מצב
           </p>
         <div
           className={`relative z-10 flex w-[160px] flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-5 shadow-lg ${motionStyles.coreIn}`}
@@ -160,13 +160,6 @@ export function OperationalControlLoop() {
 
         {/* BOTTOM: Management Outputs */}
         <div className="relative z-10 flex w-full flex-col items-center">
-          <div
-            className={`mb-4 text-center ${motionStyles.rise}`}
-            style={{ animationDelay: "1100ms" }}
-          >
-            <p className="text-[13px] font-semibold tracking-wide text-slate-200">תמונה ניהולית ברורה</p>
-          </div>
-
           <div className="flex w-full flex-col gap-3">
             {OUTPUTS.map((label, index) => (
               <div
