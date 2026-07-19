@@ -45,22 +45,30 @@ export function OperationalControlLoop() {
         </svg>
 
         {/* CENTRE: Information Core */}
-        <div
-          className={`relative z-10 flex w-[130px] shrink-0 flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-6 shadow-lg ${motionStyles.coreIn}`}
-          style={{ animationDelay: "600ms" }}
-        >
-          <p className="mb-4 text-xs font-semibold text-blue-100">מערכת מידע</p>
-          <div className="flex flex-col gap-3">
-            {CORE_STAGES.map((stage, index) => (
-              <div
-                key={stage}
-                className={`flex items-center gap-2 ${motionStyles.rise}`}
-                style={{ animationDelay: `${800 + index * 100}ms` }}
-              >
-                <span className="h-1 w-1 rounded-full bg-blue-400/60" />
-                <span className="text-[11px] text-slate-300">{stage}</span>
-              </div>
-            ))}
+        <div className="flex shrink-0 flex-col items-center gap-3">
+          <p
+            className={`text-[13px] font-semibold tracking-wide text-slate-200 ${motionStyles.rise}`}
+            style={{ animationDelay: "500ms" }}
+          >
+            תמונה ניהולית ברורה
+          </p>
+          <div
+            className={`relative z-10 flex w-[130px] flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-6 shadow-lg ${motionStyles.coreIn}`}
+            style={{ animationDelay: "600ms" }}
+          >
+            <p className="mb-4 text-xs font-semibold text-blue-100">מערכת מידע</p>
+            <div className="flex flex-col gap-3">
+              {CORE_STAGES.map((stage, index) => (
+                <div
+                  key={stage}
+                  className={`flex items-center gap-2 ${motionStyles.rise}`}
+                  style={{ animationDelay: `${800 + index * 100}ms` }}
+                >
+                  <span className="h-1 w-1 rounded-full bg-blue-400/60" />
+                  <span className="text-[11px] text-slate-300">{stage}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -75,13 +83,6 @@ export function OperationalControlLoop() {
 
         {/* LEFT: Management Outputs */}
         <div className="relative z-10 flex w-[140px] shrink-0 flex-col justify-center">
-          <div
-            className={`absolute left-0 right-0 top-1/2 -translate-y-[80px] text-right ${motionStyles.rise}`}
-            style={{ animationDelay: "1100ms" }}
-          >
-            <p className="text-[13px] font-semibold tracking-wide text-slate-200">תמונה ניהולית ברורה</p>
-          </div>
-
           <div className="flex flex-col gap-8">
             {OUTPUTS.map((label, index) => (
               <div
@@ -123,6 +124,13 @@ export function OperationalControlLoop() {
         </svg>
 
         {/* CENTRE: Information Core */}
+        <div className="flex flex-col items-center gap-3">
+          <p
+            className={`text-[13px] font-semibold tracking-wide text-slate-200 ${motionStyles.rise}`}
+            style={{ animationDelay: "500ms" }}
+          >
+            תמונה ניהולית ברורה
+          </p>
         <div
           className={`relative z-10 flex w-[160px] flex-col items-center justify-center rounded-xl border border-blue-500/20 bg-slate-900/90 py-5 shadow-lg ${motionStyles.coreIn}`}
           style={{ animationDelay: "600ms" }}
@@ -140,6 +148,7 @@ export function OperationalControlLoop() {
               </div>
             ))}
           </div>
+        </div>
         </div>
 
         {/* GAP 2: Core to Outputs */}
