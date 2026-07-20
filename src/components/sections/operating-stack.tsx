@@ -73,12 +73,8 @@ export function OperatingStackSection({
         <p className="theme-text-muted mt-1.5 max-w-3xl text-sm leading-relaxed">{visibility.body}</p>
         <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-3">
           {visibility.points.map((point) => (
-            <li key={point} className="flex items-start gap-2 text-sm leading-snug">
-              <span
-                className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"
-                aria-hidden="true"
-              />
-              <span className="theme-text-body">{point}</span>
+            <li key={point} className="theme-text-body text-sm leading-snug">
+              {point}
             </li>
           ))}
         </ul>
