@@ -67,25 +67,31 @@ export function OperatingStackSection({
           backgroundColor: "color-mix(in srgb, var(--theme-surface-tint) 45%, transparent)",
         }}
       >
-        <h2 className="font-display theme-text-heading text-lg font-bold leading-snug sm:text-xl">
-          {visibility.title}
-        </h2>
-        <p className="theme-text-muted mt-1.5 max-w-3xl text-sm leading-relaxed">{visibility.body}</p>
-        <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-3">
-          {visibility.points.map((point) => (
-            <li key={point} className="theme-text-body text-sm leading-snug">
-              {point}
-            </li>
-          ))}
-        </ul>
-        <p className="theme-text-muted mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-          <Link href={visibility.portalLink.href} className="theme-anchor-link">
-            {visibility.portalLink.label}
-          </Link>
-          <Link href={visibility.supportLink.href} className="theme-anchor-link">
-            {visibility.supportLink.label}
-          </Link>
-        </p>
+        <div className="flex flex-col gap-3 sm:gap-3.5">
+          <div>
+            <h2 className="font-display theme-text-heading text-lg font-bold leading-snug sm:text-xl">
+              {visibility.title}
+            </h2>
+            <p className="theme-text-muted mt-1.5 max-w-3xl text-sm leading-relaxed">{visibility.body}</p>
+          </div>
+
+          <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3">
+            {visibility.points.map((point) => (
+              <li key={point} className="theme-text-body text-sm leading-snug">
+                {point}
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-col gap-y-1 sm:flex-row sm:flex-wrap sm:gap-x-4 sm:gap-y-1">
+            <Link href={visibility.portalLink.href} className="theme-anchor-link text-sm">
+              {visibility.portalLink.label}
+            </Link>
+            <Link href={visibility.supportLink.href} className="theme-anchor-link text-sm">
+              {visibility.supportLink.label}
+            </Link>
+          </div>
+        </div>
       </div>
     </Section>
   );
